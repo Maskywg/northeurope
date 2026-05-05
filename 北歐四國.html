@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全覽北歐四國・北角日不落 15 日</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #f7f5f0;
+    --card: #ffffff;
+    --border: #e2ddd6;
+    --text: #1a1814;
+    --muted: #6b6560;
+    --hint: #a09890;
+    --blue: #1a4a7a;
+    --blue-light: #e8f0f8;
+    --blue-mid: #b8d0e8;
+    --green: #2d6a4f;
+    --green-light: #e8f4ef;
+    --star-bg: #e8f0f8;
+    --star: #1a4a7a;
+    --heritage-bg: #e8f4ef;
+    --heritage: #2d6a4f;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--blue);
+    color: white;
+    padding: 2.5rem 1.5rem 2rem;
+    text-align: center;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.4rem;
+  }
+
+  header p {
+    font-size: 0.85rem;
+    opacity: 0.75;
+    letter-spacing: 0.08em;
+  }
+
+  .legend {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 1rem 1.5rem;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+
+  .badge {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+    display: inline-block;
+  }
+  .badge.star { background: var(--star-bg); color: var(--star); }
+  .badge.dot { background: #f0ede8; color: var(--muted); }
+  .badge.heritage { background: var(--heritage-bg); color: var(--heritage); }
+
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .day-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+
+  .day-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 16px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .day-header:hover { background: #faf8f5; }
+
+  .day-num {
+    background: var(--blue-light);
+    color: var(--blue);
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 8px;
+    white-space: nowrap;
+    min-width: 46px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .day-date {
+    font-size: 12px;
+    color: var(--blue);
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .flag { font-size: 14px; flex-shrink: 0; }
+
+  .day-title-wrap { flex: 1; min-width: 0; }
+
+  .day-zh {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .day-en {
+    font-size: 11px;
+    color: var(--hint);
+    margin-top: 1px;
+  }
+
+  .day-country {
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .chevron {
+    font-size: 10px;
+    color: var(--hint);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+
+  .chevron.open { transform: rotate(90deg); }
+
+  .day-body {
+    display: none;
+    padding: 0 16px 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .day-body.open { display: block; }
+
+  .section { margin-top: 12px; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--hint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  .spots { display: flex; flex-direction: column; gap: 8px; }
+
+  .spot-item { display: flex; flex-direction: column; gap: 4px; }
+
+  .spot-tag {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    line-height: 1.5;
+    max-width: fit-content;
+  }
+
+  .spot-tag.star { background: var(--star-bg); color: var(--star); }
+  .spot-tag.heritage { background: var(--heritage-bg); color: var(--heritage); }
+  .spot-tag.dot { background: #f0ede8; color: var(--text); border: 1px solid var(--border); }
+
+  .link-row {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    padding-left: 4px;
+  }
+
+  .link-btn {
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: 20px;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: white;
+    transition: all 0.15s;
+  }
+
+  .link-btn:hover {
+    background: var(--bg);
+    color: var(--text);
+    border-color: var(--hint);
+  }
+
+  .link-btn.official {
+    background: var(--blue-light);
+    color: var(--blue);
+    border-color: var(--blue-mid);
+  }
+
+  .link-btn.official:hover {
+    background: var(--blue-mid);
+  }
+
+  .meal-row {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--muted);
+    flex-wrap: wrap;
+  }
+
+  .meal-item { display: flex; gap: 5px; align-items: center; }
+  .meal-label { font-weight: 500; color: var(--hint); font-size: 11px; }
+
+  .hotel {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 10px;
+    padding: 8px 11px;
+    background: #faf8f5;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--blue-mid);
+    line-height: 1.6;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 12px;
+    color: var(--hint);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>全覽北歐四國・北角日不落 15 日</h1>
+  <p>7/19 – 8/2, 2025 ・ 行健旅遊 UNO TOUR</p>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><span class="badge star">★ 必訪</span> 重點景點（含門票）</div>
+  <div class="legend-item"><span class="badge dot">◎ 參觀</span> 下車參觀</div>
+  <div class="legend-item"><span class="badge heritage">🏛 UNESCO</span> 世界遺產</div>
+</div>
+
+<main id="app"></main>
+
+<footer>行程資料來源：行健旅遊 UNO TOUR・景點連結為各官方或觀光局網站</footer>
+
+<script>
+const WD = ['日','一','二','三','四','五','六'];
+function getDate(y, m, d, offset) {
+  const dt = new Date(y, m - 1, d);
+  dt.setDate(dt.getDate() + offset);
+  return dt;
+}
+function fmt(d) {
+  return `${d.getMonth() + 1}/${d.getDate()}（${WD[d.getDay()]}）`;
+}
+
+const days = [
+  {
+    n: 1, zh: "台北 → 轉機點杜拜", en: "Taipei → Dubai (Transit)", country: "出發", flag: "🇹🇼",
+    spots: [],
+    meals: { 早: "—", 午: "—", 晚: "機上" },
+    hotel: "夜宿機上",
+    note: "23:35 搭乘阿聯酋航空 EK367 出發，經杜拜 Dubai 轉機（飛行約 8 小時 40 分）"
+  },
+  {
+    n: 2, zh: "杜拜 → 斯德哥爾摩", en: "Dubai → Stockholm, Sweden", country: "瑞典", flag: "🇸🇪",
+    spots: [
+      { n: "◎皇宮 Royal Palace", type: "dot", links: [{ t: "Visit Stockholm", u: "https://www.visitstockholm.com/see--do/attractions/the-royal-palace/", o: false }, { t: "官網", u: "https://www.kungahuset.se/en/royalpalaces/stockholmpalace.4.397d275811ecef42e2c8000967.html", o: true }] },
+      { n: "◎大教堂 Storkyrkan", type: "dot", links: [{ t: "官網", u: "https://stockholmsdomkyrkoforsamling.se/storkyrkan/", o: true }, { t: "Visit Stockholm", u: "https://www.visitstockholm.com/see--do/attractions/the-stockholm-cathedral/", o: false }] },
+      { n: "◎老城區 Gamla Stan", type: "dot", links: [{ t: "Visit Stockholm", u: "https://www.visitstockholm.com/see--do/areas/old-town/", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Gamla_stan", o: false }] },
+    ],
+    meals: { 早: "機上", 午: "機上", 晚: "中式七菜一湯" },
+    hotel: "COMFORT HOTEL SOLNA／SCANDIC TALK／SCANDIC VICTORIA TOWER",
+    note: "04:15 抵達杜拜，08:40 搭 EK157 轉飛斯德哥爾摩，13:45 抵達。下午半日市區觀光"
+  },
+  {
+    n: 3, zh: "斯德哥爾摩 → 赫爾辛基", en: "Stockholm → Helsinki, Finland", country: "瑞典→芬蘭", flag: "🇫🇮",
+    spots: [
+      { n: "★市政廳 City Hall（金廳 Golden Hall／藍廳 Blue Hall）", type: "star", links: [{ t: "官網", u: "https://stadshuset.stockholm/en/", o: true }, { t: "Visit Stockholm", u: "https://www.visitstockholm.com/see--do/attractions/stockholm-city-hall/", o: false }] },
+      { n: "★瓦薩號戰艦博物館 Vasa Museum", type: "star", links: [{ t: "官網", u: "https://www.vasamuseet.se/en", o: true }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Vasa_Museum", o: false }] },
+    ],
+    meals: { 早: "北歐自助式", 午: "斯德哥爾摩老城區餐廳", 晚: "豪華遊輪維京海鮮自助" },
+    hotel: "SILJA LINE 詩麗雅號豪華遊輪（雙人面海客艙）",
+    note: "午後登船，夜乘詩麗雅號穿越波羅的海 Baltic Sea 前往赫爾辛基"
+  },
+  {
+    n: 4, zh: "赫爾辛基 → 羅凡聶米", en: "Helsinki → Rovaniemi, Finland", country: "芬蘭", flag: "🇫🇮",
+    spots: [
+      { n: "◎赫爾辛基大教堂 Helsinki Cathedral", type: "dot", links: [{ t: "官網", u: "https://helsingintuomiokirkko.fi/en/", o: true }, { t: "Visit Helsinki", u: "https://www.myhelsinki.fi/en/see-and-do/sights/helsinki-cathedral", o: false }] },
+      { n: "◎烏斯別斯基東正教大教堂 Uspenski Cathedral", type: "dot", links: [{ t: "Visit Helsinki", u: "https://www.myhelsinki.fi/en/see-and-do/sights/uspenski-cathedral", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Uspenski_Cathedral", o: false }] },
+      { n: "◎西貝流士紀念公園 Sibelius Monument", type: "dot", links: [{ t: "Visit Helsinki", u: "https://www.myhelsinki.fi/en/see-and-do/sights/sibelius-monument", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Sibelius_Monument", o: false }] },
+      { n: "◎頌歌中央圖書館 Oodi Library", type: "dot", links: [{ t: "官網", u: "https://oodihelsinki.fi/en/", o: true }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Oodi_(library)", o: false }] },
+      { n: "★磐石教堂 Temppeliaukio Church", type: "star", links: [{ t: "官網", u: "https://www.temppeliaukionkirkko.fi/en/", o: true }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Temppeliaukio_Church", o: false }] },
+    ],
+    meals: { 早: "北歐自助式", 午: "異國風味自助餐", 晚: "自理" },
+    hotel: "VR 夜臥北極特快車（雙人上層衛浴房）",
+    note: "上午遊覽赫爾辛基市區，傍晚搭乘雙層夜臥火車北上羅凡聶米（車程約 11 小時 51 分）"
+  },
+  {
+    n: 5, zh: "羅凡聶米 → 伊瓦洛", en: "Rovaniemi → Ivalo, Finland", country: "芬蘭", flag: "🇫🇮",
+    spots: [
+      { n: "◎聖誕老人村 Santa Claus Village", type: "dot", links: [{ t: "官網", u: "https://www.santaclausvillage.info/", o: true }, { t: "Visit Rovaniemi", u: "https://www.visitrovaniemi.fi/en/attraction/santa-claus-village/", o: false }] },
+      { n: "◎北極圈線 Arctic Circle 66°32'35\"", type: "dot", links: [{ t: "Visit Finland", u: "https://www.visitfinland.com/en/places-to-go/lapland/rovaniemi/", o: false }] },
+      { n: "★跨越北極圈證書", type: "star", links: [] },
+    ],
+    meals: { 早: "北歐自助式", 午: "中式七菜一湯", 晚: "旅館主廚推薦料理" },
+    hotel: "HOTEL IVALO／HOTEL INARI／HOLIDAY CLUB SAARISELKA",
+    note: "驅車 287 公里前往伊瓦洛 Ivalo"
+  },
+  {
+    n: 6, zh: "伊瓦洛 → 北角", en: "Ivalo → Nordkapp, Norway", country: "挪威", flag: "🇳🇴",
+    spots: [
+      { n: "★馴鹿農場 Reindeer Farm（薩米族 Sami）", type: "star", links: [{ t: "Visit Nordkapp", u: "https://www.nordkapp.no/", o: false }, { t: "拉普蘭介紹", u: "https://www.visitfinland.com/en/places-to-go/lapland/", o: false }] },
+      { n: "◎鏤空地球儀 Globe Monument（北緯 71°10'21\"）", type: "dot", links: [{ t: "Visit Nordkapp", u: "https://www.nordkapp.no/", o: false }] },
+      { n: "★北角大廳 North Cape Hall（125 度寬螢幕）", type: "star", links: [{ t: "官網", u: "https://www.visitnordkapp.net/en", o: true }, { t: "Visit Norway", u: "https://www.visitnorway.com/places-to-go/northern-norway/the-north-cape/", o: false }] },
+      { n: "★午夜日不落 Midnight Sun（5/14–7/31）", type: "star", links: [{ t: "Nord Norge", u: "https://nordnorge.com/en/destinasjon/nordkapp/", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/North_Cape_(Norway)", o: false }] },
+    ],
+    meals: { 早: "北歐自助式", 午: "北歐式風味餐", 晚: "旅館主廚推薦料理" },
+    hotel: "SCANDIC NORDKAPP／SCANDIC HONNINGSVAG／SCANDIC BRYGGEN",
+    note: "驅車 420 公里北上。午夜前抵達北角 Nordkapp，見證日不落！（7/24 正值日不落期間 5/14–7/31）"
+  },
+  {
+    n: 7, zh: "北角 → 阿爾塔 → 奧斯陸", en: "Nordkapp → Alta → Oslo, Norway", country: "挪威", flag: "🇳🇴",
+    spots: [
+      { n: "奧斯陸歌劇院 Oslo Opera House", type: "dot", links: [{ t: "官網", u: "https://operaen.no/en/", o: true }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Oslo_Opera_House", o: false }] },
+      { n: "◎奧斯陸市政廳 Oslo City Hall（諾貝爾和平獎）", type: "dot", links: [{ t: "Visit Oslo", u: "https://www.visitoslo.com/en/whats-on/oslo-city-hall/", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Oslo_City_Hall", o: false }] },
+      { n: "◎維吉蘭人生雕刻公園 Vigeland Sculpture Park", type: "dot", links: [{ t: "官方博物館", u: "https://vigeland.museum.no/en/vigelandpark", o: true }, { t: "Visit Oslo", u: "https://www.visitoslo.com/en/articles/vigeland-in-oslo/", o: false }] },
+    ],
+    meals: { 早: "北歐自助式", 午: "發餐費 20 歐元", 晚: "中式七菜一湯" },
+    hotel: "SCANDIC OSLO AIRPORT／CLARION HOTEL OSLO AIRPORT",
+    note: "北角→阿爾塔 Alta（321 公里），搭機飛奧斯陸 Oslo（約 2 小時）"
+  },
+  {
+    n: 8, zh: "奧斯陸 → 里耳哈默 → 蓋朗格峽灣", en: "Oslo → Lillehammer → Geirangerfjord", country: "挪威", flag: "🇳🇴",
+    spots: [
+      { n: "◎里耳哈默冬運滑雪台 Lysgårdsbakkene Ski Jump", type: "dot", links: [{ t: "Visit Norway", u: "https://www.visitnorway.com/places-to-go/eastern-norway/lillehammer/", o: false }, { t: "Visit Lillehammer", u: "https://en.visitlillehammer.com/", o: false }] },
+      { n: "★精靈之路 Trollstigen（11 個髮夾彎）", type: "star", links: [{ t: "Fjord Norway", u: "https://www.fjordnorway.com/en/attractions/trollstigen", o: false }, { t: "國家觀光路線", u: "https://www.nasjonaleturistveger.no/en/routes/geiranger-trollstigen/", o: true }] },
+      { n: "◎老鷹之路 Ørnevegen / Eagle Road", type: "dot", links: [{ t: "官方路線", u: "https://www.nasjonaleturistveger.no/en/routes/geiranger-trollstigen/ornevegen/", o: true }, { t: "Fjords.com", u: "https://www.fjords.com/en/western-norwegian-fjords/fjord-guide/geirangerfjord/", o: false }] },
+    ],
+    meals: { 早: "北歐自助式", 午: "北歐自助式", 晚: "旅館主廚推薦料理" },
+    hotel: "HAVILA HOTEL GEIRANGER／DREGES HOTELL／HAVILA HOTEL RAFTEVOLD",
+    note: "奧斯陸→里耳哈默（184 公里）→蓋朗格峽灣（265 公里）"
+  },
+  {
+    n: 9, zh: "蓋朗格峽灣 → 布里斯達冰河 → 索娜峽灣", en: "Geirangerfjord → Briksdalsbreen → Sognefjord", country: "挪威", flag: "🇳🇴",
+    spots: [
+      { n: "★蓋朗格峽灣觀光遊船 Geiranger Fjord Cruise（約 1 小時）🏛 UNESCO", type: "star", links: [{ t: "Visit Norway", u: "https://www.visitnorway.com/places-to-go/fjord-norway/the-geirangerfjord/", o: false }, { t: "Visit Geiranger", u: "https://www.geirangerfjord.no/english", o: true }, { t: "UNESCO", u: "https://whc.unesco.org/en/list/1195/", o: false }] },
+      { n: "◎約斯達冰河國家公園 Jostedalsbreen N.P.", type: "dot", links: [{ t: "國家公園官網", u: "https://jostedalsbreen.no/en/", o: true }, { t: "遊客中心", u: "https://visitjostedalsbreen.no/en/", o: false }] },
+      { n: "◎布里斯達冰河 Briksdalsbreen + 精靈登山車", type: "dot", links: [{ t: "布里斯達官網", u: "https://www.briksdal.com/", o: true }, { t: "Fjord Norway", u: "https://www.fjordnorway.com/en/inspiration/jostedalsbreen-glacier-the-largest-glacier-in-mainland-europe", o: false }] },
+    ],
+    meals: { 早: "北歐自助式", 午: "北歐自助式", 晚: "旅館主廚推薦料理" },
+    hotel: "LEIKANGER FJORD HOTEL／QUALITY HOTEL SOGNDAL／LAERDAL HOTEL",
+    note: "蓋朗格→（遊船 82 公里）→約斯達・布里斯達冰河→索娜峽灣（144 公里）"
+  },
+  {
+    n: 10, zh: "索娜峽灣 → 弗斯 → 卑爾根", en: "Sognefjord → Voss → Bergen, Norway", country: "挪威", flag: "🇳🇴",
+    spots: [
+      { n: "★索娜峽灣觀光遊船 Sognefjord Cruise（1.5–2 小時）🏛 UNESCO", type: "star", links: [{ t: "Fjord Norway", u: "https://www.fjordnorway.com/en/attractions/sognefjord", o: false }, { t: "Visit Norway", u: "https://www.visitnorway.com/places-to-go/fjord-norway/the-sognefjord-area/", o: false }] },
+      { n: "★挪威縮影景觀火車 Flåm Railway（Flåm→Myrdal）", type: "star", links: [{ t: "官方訂票", u: "https://en.flamsbana.no/", o: true }, { t: "Fjord Tours", u: "https://www.fjordtours.com/en/norway/transportation/scenic-train-rides/the-flam-railway", o: false }, { t: "Visit Norway", u: "https://www.visitnorway.com/places-to-go/fjord-norway/the-sognefjord-area/flam/", o: false }] },
+      { n: "★高山火車 Bergen Railway（越過終年積雪山區）", type: "star", links: [{ t: "VY 官方", u: "https://www.vy.no/en/trains/bergen-line", o: true }, { t: "Visit Bergen", u: "https://en.visitbergen.com/things-to-do/norway-fjords/flam/flam-railway", o: false }] },
+    ],
+    meals: { 早: "北歐自助式", 午: "北歐式風味餐", 晚: "旅館主廚推薦料理" },
+    hotel: "QUALITY HOTEL EDVARD GRIEG／CLARION HOTEL BERGEN AIRPORT",
+    note: "三種交通縱橫峽灣之王！遊船→縮影火車→高山火車→弗斯 Voss→卑爾根 Bergen（106 公里）"
+  },
+  {
+    n: 11, zh: "卑爾根 → 希茨海爾斯", en: "Bergen → Hirtshals, Denmark", country: "丹麥", flag: "🇩🇰",
+    spots: [
+      { n: "◎布里根區 Bryggen（1979 年世界文化遺產）🏛 UNESCO", type: "dot", links: [{ t: "Visit Bergen", u: "https://en.visitbergen.com/things-to-do/bryggen-in-bergen-p878553", o: false }, { t: "UNESCO", u: "https://whc.unesco.org/en/list/59/", o: false }, { t: "Visit Bergen 首頁", u: "https://en.visitbergen.com/", o: true }] },
+      { n: "◎露天漁貨市場 Fish Market Bergen", type: "dot", links: [{ t: "Visit Bergen", u: "https://en.visitbergen.com/things-to-do/fish-market-p878543", o: false }] },
+      { n: "★峽灣號遊輪夜航 Fjordline", type: "star", links: [{ t: "官方訂票", u: "https://www.fjordline.com/en", o: true }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Fjord_Line", o: false }] },
+    ],
+    meals: { 早: "北歐自助式", 午: "自理", 晚: "遊輪維京自助式" },
+    hotel: "FJORDLINE 峽灣號遊輪（雙人面海客艙）",
+    note: "午後登船，航行挪威峽灣→史塔萬格 Stavanger→穿越北海→丹麥希茨海爾斯 Hirtshals"
+  },
+  {
+    n: 12, zh: "希茨海爾斯 → 歐登西", en: "Hirtshals → Odense, Denmark", country: "丹麥", flag: "🇩🇰",
+    spots: [
+      { n: "◎安徒生故居 H.C. Andersen's House", type: "dot", links: [{ t: "官網", u: "https://hcandersenshus.dk/en/", o: true }, { t: "Visit Odense", u: "https://www.visitodense.com/en", o: false }] },
+      { n: "★安徒生博物館 H.C. Andersen Museum", type: "star", links: [{ t: "官網", u: "https://hcandersenshus.dk/en/", o: true }, { t: "Visit Odense", u: "https://www.visitodense.com/en", o: false }] },
+      { n: "★伊埃斯科城堡 Egeskov Castle", type: "star", links: [{ t: "官網", u: "https://www.egeskov.dk/en/", o: true }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Egeskov_Castle", o: false }] },
+    ],
+    meals: { 早: "北歐自助式", 午: "北歐自助式", 晚: "旅館主廚推薦料理" },
+    hotel: "HOTEL ODENSE／FIRST HOTEL GRAND／COMWELL H.C.ANDERSEN ODENSE",
+    note: "驅車 321 公里前往童話小鎮歐登西 Odense"
+  },
+  {
+    n: 13, zh: "歐登西 → 螺旋觀景塔 → 哥本哈根", en: "Odense → Camp Adventure → Copenhagen", country: "丹麥", flag: "🇩🇰",
+    spots: [
+      { n: "★大貝爾特跨海大橋 Great Belt Bridge", type: "star", links: [{ t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Great_Belt_Fixed_Link", o: false }, { t: "Visit Denmark", u: "https://www.visitdenmark.com/denmark/explore/great-belt-bridge", o: false }] },
+      { n: "★森林螺旋觀景塔 Camp Adventure Tower（45 公尺）", type: "star", links: [{ t: "官網", u: "https://www.campadventure.dk/en", o: true }, { t: "Visit Denmark", u: "https://www.visitdenmark.com/denmark/explore/camp-adventure", o: false }] },
+      { n: "◎克麗斯汀堡 Christiansborg Palace（國會）", type: "dot", links: [{ t: "官網", u: "https://www.christiansborg.dk/en", o: true }, { t: "Visit Copenhagen", u: "https://www.visitcopenhagen.com/copenhagen/christiansborg-palace-gdk410131", o: false }] },
+      { n: "◎安瑪麗堡 Amalienborg（丹麥皇宮）", type: "dot", links: [{ t: "官網", u: "https://www.kongehuset.dk/en/royalpalaces/amalienborg", o: true }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Amalienborg", o: false }] },
+      { n: "◎小美人魚雕像 The Little Mermaid", type: "dot", links: [{ t: "Visit Copenhagen", u: "https://www.visitcopenhagen.com/copenhagen/the-little-mermaid-gdk410157", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/The_Little_Mermaid_(statue)", o: false }] },
+    ],
+    meals: { 早: "北歐自助式", 午: "中式七菜一湯", 晚: "哥本哈根燒烤肋排風味餐" },
+    hotel: "AC HOTEL BELLA SKY／SCANDIC SLUSEHOLMEN／SCANDIC SYDHAVNEN",
+    note: "歐登西→螺旋觀景塔（111 公里）→哥本哈根 Copenhagen（71 公里）"
+  },
+  {
+    n: 14, zh: "哥本哈根 → 轉機點杜拜", en: "Copenhagen → Dubai (Transit)", country: "丹麥→出發", flag: "✈️",
+    spots: [
+      { n: "◎新港區 Nyhavn", type: "dot", links: [{ t: "Visit Copenhagen", u: "https://www.visitcopenhagen.com/copenhagen/nyhavn-gdk410151", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Nyhavn", o: false }] },
+      { n: "行人徒步購物區 Strøget（GEORG JENSEN 銀飾、ECCO、琥珀）", type: "dot", links: [{ t: "Visit Copenhagen", u: "https://www.visitcopenhagen.com/copenhagen/shopping/stroeget-gdk598068", o: false }] },
+    ],
+    meals: { 早: "北歐自助式", 午: "自理", 晚: "機上" },
+    hotel: "夜宿機上",
+    note: "15:35 搭乘阿聯酋航空 EK152 哥本哈根出發，23:55 抵達杜拜"
+  },
+  {
+    n: 15, zh: "轉機點杜拜 → 台北", en: "Dubai → Taipei", country: "返台", flag: "🇹🇼",
+    spots: [],
+    meals: { 早: "機上", 午: "機上", 晚: "—" },
+    hotel: "—",
+    note: "03:40 搭 EK366 杜拜→台北，16:15 抵達台北。歡迎歸來！"
+  }
+];
+
+function render() {
+  const app = document.getElementById('app');
+  app.innerHTML = days.map((d, i) => {
+    const date = getDate(2025, 7, 19, d.n - 1);
+    const dateStr = fmt(date);
+
+    let spotHTML = '';
+    if (d.spots && d.spots.length) {
+      const items = d.spots.map(s => {
+        const cls = `spot-tag ${s.type}`;
+        const linksHTML = s.links && s.links.length
+          ? `<div class="link-row">${s.links.map(l =>
+              `<a class="link-btn${l.o ? ' official' : ''}" href="${l.u}" target="_blank">${l.t} ↗</a>`
+            ).join('')}</div>`
+          : '';
+        return `<div class="spot-item"><span class="${cls}">${s.n}</span>${linksHTML}</div>`;
+      }).join('');
+      spotHTML = `<div class="section"><div class="section-label">景點 &amp; 連結</div><div class="spots">${items}</div></div>`;
+    }
+
+    const noteHTML = d.note
+      ? `<div class="note">${d.note}</div>`
+      : '';
+
+    return `<div class="day-card">
+      <div class="day-header" onclick="tog(${i})">
+        <span class="day-num">Day ${d.n}</span>
+        <span class="day-date">${dateStr}</span>
+        <span class="flag">${d.flag}</span>
+        <div class="day-title-wrap">
+          <div class="day-zh">${d.zh}</div>
+          <div class="day-en">${d.en}</div>
+        </div>
+        <span class="day-country">${d.country}</span>
+        <span class="chevron" id="ch${i}">▶</span>
+      </div>
+      <div class="day-body" id="bd${i}">
+        ${spotHTML}
+        <div class="section">
+          <div class="section-label">餐食</div>
+          <div class="meal-row">
+            <div class="meal-item"><span class="meal-label">早</span>${d.meals['早']}</div>
+            <div class="meal-item"><span class="meal-label">午</span>${d.meals['午']}</div>
+            <div class="meal-item"><span class="meal-label">晚</span>${d.meals['晚']}</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">住宿</div>
+          <div class="hotel">${d.hotel}</div>
+        </div>
+        ${noteHTML}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function tog(i) {
+  document.getElementById('bd' + i).classList.toggle('open');
+  document.getElementById('ch' + i).classList.toggle('open');
+}
+
+render();
+</script>
+</body>
+</html>
