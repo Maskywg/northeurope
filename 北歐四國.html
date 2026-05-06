@@ -271,6 +271,65 @@
     font-size: 12px;
     color: var(--hint);
   }
+
+  /* 特產區塊 */
+  .shopping-section {
+    margin-top: 12px;
+    background: #fffdf7;
+    border: 1px solid #e8dfc8;
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+  }
+
+  .shopping-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: #8a6c2a;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .shopping-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .shopping-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .shopping-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .shopping-desc {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .shopping-tag {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    margin-right: 3px;
+    margin-bottom: 2px;
+  }
+
+  .tag-food { background: #fef3e2; color: #9a5c00; border: 1px solid #f5d9a0; }
+  .tag-brand { background: #e8f0f8; color: #1a4a7a; border: 1px solid #b8d0e8; }
+  .tag-souvenir { background: #f0edf8; color: #5a3a8a; border: 1px solid #cfc0e8; }
+  .tag-beauty { background: #fce8f0; color: #8a2a50; border: 1px solid #e8b0c8; }
 </style>
 </head>
 <body>
@@ -284,6 +343,7 @@
   <div class="legend-item"><span class="badge star">★ 必訪</span> 重點景點（含門票）</div>
   <div class="legend-item"><span class="badge dot">◎ 參觀</span> 下車參觀</div>
   <div class="legend-item"><span class="badge heritage">🏛 UNESCO</span> 世界遺產</div>
+  <div class="legend-item" style="border-left:1px solid #e2ddd6;padding-left:12px;color:#8a6c2a">🛒 特產推薦：展開每天可見</div>
 </div>
 
 <main id="app"></main>
@@ -464,6 +524,73 @@ const days = [
   }
 ];
 
+// 各國特產資料（依 Day 套用）
+const shopping = {
+  sweden: [
+    { tag: "food", name: "起司抹醬 Kavli", desc: "龍蝦、培根、海鮮等多種口味，抹麵包絕配，超市最便宜" },
+    { tag: "food", name: "黑麥脆餅 Knäckebröd", desc: "瑞典日常主食，搭果醬或奶油，各大超市都有" },
+    { tag: "food", name: "瑞典肉丸 Köttbullar", desc: "當地餐廳顆粒比 IKEA 大很多，建議當地吃一頓" },
+    { tag: "souvenir", name: "達拉木馬 Dalahäst", desc: "最經典瑞典傳統工藝品，紅色象徵幸運，老城區 Gamla Stan 可買" },
+    { tag: "brand", name: "Fjällräven Kånken 背包", desc: "北歐國民書包，注意瑞典買不一定最便宜，可比價" },
+    { tag: "brand", name: "Acne Studios 服飾", desc: "瑞典代表性時尚品牌，極簡設計，發源地款式最齊全" },
+    { tag: "brand", name: "IKEA 限定款", desc: "瑞典本地 IKEA 有許多台灣買不到的限定商品" },
+  ],
+  finland: [
+    { tag: "food", name: "Fazer 巧克力 🍫", desc: "芬蘭國民巧克力，深藍色包裝最經典，藍莓、牛奶、太妃糖多種口味" },
+    { tag: "food", name: "鮭魚罐頭", desc: "整塊原味鮭魚，口感特別，適合帶回做料理" },
+    { tag: "food", name: "雲莓果醬 Cloudberry Jam", desc: "芬蘭特有野果製成，農貿市場或超市可買，滋味酸甜獨特" },
+    { tag: "brand", name: "Marimekko 馬克杯／帆布包", desc: "芬蘭國民設計品牌，大印花圖案，比台灣便宜約三成。退稅滿 €40 再打九折！" },
+    { tag: "souvenir", name: "嚕嚕米 Moomin 周邊 🐻", desc: "嚕嚕米故鄉！琺瑯杯、玩偶、文具超多，詩麗雅號遊輪上買最便宜" },
+    { tag: "beauty", name: "Lumene 保養品", desc: "北極植物萃取，國民護膚品牌，乳液約 €23，台灣難買到" },
+    { tag: "souvenir", name: "Kuksa 手工木杯", desc: "拉普蘭傳統樺木杯，每個紋理獨一無二，送禮首選" },
+  ],
+  lapland: [
+    { tag: "souvenir", name: "聖誕老人村限定郵戳明信片", desc: "在此寄出的信件蓋上北極聖誕老人郵局專屬郵戳，極具紀念價值" },
+    { tag: "souvenir", name: "北極圈證書", desc: "跨越北極圈紀念證書，行程免費贈送，留念一輩子" },
+    { tag: "souvenir", name: "薩米族手工藝品", desc: "拉普蘭原住民傳統刺繡、皮革製品，馴鹿相關紀念品" },
+    { tag: "food", name: "馴鹿肉乾／馴鹿製品", desc: "拉普蘭特產，馴鹿肉乾、微波馴鹿肉包裝，特色滿點" },
+  ],
+  norway: [
+    { tag: "food", name: "棕色乳酪 Brunost 🧀", desc: "挪威限定！乳清焦糖化製成，鹹甜口感，搭鬆餅絕配。推薦 TINE 橘色包裝" },
+    { tag: "food", name: "牙膏魚子醬 Kaviar", desc: "長得像牙膏管！塗麵包超好吃，超市隨處可買，價格出奇便宜" },
+    { tag: "food", name: "Freia 巧克力", desc: "挪威家喻戶曉品牌，絲滑口感，包裝有紀念價值" },
+    { tag: "food", name: "藍莓／野莓果醬 Bær Saft", desc: "挪威山林野果製成，各種漿果果醬或濃縮果汁，小農手工款最特別" },
+    { tag: "brand", name: "Helly Hansen（HH）防水外套", desc: "挪威百年戶外品牌，防風防水，當地人人穿，滑雪、登山必備" },
+    { tag: "brand", name: "Dale of Norway 羊毛外套", desc: "百年歷史，傳統北歐圖案，保暖時尚，台灣少見" },
+    { tag: "souvenir", name: "憤怒的小孩紀念品", desc: "維吉蘭公園最著名雕塑，奧斯陸紀念品店到處都有，表情超生動" },
+    { tag: "souvenir", name: "維京船模型", desc: "挪威歷史象徵，手工精美，各紀念品店都有" },
+    { tag: "food", name: "卑爾根鱈魚子醬（Bergen 限定）", desc: "靠海卑爾根特產，漁市場旁超市買比觀光區便宜很多" },
+  ],
+  denmark: [
+    { tag: "food", name: "丹麥奶油餅乾 🍪（鐵盒裝）", desc: "真正的發源地！超市、機場免稅店都有，比台灣便宜，鐵盒印有丹麥風景" },
+    { tag: "food", name: "甘草糖 Lakrids", desc: "八角口味北歐特色軟糖，評價兩極，帶回台灣讓朋友體驗" },
+    { tag: "brand", name: "Georg Jensen 銀飾", desc: "百年丹麥銀飾品牌，哥本哈根 Amagertorv 旗艦店，比台灣便宜且款式更齊" },
+    { tag: "brand", name: "Royal Copenhagen 皇家瓷器", desc: "1775年創立的丹麥皇室御用瓷器，經典藍白花卉每件手繪，比台灣便宜三成" },
+    { tag: "brand", name: "樂高 LEGO 🧱", desc: "丹麥發源地！哥本哈根有全球最大旗艦店之一，款式超齊全" },
+    { tag: "beauty", name: "Ecooking 保養品", desc: "丹麥平價高效國民護膚品牌，台灣買不到，Matas 藥妝店可找到" },
+    { tag: "souvenir", name: "小美人魚相關紀念品", desc: "丹麥地標，新港區旁紀念品店最齊，磁鐵、擺飾 75–120 DKK" },
+    { tag: "souvenir", name: "安徒生相關紀念品", desc: "歐登西安徒生故鄉，博物館周邊最有質感，童話插圖商品超可愛" },
+  ]
+};
+
+const dayShoppingMap = {
+  2: shopping.sweden,
+  3: shopping.sweden,
+  4: shopping.finland,
+  5: shopping.lapland,
+  6: shopping.lapland,
+  7: shopping.norway,
+  8: shopping.norway,
+  9: shopping.norway,
+  10: shopping.norway,
+  11: shopping.norway,
+  12: shopping.denmark,
+  13: shopping.denmark,
+  14: shopping.denmark,
+};
+
+const tagLabels = { food: "🍴 食物", brand: "🛍 品牌", souvenir: "🎁 紀念品", beauty: "✨ 保養" };
+
 function render() {
   const app = document.getElementById('app');
   app.innerHTML = days.map((d, i) => {
@@ -487,6 +614,23 @@ function render() {
     const noteHTML = d.note
       ? `<div class="note">${d.note}</div>`
       : '';
+
+    // 特產區塊
+    const shopItems = dayShoppingMap[d.n];
+    let shopHTML = '';
+    if (shopItems && shopItems.length) {
+      const items = shopItems.map(s => `
+        <div class="shopping-item">
+          <div class="shopping-name">
+            <span class="shopping-tag tag-${s.tag}">${tagLabels[s.tag]}</span>${s.name}
+          </div>
+          <div class="shopping-desc">${s.desc}</div>
+        </div>`).join('');
+      shopHTML = `<div class="shopping-section">
+        <div class="shopping-title">🛒 當地特產 &amp; 購物推薦</div>
+        <div class="shopping-grid">${items}</div>
+      </div>`;
+    }
 
     return `<div class="day-card">
       <div class="day-header" onclick="tog(${i})">
@@ -514,6 +658,7 @@ function render() {
           <div class="section-label">住宿</div>
           <div class="hotel">${d.hotel}</div>
         </div>
+        ${shopHTML}
         ${noteHTML}
       </div>
     </div>`;
