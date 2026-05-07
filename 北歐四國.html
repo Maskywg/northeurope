@@ -330,6 +330,83 @@
   .tag-brand { background: #e8f0f8; color: #1a4a7a; border: 1px solid #b8d0e8; }
   .tag-souvenir { background: #f0edf8; color: #5a3a8a; border: 1px solid #cfc0e8; }
   .tag-beauty { background: #fce8f0; color: #8a2a50; border: 1px solid #e8b0c8; }
+
+  /* 班機時刻表 */
+  .flight-section {
+    margin-top: 12px;
+    border: 1px solid #dde8f4;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .flight-header {
+    background: #1a4a7a;
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 6px 12px;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .flight-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .flight-table th {
+    background: #e8f0f8;
+    color: #1a4a7a;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 5px 10px;
+    text-align: left;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid #dde8f4;
+  }
+  .flight-table td {
+    padding: 8px 10px;
+    color: var(--text);
+    border-bottom: 1px solid #f0f4f8;
+    vertical-align: middle;
+  }
+  .flight-table tr:last-child td { border-bottom: none; }
+  .flight-no {
+    font-weight: 500;
+    color: #1a4a7a;
+    font-size: 13px;
+  }
+  .flight-time {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+  .flight-city {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+  .flight-arrow {
+    color: var(--hint);
+    font-size: 14px;
+    padding: 0 4px;
+  }
+  .flight-dur {
+    font-size: 11px;
+    color: var(--muted);
+    background: #f7f5f0;
+    padding: 2px 7px;
+    border-radius: 10px;
+  }
+  .flight-label {
+    font-size: 10px;
+    background: #1a4a7a;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
 </style>
 </head>
 <body>
@@ -345,6 +422,155 @@
   <div class="legend-item"><span class="badge heritage">🏛 UNESCO</span> 世界遺產</div>
   <div class="legend-item" style="border-left:1px solid #e2ddd6;padding-left:12px;color:#8a6c2a">🛒 特產推薦：展開每天可見</div>
 </div>
+
+<!-- 即時匯率區塊 -->
+<div style="max-width:800px;margin:1.2rem auto 0;padding:0 1rem">
+  <div id="rate-card" style="background:#fff;border:1px solid #e2ddd6;border-radius:12px;overflow:hidden">
+    <div style="background:#1a4a7a;padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+      <div style="color:white;font-size:14px;font-weight:500">💱 北歐四國貨幣 × 台幣即時匯率</div>
+      <button onclick="fetchRates()" id="refresh-btn"
+        style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);border-radius:20px;font-size:11px;padding:4px 12px;cursor:pointer">
+        ↻ 更新匯率
+      </button>
+    </div>
+    <div id="rate-body" style="padding:12px 16px">
+      <div style="color:#a09890;font-size:12px;text-align:center;padding:8px">載入中...</div>
+    </div>
+    <div id="rate-footer" style="padding:6px 16px 10px;font-size:10px;color:#a09890;border-top:1px solid #f0ede8"></div>
+  </div>
+</div>
+
+<script>
+const CURRENCIES = [
+  { code: 'SEK', name: '瑞典克朗', symbol: 'kr', flag: '🇸🇪', days: 'Day 2–3', color: '#2D6FA3' },
+  { code: 'EUR', name: '歐元（芬蘭）', symbol: '€', flag: '🇫🇮', days: 'Day 3–5', color: '#0B6B4A' },
+  { code: 'NOK', name: '挪威克朗', symbol: 'kr', flag: '🇳🇴', days: 'Day 6–11', color: '#C0392B' },
+  { code: 'DKK', name: '丹麥克朗', symbol: 'kr', flag: '🇩🇰', days: 'Day 11–14', color: '#8B2252' },
+];
+
+const QUICK_AMOUNTS = [1, 10, 50, 100, 500, 1000];
+
+async function fetchRates() {
+  const btn = document.getElementById('refresh-btn');
+  const body = document.getElementById('rate-body');
+  const footer = document.getElementById('rate-footer');
+  btn.textContent = '載入中...';
+  btn.disabled = true;
+
+  try {
+    // 三重備援匯率來源（1 TWD = ? 外幣）
+    let rates = null;
+
+    try {
+      const r = await fetch('https://api.frankfurter.app/latest?from=TWD&to=SEK,EUR,NOK,DKK');
+      if (r.ok) { const d = await r.json(); rates = d.rates; }
+    } catch(e) {}
+
+    if (!rates) {
+      try {
+        const r = await fetch('https://latest.currency-api.pages.dev/v1/currencies/twd.json');
+        if (r.ok) { const d = await r.json(); const t = d.twd; rates = {SEK:t.sek, EUR:t.eur, NOK:t.nok, DKK:t.dkk}; }
+      } catch(e) {}
+    }
+
+    if (!rates) {
+      try {
+        const r = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/twd.json');
+        if (r.ok) { const d = await r.json(); const t = d.twd; rates = {SEK:t.sek, EUR:t.eur, NOK:t.nok, DKK:t.dkk}; }
+      } catch(e) {}
+    }
+
+    if (!rates) throw new Error('無法取得匯率，請確認網路連線後重試');
+
+    let html = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:10px">';
+
+    CURRENCIES.forEach(cur => {
+      const ratePerForeign = 1 / rates[cur.code]; // 1 外幣 = ? TWD
+      const ratePerTWD100 = (100 * rates[cur.code]).toFixed(2); // 100 TWD = ? 外幣
+
+      // 快速換算表
+      const quickRows = QUICK_AMOUNTS.map(amt => {
+        const twd = (amt * ratePerForeign).toFixed(1);
+        return `<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #f5f3ef">
+          <span style="color:#6b6560">${cur.symbol}${amt}</span>
+          <span style="font-weight:500;color:#1a1814">≈ NT$ ${Number(twd).toLocaleString()}</span>
+        </div>`;
+      }).join('');
+
+      html += `
+        <div style="border:1px solid #e8e4de;border-radius:8px;overflow:hidden">
+          <div style="background:${cur.color};padding:8px 12px;display:flex;align-items:center;justify-content:space-between">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:18px">${cur.flag}</span>
+              <div>
+                <div style="color:white;font-size:13px;font-weight:500">${cur.name} (${cur.code})</div>
+                <div style="color:rgba(255,255,255,0.7);font-size:10px">${cur.days}</div>
+              </div>
+            </div>
+            <div style="text-align:right">
+              <div style="color:white;font-size:18px;font-weight:600">NT$ ${ratePerForeign.toFixed(2)}</div>
+              <div style="color:rgba(255,255,255,0.7);font-size:10px">= 1 ${cur.code}</div>
+            </div>
+          </div>
+          <div style="padding:8px 12px;background:#fafaf8">
+            <div style="font-size:10px;color:#a09890;margin-bottom:5px;letter-spacing:0.04em">快速換算</div>
+            ${quickRows}
+            <div style="display:flex;justify-content:space-between;padding:4px 0;margin-top:2px">
+              <span style="color:#6b6560;font-size:11px">NT$ 100</span>
+              <span style="font-weight:500;font-size:11px;color:#1a4a7a">≈ ${cur.symbol} ${ratePerTWD100}</span>
+            </div>
+          </div>
+          <div style="padding:6px 12px 8px">
+            <div style="font-size:10px;color:#a09890;margin-bottom:4px">自訂金額</div>
+            <div style="display:flex;gap:6px;align-items:center">
+              <span style="color:#6b6560;font-size:12px">${cur.symbol}</span>
+              <input type="number" placeholder="輸入${cur.code}金額" oninput="calcTWD(this, ${ratePerForeign})"
+                style="flex:1;border:1px solid #ddd;border-radius:6px;padding:5px 8px;font-size:12px;outline:none;min-width:0">
+              <span style="color:#a09890;font-size:12px">=</span>
+              <span class="twd-result-${cur.code}"
+                style="color:#1a4a7a;font-weight:500;font-size:13px;min-width:60px;text-align:right">NT$ —</span>
+            </div>
+          </div>
+        </div>`;
+    });
+
+    html += '</div>';
+    body.innerHTML = html;
+
+    const now = new Date();
+    footer.textContent = `匯率更新時間：${now.toLocaleDateString('zh-TW')} ${now.toLocaleTimeString('zh-TW')} ・資料來源：Frankfurter API（歐洲央行）`;
+    btn.textContent = '↻ 更新匯率';
+    btn.disabled = false;
+
+  } catch(e) {
+    body.innerHTML = '<div style="color:#c0392b;font-size:12px;text-align:center;padding:12px">匯率載入失敗，請檢查網路連線後重試。</div>';
+    btn.textContent = '↻ 重試';
+    btn.disabled = false;
+  }
+}
+
+function calcTWD(input, rate) {
+  const val = parseFloat(input.value);
+  // 找對應的 result span
+  const allInputs = document.querySelectorAll('input[type=number]');
+  const allResults = [];
+  CURRENCIES.forEach(c => {
+    const el = document.querySelector('.twd-result-' + c.code);
+    if (el) allResults.push(el);
+  });
+  const idx = Array.from(allInputs).indexOf(input);
+  if (idx >= 0 && allResults[idx]) {
+    if (isNaN(val) || val === '') {
+      allResults[idx].textContent = 'NT$ —';
+    } else {
+      allResults[idx].textContent = 'NT$ ' + (val * rate).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+  }
+}
+
+// 頁面載入時自動抓取
+fetchRates();
+</script>
 
 <main id="app"></main>
 
@@ -367,7 +593,10 @@ const days = [
     spots: [],
     meals: { 早: "—", 午: "—", 晚: "機上" },
     hotel: "夜宿機上",
-    note: "23:35 搭乘阿聯酋航空 EK367 出發，經杜拜 Dubai 轉機（飛行約 8 小時 40 分）"
+    note: "23:35 搭乘阿聯酋航空 EK367 出發，經杜拜 Dubai 轉機（飛行約 8 小時 40 分）",
+    flights: [
+      { label: '去程 ①', airline: '阿聯酋航空', no: 'EK367', from: '台北 TPE', to: '杜拜 DXB', dep: '23:35', arr: '04:15+1', duration: '08h 40m' },
+    ]
   },
   {
     n: 2, zh: "杜拜 → 斯德哥爾摩", en: "Dubai → Stockholm, Sweden", country: "瑞典", flag: "🇸🇪",
@@ -378,7 +607,10 @@ const days = [
     ],
     meals: { 早: "機上", 午: "機上", 晚: "中式七菜一湯" },
     hotel: "COMFORT HOTEL SOLNA／SCANDIC TALK／SCANDIC VICTORIA TOWER",
-    note: "04:15 抵達杜拜，08:40 搭 EK157 轉飛斯德哥爾摩，13:45 抵達。下午半日市區觀光"
+    note: "04:15 抵達杜拜，08:40 搭 EK157 轉飛斯德哥爾摩，13:45 抵達。下午半日市區觀光",
+    flights: [
+      { label: '去程 ②', airline: '阿聯酋航空', no: 'EK157', from: '杜拜 DXB', to: '斯德哥爾摩 ARN', dep: '08:40', arr: '13:45', duration: '07h 05m' },
+    ]
   },
   {
     n: 3, zh: "斯德哥爾摩 → 赫爾辛基", en: "Stockholm → Helsinki, Finland", country: "瑞典→芬蘭", flag: "🇫🇮",
@@ -435,7 +667,10 @@ const days = [
     ],
     meals: { 早: "北歐自助式", 午: "發餐費 20 歐元", 晚: "中式七菜一湯" },
     hotel: "SCANDIC OSLO AIRPORT／CLARION HOTEL OSLO AIRPORT",
-    note: "北角→阿爾塔 Alta（321 公里），搭機飛奧斯陸 Oslo（約 2 小時）"
+    note: "北角→阿爾塔 Alta（321 公里），搭機飛奧斯陸 Oslo（約 2 小時）",
+    flights: [
+      { label: '國內線', airline: '挪威國內航班', no: '—', from: '阿爾塔 ALF', to: '奧斯陸 OSL', dep: '—', arr: '—', duration: '約 2h 00m' },
+    ]
   },
   {
     n: 8, zh: "奧斯陸 → 里耳哈默 → 蓋朗格峽灣", en: "Oslo → Lillehammer → Geirangerfjord", country: "挪威", flag: "🇳🇴",
@@ -513,14 +748,20 @@ const days = [
     ],
     meals: { 早: "北歐自助式", 午: "自理", 晚: "機上" },
     hotel: "夜宿機上",
-    note: "15:35 搭乘阿聯酋航空 EK152 哥本哈根出發，23:55 抵達杜拜"
+    note: "15:35 搭乘阿聯酋航空 EK152 哥本哈根出發，23:55 抵達杜拜",
+    flights: [
+      { label: '回程 ①', airline: '阿聯酋航空', no: 'EK152', from: '哥本哈根 CPH', to: '杜拜 DXB', dep: '15:35', arr: '23:55', duration: '06h 20m' },
+    ]
   },
   {
     n: 15, zh: "轉機點杜拜 → 台北", en: "Dubai → Taipei", country: "返台", flag: "🇹🇼",
     spots: [],
     meals: { 早: "機上", 午: "機上", 晚: "—" },
     hotel: "—",
-    note: "03:40 搭 EK366 杜拜→台北，16:15 抵達台北。歡迎歸來！"
+    note: "03:40 搭 EK366 杜拜→台北，16:15 抵達台北。歡迎歸來！",
+    flights: [
+      { label: '回程 ②', airline: '阿聯酋航空', no: 'EK366', from: '杜拜 DXB', to: '台北 TPE', dep: '03:40', arr: '16:15+1', duration: '08h 35m' },
+    ]
   }
 ];
 
@@ -591,6 +832,71 @@ const dayShoppingMap = {
 
 const tagLabels = { food: "🍴 食物", brand: "🛍 品牌", souvenir: "🎁 紀念品", beauty: "✨ 保養" };
 
+
+// 飯店官方網站連結資料
+const hotelLinks = {
+  'COMFORT HOTEL SOLNA': 'https://www.strawberryhotels.com/hotels/sweden/solna/comfort-hotel-solna/',
+  'SCANDIC TALK': 'https://www.scandichotels.com/hotels/sweden/stockholm/scandic-talk',
+  'SCANDIC VICTORIA TOWER': 'https://www.scandichotels.com/en/hotels/scandic-victoria-tower',
+  'SILJA LINE': 'https://www.tallink.com/',
+  'VR 夜臥': 'https://www.vr.fi/en/',
+  'HOTEL IVALO': 'https://hotelivalo.fi/en/',
+  'HOTEL INARI': 'https://www.hotelinari.fi/en/',
+  'HOLIDAY CLUB SAARISELKA': 'https://www.holidayclubresorts.com/en/hotels-resorts/saariselka/',
+  'SCANDIC NORDKAPP': 'https://www.scandichotels.com/en/hotels/scandic-nordkapp',
+  'SCANDIC HONNINGSVAG': 'https://www.scandichotels.com/hotels/norway/honningsvag/scandic-honningsvag',
+  'SCANDIC BRYGGEN': 'https://www.scandichotels.com/hotels/norway/honningsvag/scandic-bryggen',
+  'SCANDIC OSLO AIRPORT': 'https://www.scandichotels.com/hotels/norway/oslo/scandic-oslo-airport',
+  'CLARION HOTEL & CONGRESS OSLO AIRPORT': 'https://www.strawberryhotels.com/hotels/norway/gardermoen/clarion-hotel-oslo-airport/',
+  'THON HOTEL OSLO AIRPORT': 'https://www.thonhotels.com/our-hotels/norway/oslo/thon-hotel-oslo-airport/',
+  'SCANDIC HELSFYR': 'https://www.scandichotels.com/hotels/norway/oslo/scandic-helsfyr',
+  'HAVILA HOTEL GEIRANGER': 'https://havilahotels.no/en/geiranger/',
+  'DREGES HOTELL': 'https://dregeshotell.no/en/',
+  'HAVILA HOTEL RAFTEVOLD': 'https://havilahotels.no/en/raftevold/',
+  'LEIKANGER FJORD HOTEL': 'https://leikangerfjordhotel.no/en/',
+  'QUALITY HOTEL SOGNDAL': 'https://www.strawberryhotels.com/hotels/norway/sogndal/quality-hotel-sogndal/',
+  'LAERDAL HOTEL': 'https://www.laerdalhotel.no/en/',
+  'STALHEIM HOTEL': 'https://www.stalheim.com/en/',
+  'QUALITY HOTEL EDVARD GRIEG': 'https://www.strawberryhotels.com/hotels/norway/bergen/quality-hotel-edvard-grieg/',
+  'CLARION HOTEL BERGEN AIRPORT': 'https://www.strawberryhotels.com/hotels/norway/bergen/clarion-hotel-bergen-airport/',
+  'SCANDIC FLESLAND AIRPORT': 'https://www.scandichotels.com/hotels/norway/bergen/scandic-flesland-airport',
+  'FJORDLINE': 'https://www.fjordline.com/en',
+  'FJORD LINE': 'https://www.fjordline.com/en',
+  'HOTEL ODENSE': 'https://www.hotel-odense.dk/en/',
+  'FIRST HOTEL GRAND': 'https://www.firsthotels.com/hotels/denmark/odense/first-hotel-grand/',
+  'COMWELL H. C. ANDERSEN ODENSE': 'https://comwell.com/en/hotels/comwell-hc-andersen-odense',
+  'SCANDIC ODENSE': 'https://www.scandichotels.com/hotels/denmark/odense/scandic-odense',
+  'AC HOTEL BELLA SKY COPENHAGEN': 'https://www.marriott.com/en-us/hotels/cphab-ac-hotel-bella-sky-copenhagen/overview/',
+  'SCANDIC SLUSEHOLMEN': 'https://www.scandichotels.com/hotels/denmark/copenhagen/scandic-sluseholmen',
+  'SCANDIC SYDHAVNEN': 'https://www.scandichotels.com/hotels/denmark/copenhagen/scandic-sydhavnen',
+  'CLARION HOTEL COPENHAGEN AIRPORT': 'https://www.strawberryhotels.com/hotels/denmark/copenhagen/clarion-hotel-copenhagen-airport/',
+  'COMWELL HOLTE': 'https://comwell.com/en/hotels/comwell-holte',
+};
+
+function renderHotel(hotelStr) {
+  if (!hotelStr || hotelStr === '夜宿機上' || hotelStr === '—') {
+    return `<span style="color:var(--muted)">${hotelStr}</span>`;
+  }
+  // 以 ／ 分割各飯店
+  const parts = hotelStr.split('／');
+  return parts.map(part => {
+    part = part.trim();
+    // 找對應連結
+    let url = null;
+    const partUpper = part.toUpperCase();
+    for (const [key, link] of Object.entries(hotelLinks)) {
+      if (partUpper.includes(key.toUpperCase())) {
+        url = link;
+        break;
+      }
+    }
+    if (url) {
+      return `<a href="${url}" target="_blank" style="color:var(--blue);text-decoration:none;font-size:12px;display:inline-flex;align-items:center;gap:3px">${part}<span style="font-size:10px;opacity:0.7">↗</span></a>`;
+    }
+    return `<span style="font-size:12px">${part}</span>`;
+  }).join('<span style="color:var(--hint);margin:0 4px">／</span>');
+}
+
 function render() {
   const app = document.getElementById('app');
   app.innerHTML = days.map((d, i) => {
@@ -632,6 +938,159 @@ function render() {
       </div>`;
     }
 
+
+    // 班機時刻表
+    let flightHTML = '';
+    if (d.flights && d.flights.length) {
+      const rows = d.flights.map(f => `
+        <tr>
+          <td><span class="flight-label">${f.label}</span></td>
+          <td class="flight-no">${f.no}</td>
+          <td style="color:var(--muted);font-size:11px">${f.airline}</td>
+          <td>
+            <span class="flight-time">${f.dep}</span>
+            <div class="flight-city">${f.from}</div>
+          </td>
+          <td class="flight-arrow">→</td>
+          <td>
+            <span class="flight-time">${f.arr}</span>
+            <div class="flight-city">${f.to}</div>
+          </td>
+          <td><span class="flight-dur">⏱ ${f.duration}</span></td>
+        </tr>`).join('');
+      flightHTML = `<div class="flight-section">
+        <div class="flight-header">✈ 班機資訊</div>
+        <table class="flight-table">
+          <thead><tr>
+            <th>區段</th><th>班次</th><th>航空</th>
+            <th>出發</th><th></th><th>抵達</th><th>飛行時間</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+    }
+
+    // 峽灣地圖（Day 8、9、10 顯示）
+    const fjordMapDays = [8, 9, 10];
+    let fjordMapHTML = '';
+    if (fjordMapDays.includes(d.n)) {
+      fjordMapHTML = `<div style="margin-top:12px;border:1px solid #c8dce8;border-radius:8px;overflow:hidden;background:#f0f6fb">
+        <div style="padding:10px 12px 4px;font-size:11px;font-weight:500;color:#1a4a7a;letter-spacing:0.05em;display:flex;justify-content:space-between;align-items:center">
+          <span>🗺 挪威峽灣行程路線圖（Day 6–11）</span>
+          <span style="font-size:10px;color:#6b6560;font-weight:400">點開各天查看詳情</span>
+        </div>
+        <svg width="100%" viewBox="0 0 680 820" xmlns="http://www.w3.org/2000/svg" style="display:block">
+          <defs>
+            <marker id="map-arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker>
+            <marker id="map-arr-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker>
+            <marker id="map-arr-p" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker>
+          </defs>
+          <!-- 海洋文字 -->
+          <text font-size="13" font-family="sans-serif" fill="#3B8BD4" opacity="0.3" transform="rotate(-15,90,400)" x="90" y="400">北  海</text>
+          <!-- 陸地 -->
+          <path d="M280 30 L320 35 L355 42 L380 48 L400 60 L415 80 L420 100 L430 115 L435 130 L440 145 L438 160 L445 175 L450 190 L455 205 L458 220 L460 235 L462 250 L465 265 L460 280 L455 295 L450 308 L445 320 L440 335 L438 350 L442 365 L445 380 L448 395 L445 410 L440 425 L435 440 L430 455 L428 470 L430 485 L428 500 L425 515 L420 528 L415 540 L410 555 L408 568 L412 580 L418 592 L422 605 L420 618 L415 630 L408 642 L400 655 L392 665 L385 675 L375 685 L365 695 L355 705 L345 715 L335 725 L325 735 L315 745 L305 755 L295 762 L285 768 L275 772 L265 775 L255 778 L245 780 L238 782 L230 780 L222 776 L215 770 L210 762 L208 750 L212 738 L220 726 L228 715 L235 704 L238 692 L235 680 L230 668 L225 656 L222 644 L220 632 L218 620 L216 608 L215 595 L218 582 L222 570 L226 558 L228 545 L225 532 L220 520 L215 508 L212 495 L210 482 L208 468 L205 455 L202 442 L200 428 L198 414 L196 400 L194 386 L192 372 L190 358 L188 344 L186 330 L184 316 L182 302 L180 288 L178 274 L176 260 L174 246 L172 232 L170 218 L168 204 L166 190 L164 178 L162 166 L160 155 L158 145 L156 136 L155 128 L156 120 L158 113 L162 107 L168 102 L175 98 L183 95 L192 93 L202 91 L212 89 L222 87 L232 85 L242 83 L252 81 L262 79 L272 77 L280 75 L285 65 L280 52 Z" fill="#eceae4" stroke="#b4b2a9" stroke-width="1.5"/>
+          <!-- 峽灣水道 -->
+          <path d="M340 52 Q330 70 320 85 Q310 100 295 110" fill="none" stroke="#85B7EB" stroke-width="2.5" opacity="0.55"/>
+          <path d="M210 390 Q230 385 248 378 Q268 370 285 360 Q305 348 320 335 Q338 320 352 305 Q365 290 375 275 Q385 260 388 245 Q390 230 385 218 Q380 208 372 200" fill="none" stroke="#85B7EB" stroke-width="4" opacity="0.6"/>
+          <path d="M248 378 Q255 368 262 355 Q268 342 272 328 Q274 315 270 305" fill="none" stroke="#85B7EB" stroke-width="2.5" opacity="0.5"/>
+          <path d="M196 330 Q215 322 232 315 Q250 306 265 296 Q280 285 292 273 Q302 262 308 250 Q312 240 310 230" fill="none" stroke="#85B7EB" stroke-width="3.5" opacity="0.6"/>
+          <path d="M210 316 Q218 305 225 293 Q230 282 232 270 Q232 258 228 248" fill="none" stroke="#85B7EB" stroke-width="3" opacity="0.55"/>
+          <path d="M206 480 Q224 468 240 455 Q256 442 268 428 Q278 415 283 402 Q286 390 282 380" fill="none" stroke="#85B7EB" stroke-width="3" opacity="0.5"/>
+          <path d="M208 530 Q222 518 235 506 Q246 496 255 485 Q262 476 262 466" fill="none" stroke="#85B7EB" stroke-width="2" opacity="0.45"/>
+          <path d="M215 615 Q228 600 238 585 Q246 572 248 558 Q248 546 242 536" fill="none" stroke="#85B7EB" stroke-width="2" opacity="0.4"/>
+          <!-- 行程路線 -->
+          <!-- 陸路：橘色實線 #E85D24 -->
+          <!-- Day6: 伊瓦洛→北角 陸路北上 -->
+          <path d="M318 148 Q325 130 335 112 Q340 98 338 82 Q337 68 338 52" fill="none" stroke="#E85D24" stroke-width="3" marker-end="url(#map-arr-r)" opacity="0.92"/>
+          <!-- Day7: 北角→阿爾塔 陸路南下 -->
+          <path d="M335 55 Q328 72 320 88 Q312 104 314 122 Q316 138 318 150" fill="none" stroke="#E85D24" stroke-width="3" marker-end="url(#map-arr-r)" opacity="0.92"/>
+          <!-- Day8: 奧斯陸→里耳哈默→蓋朗格 陸路北上 -->
+          <path d="M300 722 Q295 705 290 685 Q284 662 278 640 Q272 618 265 596 Q258 574 252 552 Q246 530 240 510 Q234 490 228 470 Q222 450 216 430 Q212 410 210 390 Q208 370 208 350 Q208 332 210 318 Q212 305 215 292" fill="none" stroke="#E85D24" stroke-width="3" marker-end="url(#map-arr-r)" opacity="0.88"/>
+          <!-- Day10: Flåm→Voss→卑爾根 縮影火車+高山火車 陸路 -->
+          <path d="M228 328 Q224 348 220 368 Q217 386 216 402 Q215 418 216 435 Q217 450 218 462 Q219 474 220 484 Q222 494 220 505 Q218 514 216 522" fill="none" stroke="#E85D24" stroke-width="3" marker-end="url(#map-arr-r)" opacity="0.88"/>
+          <text font-size="10" font-family="sans-serif" x="186" y="420" text-anchor="end" fill="#E85D24" opacity="0.9">🚂縮影+高山火車</text>
+
+          <!-- 飛機：紫色長虛線 #7F77DD -->
+          <!-- Day7: 阿爾塔→奧斯陸 飛機 -->
+          <path d="M250 152 Q180 280 300 725" fill="none" stroke="#7F77DD" stroke-width="2.5" stroke-dasharray="12 5" marker-end="url(#map-arr-p)" opacity="0.82"/>
+          <text font-size="14" font-family="sans-serif" x="182" y="426" fill="#7F77DD" opacity="0.85">✈</text>
+          <text font-size="10" font-family="sans-serif" x="198" y="440" fill="#7F77DD" opacity="0.85">飛機</text>
+
+          <!-- 遊船：綠色點虛線 #0F6E56 -->
+          <!-- Day9: 蓋朗格→冰河→索娜 遊船 -->
+          <path d="M222 268 Q238 272 255 278 Q272 283 288 288 Q305 292 320 295 Q335 297 350 296 Q362 294 370 288" fill="none" stroke="#0F6E56" stroke-width="3.5" stroke-dasharray="3 5" marker-end="url(#map-arr-b)" opacity="0.9"/>
+          <text font-size="12" font-family="sans-serif" x="268" y="263" fill="#0F6E56" opacity="0.88">⛵</text>
+          <!-- Day10: 索娜峽灣遊船 -->
+          <path d="M368 265 Q355 275 340 284 Q324 293 308 302 Q292 310 276 316 Q262 321 250 324 Q238 326 228 326" fill="none" stroke="#0F6E56" stroke-width="3.5" stroke-dasharray="3 5" marker-end="url(#map-arr-b)" opacity="0.88"/>
+          <!-- Day11: 卑爾根→丹麥 峽灣號遊輪 -->
+          <path d="M214 528 Q205 548 200 568 Q196 588 200 608 Q204 620 207 632" fill="none" stroke="#0F6E56" stroke-width="3" stroke-dasharray="3 5" marker-end="url(#map-arr-b)" opacity="0.75"/>
+          <line x1="208" y1="638" x2="175" y2="688" stroke="#0F6E56" stroke-width="2.5" stroke-dasharray="3 5" marker-end="url(#map-arr-b)" opacity="0.6"/>
+          <!-- 城市標記 -->
+          <circle cx="338" cy="50" r="10" fill="#e24b4a" stroke="white" stroke-width="2"/>
+          <text font-size="10" font-family="sans-serif" font-weight="600" x="338" y="54" text-anchor="middle" fill="white">6</text>
+          <text font-size="11" font-family="sans-serif" font-weight="500" x="350" y="44" fill="#1a1814">北角 Nordkapp</text>
+          <text font-size="10" font-family="sans-serif" x="350" y="57" fill="#e24b4a">7/24 日不落！</text>
+          <circle cx="318" cy="148" r="8" fill="#BA7517" stroke="white" stroke-width="2"/>
+          <text font-size="9" font-family="sans-serif" font-weight="600" x="318" y="152" text-anchor="middle" fill="white">5</text>
+          <text font-size="10" font-family="sans-serif" x="330" y="152" fill="#6b6560">伊瓦洛 7/23</text>
+          <circle cx="250" cy="152" r="8" fill="#BA7517" stroke="white" stroke-width="2"/>
+          <text font-size="9" font-family="sans-serif" font-weight="600" x="250" y="156" text-anchor="middle" fill="white">7</text>
+          <text font-size="10" font-family="sans-serif" x="240" y="148" text-anchor="end" fill="#6b6560">Alta 7/25</text>
+          <circle cx="300" cy="728" r="10" fill="#e24b4a" stroke="white" stroke-width="2"/>
+          <text font-size="10" font-family="sans-serif" font-weight="600" x="300" y="732" text-anchor="middle" fill="white">7</text>
+          <text font-size="11" font-family="sans-serif" font-weight="500" x="312" y="724" fill="#1a1814">奧斯陸 Oslo</text>
+          <text font-size="10" font-family="sans-serif" x="312" y="737" fill="#6b6560">7/25（六）</text>
+          <circle cx="285" cy="652" r="5" fill="#888780" stroke="white" stroke-width="1.5"/>
+          <text font-size="10" font-family="sans-serif" x="275" y="650" text-anchor="end" fill="#6b6560">里耳哈默</text>
+          <circle cx="218" cy="280" r="10" fill="#e24b4a" stroke="white" stroke-width="2"/>
+          <text font-size="10" font-family="sans-serif" font-weight="600" x="218" y="284" text-anchor="middle" fill="white">8</text>
+          <rect x="48" y="264" width="160" height="38" rx="6" fill="white" stroke="#0F6E56" stroke-width="1" opacity="0.92"/>
+          <text font-size="11" font-family="sans-serif" font-weight="500" x="56" y="279" fill="#1a1814">蓋朗格峽灣</text>
+          <text font-size="10" font-family="sans-serif" x="56" y="292" fill="#0F6E56">7/26 遊船 UNESCO</text>
+          <circle cx="308" cy="295" r="5" fill="#888780" stroke="white" stroke-width="1.5"/>
+          <text font-size="10" font-family="sans-serif" x="318" y="292" fill="#6b6560">布里斯達冰河</text>
+          <circle cx="370" cy="268" r="10" fill="#e24b4a" stroke="white" stroke-width="2"/>
+          <text font-size="10" font-family="sans-serif" font-weight="600" x="370" y="272" text-anchor="middle" fill="white">9</text>
+          <rect x="382" y="248" width="168" height="46" rx="6" fill="white" stroke="#185FA5" stroke-width="1.2" opacity="0.92"/>
+          <text font-size="11" font-family="sans-serif" font-weight="500" x="390" y="263" fill="#1a1814">索娜峽灣 Sognefjord</text>
+          <text font-size="10" font-family="sans-serif" x="390" y="276" fill="#185FA5">Day 9–10 · 200km · 深1308m</text>
+          <text font-size="10" font-family="sans-serif" x="390" y="287" fill="#185FA5">世界最長峽灣 UNESCO</text>
+          <circle cx="228" cy="328" r="6" fill="#639922" stroke="white" stroke-width="1.5"/>
+          <text font-size="10" font-family="sans-serif" x="218" y="326" text-anchor="end" fill="#3B6D11">Flåm 縮影火車</text>
+          <circle cx="220" cy="482" r="5" fill="#888780" stroke="white" stroke-width="1.5"/>
+          <text font-size="10" font-family="sans-serif" x="210" y="480" text-anchor="end" fill="#6b6560">Voss</text>
+          <circle cx="215" cy="526" r="10" fill="#e24b4a" stroke="white" stroke-width="2"/>
+          <text font-size="9" font-family="sans-serif" font-weight="600" x="215" y="530" text-anchor="middle" fill="white">10</text>
+          <rect x="48" y="510" width="158" height="38" rx="6" fill="white" stroke="#e24b4a" stroke-width="1" opacity="0.92"/>
+          <text font-size="12" font-family="sans-serif" font-weight="500" x="56" y="525" fill="#1a1814">卑爾根 Bergen</text>
+          <text font-size="10" font-family="sans-serif" x="56" y="538" fill="#6b6560">7/28（一）</text>
+          <circle cx="208" cy="636" r="9" fill="#0F6E56" stroke="white" stroke-width="2"/>
+          <text font-size="9" font-family="sans-serif" font-weight="600" x="208" y="640" text-anchor="middle" fill="white">11</text>
+          <text font-size="10" font-family="sans-serif" x="198" y="632" text-anchor="end" fill="#1a1814">峽灣號遊輪 7/29</text>
+          <text font-size="10" font-family="sans-serif" x="165" y="700" text-anchor="end" fill="#0F6E56">→ 穿越北海 → 丹麥</text>
+          <!-- 北方指示 -->
+          <text font-size="15" font-family="sans-serif" font-weight="500" x="625" y="54" text-anchor="middle" fill="#6b6560">N</text>
+          <line x1="625" y1="60" x2="625" y2="78" stroke="#6b6560" stroke-width="1.5" marker-end="url(#map-arr-r)"/>
+          <!-- 圖例 -->
+          <rect x="402" y="570" width="262" height="138" rx="8" fill="white" stroke="#e2ddd6" stroke-width="0.5" opacity="0.95"/>
+          <text font-size="11" font-family="sans-serif" font-weight="500" x="533" y="588" text-anchor="middle" fill="#1a1814">圖例</text>
+          <circle cx="416" cy="604" r="8" fill="#e24b4a" stroke="white" stroke-width="1.5"/>
+          <text font-size="9" font-family="sans-serif" font-weight="600" x="416" y="608" text-anchor="middle" fill="white">N</text>
+          <text font-size="10" font-family="sans-serif" x="430" y="608" fill="#1a1814">停留城市（Day N）</text>
+          <line x1="410" y1="622" x2="436" y2="622" stroke="#E85D24" stroke-width="3" marker-end="url(#map-arr-r)"/>
+          <text font-size="10" font-family="sans-serif" x="446" y="626" fill="#E85D24">陸路（巴士／自駕）</text>
+          <line x1="410" y1="640" x2="436" y2="640" stroke="#7F77DD" stroke-width="2.5" stroke-dasharray="12 5" marker-end="url(#map-arr-p)"/>
+          <text font-size="10" font-family="sans-serif" x="446" y="644" fill="#7F77DD">飛機航線</text>
+          <line x1="410" y1="658" x2="436" y2="658" stroke="#0F6E56" stroke-width="3.5" stroke-dasharray="3 5" marker-end="url(#map-arr-b)"/>
+          <text font-size="10" font-family="sans-serif" x="446" y="662" fill="#0F6E56">遊船 / 輪渡</text>
+          <circle cx="416" cy="676" r="5" fill="#888780" stroke="white" stroke-width="1.5"/>
+          <text font-size="10" font-family="sans-serif" x="430" y="680" fill="#6b6560">途經地點</text>
+          <line x1="410" y1="694" x2="436" y2="694" stroke="#85B7EB" stroke-width="3" opacity="0.65"/>
+          <text font-size="10" font-family="sans-serif" x="446" y="698" fill="#6b6560">峽灣水道</text>
+        </svg>
+      </div>`;
+    }
+
     return `<div class="day-card">
       <div class="day-header" onclick="tog(${i})">
         <span class="day-num">Day ${d.n}</span>
@@ -646,6 +1105,7 @@ function render() {
       </div>
       <div class="day-body" id="bd${i}">
         ${spotHTML}
+        ${flightHTML}
         <div class="section">
           <div class="section-label">餐食</div>
           <div class="meal-row">
@@ -656,9 +1116,10 @@ function render() {
         </div>
         <div class="section">
           <div class="section-label">住宿</div>
-          <div class="hotel">${d.hotel}</div>
+          <div class="hotel" style="line-height:1.8">${renderHotel(d.hotel)}</div>
         </div>
         ${shopHTML}
+        ${fjordMapHTML}
         ${noteHTML}
       </div>
     </div>`;
