@@ -574,6 +574,954 @@ fetchRates();
 
 <main id="app"></main>
 
+
+<!-- 廁所攻略區塊 -->
+<div style="max-width:800px;margin:1.5rem auto 0;padding:0 1rem">
+  <div style="background:#fff;border:1px solid #e2ddd6;border-radius:12px;overflow:hidden">
+    <div style="background:#4a3728;padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="var b=document.getElementById('tlb');var c=document.getElementById('tlc');if(b.style.display==='none'){b.style.display='block';c.style.transform='rotate(90deg)'}else{b.style.display='none';c.style.transform=''}">
+      <span style="font-size:18px">🚽</span>
+      <div style="flex:1">
+        <div style="color:white;font-size:14px;font-weight:500">北歐四國廁所生存指南</div>
+        <div style="color:rgba(255,255,255,0.65);font-size:11px">收費、免費廁所位置、實用技巧全整理</div>
+      </div>
+      <span id="tlc" style="color:rgba(255,255,255,0.7);font-size:12px;transition:transform 0.25s">▶</span>
+    </div>
+
+    <div id="tlb" style="display:none;padding:16px">
+
+      <!-- 基本觀念 -->
+      <div style="background:#fdf8f4;border-left:3px solid #c0784a;border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#4a3728;line-height:1.7">
+        ⚠️ <strong>最重要的觀念：</strong>北歐公廁幾乎全部收費，和台灣完全不同！養成「出門前必上廁所」的習慣是最省錢的策略。挪威是四國中最貴的，公廁最高可收到 2 歐元（約 NT$130）。
+      </div>
+
+      <!-- 四國費用 -->
+      <div style="font-size:11px;font-weight:500;color:#6b6560;letter-spacing:0.06em;margin-bottom:8px">💰 四國公廁費用比較</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-bottom:16px">
+
+        <div style="border:1px solid #e8e4de;border-radius:8px;overflow:hidden">
+          <div style="background:#2D6FA3;padding:7px 10px;display:flex;align-items:center;gap:6px">
+            <span style="font-size:16px">🇸🇪</span><span style="color:white;font-size:12px;font-weight:500">瑞典</span>
+          </div>
+          <div style="padding:8px 10px">
+            <div style="font-size:13px;font-weight:500;color:#1a1814">約 10–15 SEK</div>
+            <div style="font-size:11px;color:#185FA5;margin-bottom:4px">≈ NT$30–45</div>
+            <div style="font-size:11px;color:#6b6560;line-height:1.5">部分投幣式，需帶零錢</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e8e4de;border-radius:8px;overflow:hidden">
+          <div style="background:#0B6B4A;padding:7px 10px;display:flex;align-items:center;gap:6px">
+            <span style="font-size:16px">🇫🇮</span><span style="color:white;font-size:12px;font-weight:500">芬蘭</span>
+          </div>
+          <div style="padding:8px 10px">
+            <div style="font-size:13px;font-weight:500;color:#1a1814">約 €1–1.5</div>
+            <div style="font-size:11px;color:#185FA5;margin-bottom:4px">≈ NT$35–55</div>
+            <div style="font-size:11px;color:#6b6560;line-height:1.5">機場、購物中心多免費</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e8e4de;border-radius:8px;overflow:hidden">
+          <div style="background:#C0392B;padding:7px 10px;display:flex;align-items:center;gap:6px">
+            <span style="font-size:16px">🇳🇴</span><span style="color:white;font-size:12px;font-weight:500">挪威</span>
+          </div>
+          <div style="padding:8px 10px">
+            <div style="font-size:13px;font-weight:500;color:#1a1814">約 20 NOK / €2</div>
+            <div style="font-size:11px;color:#185FA5;margin-bottom:4px">≈ NT$60–130</div>
+            <div style="font-size:11px;color:#6b6560;line-height:1.5">⚠️ 四國最貴！北角大廳內免費</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e8e4de;border-radius:8px;overflow:hidden">
+          <div style="background:#8B2252;padding:7px 10px;display:flex;align-items:center;gap:6px">
+            <span style="font-size:16px">🇩🇰</span><span style="color:white;font-size:12px;font-weight:500">丹麥</span>
+          </div>
+          <div style="padding:8px 10px">
+            <div style="font-size:13px;font-weight:500;color:#1a1814">約 5–10 DKK</div>
+            <div style="font-size:11px;color:#185FA5;margin-bottom:4px">≈ NT$22–45</div>
+            <div style="font-size:11px;color:#6b6560;line-height:1.5">哥本哈根市區部分免費</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 危險路段 -->
+      <div style="font-size:11px;font-weight:500;color:#6b6560;letter-spacing:0.06em;margin-bottom:8px">⚠️ 行程中最需注意的長途路段</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px">
+
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:#fff8f5;border:1px solid #f0ddd0;border-radius:8px">
+          <div style="background:#c0784a;color:white;font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px;white-space:nowrap;margin-top:1px">Day 6 · 7/24</div>
+          <div>
+            <div style="font-size:12px;font-weight:500;color:#1a1814">伊瓦洛 → 北角</div>
+            <div style="font-size:11px;color:#6b6560;margin-top:2px">420 公里 · 車程約 5 小時，沿途停靠站廁所需付費</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:#fff8f5;border:1px solid #f0ddd0;border-radius:8px">
+          <div style="background:#c0784a;color:white;font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px;white-space:nowrap;margin-top:1px">Day 8 · 7/26</div>
+          <div>
+            <div style="font-size:12px;font-weight:500;color:#1a1814">奧斯陸 → 里耳哈默 → 蓋朗格峽灣</div>
+            <div style="font-size:11px;color:#6b6560;margin-top:2px">449 公里 · 車程最長，建議每次停車立即去上廁所</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:#fff8f5;border:1px solid #f0ddd0;border-radius:8px">
+          <div style="background:#c0784a;color:white;font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px;white-space:nowrap;margin-top:1px">Day 9 · 7/27</div>
+          <div>
+            <div style="font-size:12px;font-weight:500;color:#1a1814">蓋朗格 → 冰河 → 索娜峽灣</div>
+            <div style="font-size:11px;color:#6b6560;margin-top:2px">226 公里 · 峽灣遊船上有廁所，遊船時間長記得利用</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 免費廁所 -->
+      <div style="font-size:11px;font-weight:500;color:#6b6560;letter-spacing:0.06em;margin-bottom:8px">✅ 這些地方有免費廁所</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px;margin-bottom:16px">
+
+        <div style="display:flex;gap:8px;padding:7px 10px;background:#f4fbf7;border:1px solid #cce8d8;border-radius:8px">
+          <span style="font-size:16px">🏨</span>
+          <div><div style="font-size:12px;font-weight:500;color:#1a1814">飯店大廳</div><div style="font-size:11px;color:#6b6560">每天出門前必上，不要錯過</div></div>
+        </div>
+
+        <div style="display:flex;gap:8px;padding:7px 10px;background:#f4fbf7;border:1px solid #cce8d8;border-radius:8px">
+          <span style="font-size:16px">🚢</span>
+          <div><div style="font-size:12px;font-weight:500;color:#1a1814">遊輪上</div><div style="font-size:11px;color:#6b6560">詩麗雅號、峽灣號均免費</div></div>
+        </div>
+
+        <div style="display:flex;gap:8px;padding:7px 10px;background:#f4fbf7;border:1px solid #cce8d8;border-radius:8px">
+          <span style="font-size:16px">🏛</span>
+          <div><div style="font-size:12px;font-weight:500;color:#1a1814">景點內</div><div style="font-size:11px;color:#6b6560">北角大廳、各博物館、遊客中心</div></div>
+        </div>
+
+        <div style="display:flex;gap:8px;padding:7px 10px;background:#f4fbf7;border:1px solid #cce8d8;border-radius:8px">
+          <span style="font-size:16px">🍽</span>
+          <div><div style="font-size:12px;font-weight:500;color:#1a1814">餐廳用餐時</div><div style="font-size:11px;color:#6b6560">吃完飯離開前記得去上</div></div>
+        </div>
+
+        <div style="display:flex;gap:8px;padding:7px 10px;background:#f4fbf7;border:1px solid #cce8d8;border-radius:8px">
+          <span style="font-size:16px">🛍</span>
+          <div><div style="font-size:12px;font-weight:500;color:#1a1814">大型購物中心</div><div style="font-size:11px;color:#6b6560">瑞典、丹麥市中心商場多免費</div></div>
+        </div>
+
+        <div style="display:flex;gap:8px;padding:7px 10px;background:#f4fbf7;border:1px solid #cce8d8;border-radius:8px">
+          <span style="font-size:16px">📱</span>
+          <div><div style="font-size:12px;font-weight:500;color:#1a1814">App 查詢</div><div style="font-size:11px;color:#6b6560">Flush App 可離線查附近廁所</div></div>
+        </div>
+
+      </div>
+
+      <!-- 實用技巧 -->
+      <div style="font-size:11px;font-weight:500;color:#6b6560;letter-spacing:0.06em;margin-bottom:8px">💡 實用生存技巧</div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border-radius:8px;background:#fafaf8">
+          <span style="color:#c0784a;font-size:13px;font-weight:700">→</span>
+          <div><span style="font-size:12px;font-weight:500;color:#1a1814">隨身帶零錢：</span><span style="font-size:12px;color:#6b6560">各國小硬幣各準備幾枚，許多廁所只收現金不收大鈔</span></div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border-radius:8px">
+          <span style="color:#c0784a;font-size:13px;font-weight:700">→</span>
+          <div><span style="font-size:12px;font-weight:500;color:#1a1814">注意折抵券：</span><span style="font-size:12px;color:#6b6560">部分休息站廁所收費後給折價券，可抵消費，記得拿！</span></div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border-radius:8px;background:#fafaf8">
+          <span style="color:#c0784a;font-size:13px;font-weight:700">→</span>
+          <div><span style="font-size:12px;font-weight:500;color:#1a1814">速食店密碼：</span><span style="font-size:12px;color:#6b6560">麥當勞等連鎖店廁所密碼會印在收據上，消費後記得看</span></div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border-radius:8px">
+          <span style="color:#c0784a;font-size:13px;font-weight:700">→</span>
+          <div><span style="font-size:12px;font-weight:500;color:#1a1814">備小包衛生紙：</span><span style="font-size:12px;color:#6b6560">不是每個廁所都提供衛生紙，濕紙巾也很實用</span></div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border-radius:8px;background:#fafaf8">
+          <span style="color:#c0784a;font-size:13px;font-weight:700">→</span>
+          <div><span style="font-size:12px;font-weight:500;color:#1a1814">千萬別在戶外解決：</span><span style="font-size:12px;color:#6b6560">北歐公共場所隨地小便違法，曾有人被罰款 80 歐元</span></div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border-radius:8px">
+          <span style="color:#c0784a;font-size:13px;font-weight:700">→</span>
+          <div><span style="font-size:12px;font-weight:500;color:#1a1814">停車就立刻去上：</span><span style="font-size:12px;color:#6b6560">跟團停車時間短，停車第一件事就是去廁所，不要猶豫</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- 北歐語言與翻譯大師 -->
+<div style="max-width:800px;margin:1.5rem auto 0;padding:0 1rem">
+  <div style="background:#fff;border:1px solid #e2ddd6;border-radius:12px;overflow:hidden">
+
+    <div style="background:#1a3a4a;padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer"
+      onclick="var b=document.getElementById('lang-body');var c=document.getElementById('lang-chev');if(b.style.display==='none'){b.style.display='block';c.style.transform='rotate(90deg)'}else{b.style.display='none';c.style.transform=''}">
+      <span style="font-size:18px">🗣️</span>
+      <div style="flex:1">
+        <div style="color:white;font-size:14px;font-weight:500">各種北歐語言與翻譯大師</div>
+        <div style="color:rgba(255,255,255,0.65);font-size:11px">瑞典語・芬蘭語・挪威語・丹麥語 · 點擊直接開啟翻譯工具</div>
+      </div>
+      <span id="lang-chev" style="color:rgba(255,255,255,0.7);font-size:12px;transition:transform 0.25s">▶</span>
+    </div>
+
+    <div id="lang-body" style="display:none;padding:16px">
+
+      <!-- 提示 -->
+      <div style="background:#e8f4fb;border-left:3px solid #1a3a4a;border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#1a3a4a;line-height:1.7">
+        💡 北歐四國英文普及率極高，觀光區域完全不需擔心。以下提供各語言 AI 翻譯大師，遇到看不懂的菜單、標示、收據時直接開啟使用！
+      </div>
+
+      <!-- 語言卡片 -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px;margin-bottom:16px">
+
+        <!-- 挪威語 -->
+        <div style="border:1px solid #e8e4de;border-radius:10px;overflow:hidden">
+          <div style="background:#C0392B;padding:8px 12px;display:flex;align-items:center;gap:8px">
+            <span style="font-size:20px">🇳🇴</span>
+            <div>
+              <div style="color:white;font-size:13px;font-weight:500">挪威語 Norsk</div>
+              <div style="color:rgba(255,255,255,0.7);font-size:10px">Day 6–11 · 奧斯陸、北角、卑爾根</div>
+            </div>
+          </div>
+          <div style="padding:10px 12px">
+            <div style="font-size:11px;color:#6b6560;margin-bottom:8px;line-height:1.6">挪威語與瑞典語、丹麥語同源，發音比丹麥語易懂。Hei（你好）、Takk（謝謝）是最常用的兩句。</div>
+            <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px">
+              <span style="font-size:11px;background:#fdf0ee;color:#C0392B;padding:2px 8px;border-radius:10px">Hei = 你好</span>
+              <span style="font-size:11px;background:#fdf0ee;color:#C0392B;padding:2px 8px;border-radius:10px">Takk = 謝謝</span>
+              <span style="font-size:11px;background:#fdf0ee;color:#C0392B;padding:2px 8px;border-radius:10px">Unnskyld = 不好意思</span>
+              <span style="font-size:11px;background:#fdf0ee;color:#C0392B;padding:2px 8px;border-radius:10px">Ha det bra = 再見</span>
+              <span style="font-size:11px;background:#fdf0ee;color:#C0392B;padding:2px 8px;border-radius:10px">Vær så god = 不客氣</span>
+              <span style="font-size:11px;background:#fdf0ee;color:#C0392B;padding:2px 8px;border-radius:10px">Toalett = 廁所</span>
+              <span style="font-size:11px;background:#fdf0ee;color:#C0392B;padding:2px 8px;border-radius:10px">Regningen = 帳單</span>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap"><a href="https://gemini.google.com/gem/1OskKgOqC8xGCFXG6NDwU9UcxURkKPjmk?usp=sharing" target="_blank"
+              style="display:flex;align-items:center;gap:6px;background:#C0392B;color:white;text-decoration:none;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:500;width:fit-content">
+              <span>✨</span> 挪威語翻譯大師
+            </a>
+            <a href="https://translate.google.com/?sl=no&tl=zh-TW" target="_blank"
+              style="display:flex;align-items:center;gap:6px;background:#f0ede8;color:#6b6560;text-decoration:none;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:500;width:fit-content">
+              <span>🌐</span> Google 翻譯
+            </a></div>
+          </div>
+        </div>
+
+        <!-- 瑞典語 -->
+        <div style="border:1px solid #e8e4de;border-radius:10px;overflow:hidden">
+          <div style="background:#2D6FA3;padding:8px 12px;display:flex;align-items:center;gap:8px">
+            <span style="font-size:20px">🇸🇪</span>
+            <div>
+              <div style="color:white;font-size:13px;font-weight:500">瑞典語 Svenska</div>
+              <div style="color:rgba(255,255,255,0.7);font-size:10px">Day 2–3 · 斯德哥爾摩</div>
+            </div>
+          </div>
+          <div style="padding:10px 12px">
+            <div style="font-size:11px;color:#6b6560;margin-bottom:8px;line-height:1.6">北歐語言中相對好學，英文普及率極高。Hej 是最常聽到的打招呼用語，幾乎人人都說英文。</div>
+            <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px">
+              <span style="font-size:11px;background:#e8f0f8;color:#2D6FA3;padding:2px 8px;border-radius:10px">Hej = 你好</span>
+              <span style="font-size:11px;background:#e8f0f8;color:#2D6FA3;padding:2px 8px;border-radius:10px">Tack = 謝謝</span>
+              <span style="font-size:11px;background:#e8f0f8;color:#2D6FA3;padding:2px 8px;border-radius:10px">Förlåt = 對不起</span>
+              <span style="font-size:11px;background:#e8f0f8;color:#2D6FA3;padding:2px 8px;border-radius:10px">Varsågod = 不客氣</span>
+              <span style="font-size:11px;background:#e8f0f8;color:#2D6FA3;padding:2px 8px;border-radius:10px">Toalett = 廁所</span>
+              <span style="font-size:11px;background:#e8f0f8;color:#2D6FA3;padding:2px 8px;border-radius:10px">Nota = 帳單</span>
+              <span style="font-size:11px;background:#e8f0f8;color:#2D6FA3;padding:2px 8px;border-radius:10px">Fika = 喝咖啡休息</span>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap"><a href="https://gemini.google.com/gem/10IEp7PWP6UrH61EBNGsWKW5iAXrHxDrp?usp=sharing" target="_blank"
+              style="display:flex;align-items:center;gap:6px;background:#2D6FA3;color:white;text-decoration:none;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:500;width:fit-content">
+              <span>✨</span> 瑞典語翻譯大師
+            </a>
+            <a href="https://translate.google.com/?sl=sv&tl=zh-TW" target="_blank"
+              style="display:flex;align-items:center;gap:6px;background:#f0ede8;color:#6b6560;text-decoration:none;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:500;width:fit-content">
+              <span>🌐</span> Google 翻譯
+            </a></div>
+          </div>
+        </div>
+
+        <!-- 芬蘭語 -->
+        <div style="border:1px solid #e8e4de;border-radius:10px;overflow:hidden">
+          <div style="background:#0B6B4A;padding:8px 12px;display:flex;align-items:center;gap:8px">
+            <span style="font-size:20px">🇫🇮</span>
+            <div>
+              <div style="color:white;font-size:13px;font-weight:500">芬蘭語 Suomi</div>
+              <div style="color:rgba(255,255,255,0.7);font-size:10px">Day 3–5 · 赫爾辛基、羅凡聶米</div>
+            </div>
+          </div>
+          <div style="padding:10px 12px">
+            <div style="font-size:11px;color:#6b6560;margin-bottom:8px;line-height:1.6">全球最難語言之一，和其他北歐語言完全不同源。但別擔心，赫爾辛基英文普及率極高，說英文就好。Kiitos 這個謝謝說出口，芬蘭人會很開心。</div>
+            <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px">
+              <span style="font-size:11px;background:#e8f4ef;color:#0B6B4A;padding:2px 8px;border-radius:10px">Hei = 你好</span>
+              <span style="font-size:11px;background:#e8f4ef;color:#0B6B4A;padding:2px 8px;border-radius:10px">Kiitos = 謝謝</span>
+              <span style="font-size:11px;background:#e8f4ef;color:#0B6B4A;padding:2px 8px;border-radius:10px">Anteeksi = 對不起</span>
+              <span style="font-size:11px;background:#e8f4ef;color:#0B6B4A;padding:2px 8px;border-radius:10px">Ole hyvä = 不客氣</span>
+              <span style="font-size:11px;background:#e8f4ef;color:#0B6B4A;padding:2px 8px;border-radius:10px">WC / Vessa = 廁所</span>
+              <span style="font-size:11px;background:#e8f4ef;color:#0B6B4A;padding:2px 8px;border-radius:10px">Lasku = 帳單</span>
+              <span style="font-size:11px;background:#e8f4ef;color:#0B6B4A;padding:2px 8px;border-radius:10px">Joulupukki = 聖誕老人</span>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap"><a href="https://gemini.google.com/gem/18eUSowsOL5iLis46pJ0ElWOtT1q5HQS4?usp=sharing" target="_blank"
+              style="display:flex;align-items:center;gap:6px;background:#0B6B4A;color:white;text-decoration:none;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:500;width:fit-content">
+              <span>✨</span> 芬蘭語翻譯大師
+            </a>
+            <a href="https://translate.google.com/?sl=fi&tl=zh-TW" target="_blank"
+              style="display:flex;align-items:center;gap:6px;background:#f0ede8;color:#6b6560;text-decoration:none;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:500;width:fit-content">
+              <span>🌐</span> Google 翻譯
+            </a></div>
+          </div>
+        </div>
+
+        <!-- 丹麥語 -->
+        <div style="border:1px solid #e8e4de;border-radius:10px;overflow:hidden">
+          <div style="background:#8B2252;padding:8px 12px;display:flex;align-items:center;gap:8px">
+            <span style="font-size:20px">🇩🇰</span>
+            <div>
+              <div style="color:white;font-size:13px;font-weight:500">丹麥語 Dansk</div>
+              <div style="color:rgba(255,255,255,0.7);font-size:10px">Day 11–14 · 歐登西、哥本哈根</div>
+            </div>
+          </div>
+          <div style="padding:10px 12px">
+            <div style="font-size:11px;color:#6b6560;margin-bottom:8px;line-height:1.6">丹麥語發音在北歐語言中出了名的難，連挪威人瑞典人都聽不懂！字母看起來像英文，但發音完全不同。英文普及率同樣極高，完全不用擔心。</div>
+            <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px">
+              <span style="font-size:11px;background:#f5eaf0;color:#8B2252;padding:2px 8px;border-radius:10px">Hej = 你好</span>
+              <span style="font-size:11px;background:#f5eaf0;color:#8B2252;padding:2px 8px;border-radius:10px">Tak = 謝謝</span>
+              <span style="font-size:11px;background:#f5eaf0;color:#8B2252;padding:2px 8px;border-radius:10px">Undskyld = 對不起</span>
+              <span style="font-size:11px;background:#f5eaf0;color:#8B2252;padding:2px 8px;border-radius:10px">Selv tak = 不客氣</span>
+              <span style="font-size:11px;background:#f5eaf0;color:#8B2252;padding:2px 8px;border-radius:10px">Toilet = 廁所</span>
+              <span style="font-size:11px;background:#f5eaf0;color:#8B2252;padding:2px 8px;border-radius:10px">Regningen = 帳單</span>
+              <span style="font-size:11px;background:#f5eaf0;color:#8B2252;padding:2px 8px;border-radius:10px">Hygge = 舒適愜意</span>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap"><a href="https://gemini.google.com/gem/1AaEEfneWrjnzvaiD5Zd6H3Nymurwne5r?usp=sharing" target="_blank"
+              style="display:flex;align-items:center;gap:6px;background:#8B2252;color:white;text-decoration:none;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:500;width:fit-content">
+              <span>✨</span> 丹麥語翻譯大師
+            </a>
+            <a href="https://translate.google.com/?sl=da&tl=zh-TW" target="_blank"
+              style="display:flex;align-items:center;gap:6px;background:#f0ede8;color:#6b6560;text-decoration:none;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:500;width:fit-content">
+              <span>🌐</span> Google 翻譯
+            </a></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 緊急英文救命句 -->
+      <div style="background:#fafaf8;border:1px solid #e8e4de;border-radius:10px;padding:12px 14px">
+        <div style="font-size:11px;font-weight:500;color:#6b6560;letter-spacing:0.05em;margin-bottom:10px">🆘 緊急英文救命句（四國通用）</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px">
+          <div style="font-size:12px;padding:5px 0;border-bottom:1px solid #f0ede8"><span style="color:#1a4a7a;font-weight:500">Where is the toilet?</span><span style="color:#6b6560"> 廁所在哪？</span></div>
+          <div style="font-size:12px;padding:5px 0;border-bottom:1px solid #f0ede8"><span style="color:#1a4a7a;font-weight:500">The bill, please.</span><span style="color:#6b6560"> 請給我帳單</span></div>
+          <div style="font-size:12px;padding:5px 0;border-bottom:1px solid #f0ede8"><span style="color:#1a4a7a;font-weight:500">Do you speak English?</span><span style="color:#6b6560"> 你說英文嗎？</span></div>
+          <div style="font-size:12px;padding:5px 0;border-bottom:1px solid #f0ede8"><span style="color:#1a4a7a;font-weight:500">How much is this?</span><span style="color:#6b6560"> 這個多少錢？</span></div>
+          <div style="font-size:12px;padding:5px 0;border-bottom:1px solid #f0ede8"><span style="color:#1a4a7a;font-weight:500">I'm allergic to ___.</span><span style="color:#6b6560"> 我對___過敏</span></div>
+          <div style="font-size:12px;padding:5px 0;border-bottom:1px solid #f0ede8"><span style="color:#1a4a7a;font-weight:500">Can I pay by card?</span><span style="color:#6b6560"> 可以刷卡嗎？</span></div>
+          <div style="font-size:12px;padding:5px 0;border-bottom:1px solid #f0ede8"><span style="color:#1a4a7a;font-weight:500">I need a doctor.</span><span style="color:#6b6560"> 我需要看醫生</span></div>
+          <div style="font-size:12px;padding:5px 0"><span style="color:#1a4a7a;font-weight:500">Please call the police.</span><span style="color:#6b6560"> 請幫我叫警察</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- 北歐咖啡朝聖清單 -->
+<div style="max-width:800px;margin:1.5rem auto 0;padding:0 1rem">
+  <div style="background:#fff;border:1px solid #e2ddd6;border-radius:12px;overflow:hidden">
+
+    <div style="background:#1a2e1a;padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer"
+      onclick="var b=document.getElementById('clf');var c=document.getElementById('clc');if(b.style.display==='none'){b.style.display='block';c.style.transform='rotate(90deg)'}else{b.style.display='none';c.style.transform=''}">
+      <span style="font-size:18px">☕</span>
+      <div style="flex:1">
+        <div style="color:white;font-size:14px;font-weight:500">北歐四國精品咖啡朝聖清單</div>
+        <div style="color:rgba(255,255,255,0.65);font-size:11px">奧斯陸、斯德哥爾摩、哥本哈根必訪咖啡館 · 喝完記錄心得！</div>
+      </div>
+      <span id="clc" style="color:rgba(255,255,255,0.7);font-size:12px;transition:transform 0.25s">▶</span>
+    </div>
+
+    <div id="clf" style="display:none;padding:16px">
+
+      <!-- 提示 -->
+      <div style="background:#f4fbf7;border-left:3px solid #0B6B4A;border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#1a2e1a;line-height:1.7">
+        💡 奧斯陸 Day 7（7/25）Fuglen 和 Tim Wendelboe 距離只有幾個街區，可以兩家都去比較，再評評誰才是真正的世界最好喝！
+      </div>
+
+      <!-- 瑞典 -->
+      <div style="font-size:12px;font-weight:500;color:#2D6FA3;letter-spacing:0.05em;margin-bottom:8px">🇸🇪 瑞典・斯德哥爾摩（Day 2–3）</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px">
+
+        <div style="border:1px solid #e8e4de;border-radius:10px;overflow:hidden" id="cafe-drop">
+          <div style="padding:10px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+                <span style="font-size:13px;font-weight:500;color:#1a1814">Drop Coffee</span>
+                <span style="font-size:10px;background:#E6F1FB;color:#1a4a7a;padding:1px 6px;border-radius:10px">世界烘豆亞軍</span>
+              </div>
+              <div style="font-size:11px;color:#6b6560;line-height:1.6">老闆 Joanna Alm 曾兩度獲得瑞典烘豆冠軍、世界第二名。單一產地豆，口感明亮清晰，必買豆子帶回家。</div>
+              <div style="margin-top:5px;display:flex;gap:6px">
+                <a href="https://www.dropcoffee.com/" target="_blank" style="font-size:10px;color:#1a4a7a;text-decoration:none;background:#E6F1FB;padding:2px 8px;border-radius:10px">官網 ↗</a>
+                <a href="https://maps.google.com/?q=Drop+Coffee+Stockholm" target="_blank" style="font-size:10px;color:#6b6560;text-decoration:none;background:#f0ede8;padding:2px 8px;border-radius:10px">地圖 ↗</a>
+              </div>
+            </div>
+            <button onclick="toggleCafeReview('drop')" style="font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;white-space:nowrap;color:#6b6560">✍️ 記錄心得</button>
+          </div>
+          <div id="review-drop" style="display:none;padding:10px 12px;border-top:1px solid #f0ede8;background:#fafaf8">
+            <div style="display:flex;gap:4px;margin-bottom:6px" id="stars-drop">
+              <span onclick="rateCafe('drop',1)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('drop',2)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('drop',3)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('drop',4)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('drop',5)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+            </div>
+            <textarea id="note-drop" placeholder="心得..." rows="2" style="width:100%;border:1px solid #e8e4de;border-radius:6px;padding:6px 8px;font-size:12px;resize:none;outline:none;font-family:inherit"></textarea>
+            <div style="display:flex;gap:6px;margin-top:6px;align-items:center">
+              <button onclick="saveCafe('drop','Drop Coffee')" style="font-size:11px;padding:4px 12px;border-radius:20px;background:#1a2e1a;color:white;border:none;cursor:pointer">儲存</button>
+              <span id="saved-drop" style="font-size:11px;color:#0B6B4A;display:none">✅ 已儲存</span>
+            </div>
+            <div id="saved-note-drop" style="margin-top:6px;font-size:11px;color:#4a3728;display:none"></div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e8e4de;border-radius:10px;overflow:hidden" id="cafe-johan">
+          <div style="padding:10px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+                <span style="font-size:13px;font-weight:500;color:#1a1814">Johan & Nyström</span>
+                <span style="font-size:10px;background:#f0edf8;color:#5a3a8a;padding:1px 6px;border-radius:10px">瑞典咖啡革命先驅</span>
+              </div>
+              <div style="font-size:11px;color:#6b6560;line-height:1.6">2004 年開業，瑞典精品咖啡先驅，設備頂級。老城區附近，離行程景點很近。</div>
+              <div style="margin-top:5px;display:flex;gap:6px">
+                <a href="https://johanochnyström.se/en/" target="_blank" style="font-size:10px;color:#1a4a7a;text-decoration:none;background:#E6F1FB;padding:2px 8px;border-radius:10px">官網 ↗</a>
+                <a href="https://maps.google.com/?q=Johan+Nyström+Stockholm" target="_blank" style="font-size:10px;color:#6b6560;text-decoration:none;background:#f0ede8;padding:2px 8px;border-radius:10px">地圖 ↗</a>
+              </div>
+            </div>
+            <button onclick="toggleCafeReview('johan')" style="font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;white-space:nowrap;color:#6b6560">✍️ 記錄心得</button>
+          </div>
+          <div id="review-johan" style="display:none;padding:10px 12px;border-top:1px solid #f0ede8;background:#fafaf8">
+            <div style="display:flex;gap:4px;margin-bottom:6px" id="stars-johan">
+              <span onclick="rateCafe('johan',1)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('johan',2)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('johan',3)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('johan',4)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('johan',5)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+            </div>
+            <textarea id="note-johan" placeholder="心得..." rows="2" style="width:100%;border:1px solid #e8e4de;border-radius:6px;padding:6px 8px;font-size:12px;resize:none;outline:none;font-family:inherit"></textarea>
+            <div style="display:flex;gap:6px;margin-top:6px;align-items:center">
+              <button onclick="saveCafe('johan','Johan & Nyström')" style="font-size:11px;padding:4px 12px;border-radius:20px;background:#1a2e1a;color:white;border:none;cursor:pointer">儲存</button>
+              <span id="saved-johan" style="font-size:11px;color:#0B6B4A;display:none">✅ 已儲存</span>
+            </div>
+            <div id="saved-note-johan" style="margin-top:6px;font-size:11px;color:#4a3728;display:none"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 挪威 -->
+      <div style="font-size:12px;font-weight:500;color:#C0392B;letter-spacing:0.05em;margin-bottom:8px">🇳🇴 挪威・奧斯陸（Day 7 · 7/25）</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px">
+
+        <div style="border:1px solid #e8e4de;border-radius:10px;overflow:hidden" id="cafe-fuglen">
+          <div style="padding:10px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+                <span style="font-size:13px;font-weight:500;color:#1a1814">Fuglen Oslo</span>
+                <span style="font-size:10px;background:#fef3e2;color:#9a5c00;padding:1px 6px;border-radius:10px">紐約時報：世界最棒</span>
+              </div>
+              <div style="font-size:11px;color:#6b6560;line-height:1.6">1963 年創立的本店。咖啡、調酒、復古家具三合一，口味偏酸果香，晚上變身酒吧。另有獨立評測區塊在下方。</div>
+              <div style="margin-top:5px;display:flex;gap:6px">
+                <a href="https://www.fuglen.com/oslo" target="_blank" style="font-size:10px;color:#1a4a7a;text-decoration:none;background:#E6F1FB;padding:2px 8px;border-radius:10px">官網 ↗</a>
+                <a href="https://maps.google.com/?q=Fuglen+Oslo" target="_blank" style="font-size:10px;color:#6b6560;text-decoration:none;background:#f0ede8;padding:2px 8px;border-radius:10px">地圖 ↗</a>
+              </div>
+            </div>
+            <button onclick="toggleCafeReview('fuglen')" style="font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;white-space:nowrap;color:#6b6560">✍️ 記錄心得</button>
+          </div>
+          <div id="review-fuglen" style="display:none;padding:10px 12px;border-top:1px solid #f0ede8;background:#fafaf8">
+            <div style="display:flex;gap:4px;margin-bottom:6px" id="stars-fuglen">
+              <span onclick="rateCafe('fuglen',1)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('fuglen',2)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('fuglen',3)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('fuglen',4)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('fuglen',5)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+            </div>
+            <textarea id="note-fuglen" placeholder="心得..." rows="2" style="width:100%;border:1px solid #e8e4de;border-radius:6px;padding:6px 8px;font-size:12px;resize:none;outline:none;font-family:inherit"></textarea>
+            <div style="display:flex;gap:6px;margin-top:6px;align-items:center">
+              <button onclick="saveCafe('fuglen','Fuglen Oslo')" style="font-size:11px;padding:4px 12px;border-radius:20px;background:#1a2e1a;color:white;border:none;cursor:pointer">儲存</button>
+              <span id="saved-fuglen" style="font-size:11px;color:#0B6B4A;display:none">✅ 已儲存</span>
+            </div>
+            <div id="saved-note-fuglen" style="margin-top:6px;font-size:11px;color:#4a3728;display:none"></div>
+          </div>
+        </div>
+
+        <div style="border:2px solid #c0784a;border-radius:10px;overflow:hidden" id="cafe-tim">
+          <div style="padding:10px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+                <span style="font-size:13px;font-weight:500;color:#1a1814">Tim Wendelboe</span>
+                <span style="font-size:10px;background:#fff0e8;color:#c0784a;padding:1px 6px;border-radius:10px">⭐ 強烈推薦</span>
+                <span style="font-size:10px;background:#fef3e2;color:#9a5c00;padding:1px 6px;border-radius:10px">2004 世界冠軍</span>
+              </div>
+              <div style="font-size:11px;color:#6b6560;line-height:1.6">世界百大咖啡館、Noma 御用咖啡。木頭磚牆吧台搭配現場烘豆機。冷萃咖啡和 Filter Tasting Menu 必點，和 Fuglen 距離幾個街區，兩家都去！</div>
+              <div style="margin-top:5px;display:flex;gap:6px">
+                <a href="https://timwendelboe.no/" target="_blank" style="font-size:10px;color:#1a4a7a;text-decoration:none;background:#E6F1FB;padding:2px 8px;border-radius:10px">官網 ↗</a>
+                <a href="https://maps.google.com/?q=Tim+Wendelboe+Oslo" target="_blank" style="font-size:10px;color:#6b6560;text-decoration:none;background:#f0ede8;padding:2px 8px;border-radius:10px">地圖 ↗</a>
+              </div>
+            </div>
+            <button onclick="toggleCafeReview('tim')" style="font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid #c0784a;background:#fff0e8;cursor:pointer;white-space:nowrap;color:#c0784a">✍️ 記錄心得</button>
+          </div>
+          <div id="review-tim" style="display:none;padding:10px 12px;border-top:1px solid #f0ddd0;background:#fafaf8">
+            <div style="display:flex;gap:4px;margin-bottom:6px" id="stars-tim">
+              <span onclick="rateCafe('tim',1)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('tim',2)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('tim',3)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('tim',4)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('tim',5)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+            </div>
+            <textarea id="note-tim" placeholder="心得..." rows="2" style="width:100%;border:1px solid #e8e4de;border-radius:6px;padding:6px 8px;font-size:12px;resize:none;outline:none;font-family:inherit"></textarea>
+            <div style="display:flex;gap:6px;margin-top:6px;align-items:center">
+              <button onclick="saveCafe('tim','Tim Wendelboe')" style="font-size:11px;padding:4px 12px;border-radius:20px;background:#c0784a;color:white;border:none;cursor:pointer">儲存</button>
+              <span id="saved-tim" style="font-size:11px;color:#0B6B4A;display:none">✅ 已儲存</span>
+            </div>
+            <div id="saved-note-tim" style="margin-top:6px;font-size:11px;color:#4a3728;display:none"></div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e8e4de;border-radius:10px;overflow:hidden" id="cafe-stockfleths">
+          <div style="padding:10px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+                <span style="font-size:13px;font-weight:500;color:#1a1814">Stockfleths</span>
+                <span style="font-size:10px;background:#f0ede8;color:#6b6560;padding:1px 6px;border-radius:10px">1895 年創立</span>
+              </div>
+              <div style="font-size:11px;color:#6b6560;line-height:1.6">奧斯陸最老的精品咖啡連鎖，Tim Wendelboe 的出師之地！市區多個分店，肉桂捲搭配咖啡是奧斯陸日常。</div>
+              <div style="margin-top:5px;display:flex;gap:6px">
+                <a href="https://stockfleths.as/" target="_blank" style="font-size:10px;color:#1a4a7a;text-decoration:none;background:#E6F1FB;padding:2px 8px;border-radius:10px">官網 ↗</a>
+                <a href="https://maps.google.com/?q=Stockfleths+Oslo" target="_blank" style="font-size:10px;color:#6b6560;text-decoration:none;background:#f0ede8;padding:2px 8px;border-radius:10px">地圖 ↗</a>
+              </div>
+            </div>
+            <button onclick="toggleCafeReview('stockfleths')" style="font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;white-space:nowrap;color:#6b6560">✍️ 記錄心得</button>
+          </div>
+          <div id="review-stockfleths" style="display:none;padding:10px 12px;border-top:1px solid #f0ede8;background:#fafaf8">
+            <div style="display:flex;gap:4px;margin-bottom:6px" id="stars-stockfleths">
+              <span onclick="rateCafe('stockfleths',1)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('stockfleths',2)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('stockfleths',3)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('stockfleths',4)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('stockfleths',5)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+            </div>
+            <textarea id="note-stockfleths" placeholder="心得..." rows="2" style="width:100%;border:1px solid #e8e4de;border-radius:6px;padding:6px 8px;font-size:12px;resize:none;outline:none;font-family:inherit"></textarea>
+            <div style="display:flex;gap:6px;margin-top:6px;align-items:center">
+              <button onclick="saveCafe('stockfleths','Stockfleths')" style="font-size:11px;padding:4px 12px;border-radius:20px;background:#1a2e1a;color:white;border:none;cursor:pointer">儲存</button>
+              <span id="saved-stockfleths" style="font-size:11px;color:#0B6B4A;display:none">✅ 已儲存</span>
+            </div>
+            <div id="saved-note-stockfleths" style="margin-top:6px;font-size:11px;color:#4a3728;display:none"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 丹麥 -->
+      <div style="font-size:12px;font-weight:500;color:#8B2252;letter-spacing:0.05em;margin-bottom:8px">🇩🇰 丹麥・哥本哈根（Day 13–14）</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+
+        <div style="border:2px solid #0B6B4A;border-radius:10px;overflow:hidden" id="cafe-collective">
+          <div style="padding:10px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+                <span style="font-size:13px;font-weight:500;color:#1a1814">The Coffee Collective</span>
+                <span style="font-size:10px;background:#e8f4ef;color:#0B6B4A;padding:1px 6px;border-radius:10px">⭐ 強烈推薦</span>
+              </div>
+              <div style="font-size:11px;color:#6b6560;line-height:1.6">2008 年開業，哥本哈根第三波咖啡先驅，致力永續咖啡。夏季限定義式濃縮霜淇淋不能錯過！Jægersborggade 為本店。</div>
+              <div style="margin-top:5px;display:flex;gap:6px">
+                <a href="https://coffeecollective.dk/en/" target="_blank" style="font-size:10px;color:#1a4a7a;text-decoration:none;background:#E6F1FB;padding:2px 8px;border-radius:10px">官網 ↗</a>
+                <a href="https://maps.google.com/?q=Coffee+Collective+Copenhagen" target="_blank" style="font-size:10px;color:#6b6560;text-decoration:none;background:#f0ede8;padding:2px 8px;border-radius:10px">地圖 ↗</a>
+              </div>
+            </div>
+            <button onclick="toggleCafeReview('collective')" style="font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid #0B6B4A;background:#e8f4ef;cursor:pointer;white-space:nowrap;color:#0B6B4A">✍️ 記錄心得</button>
+          </div>
+          <div id="review-collective" style="display:none;padding:10px 12px;border-top:1px solid #cce8d8;background:#fafaf8">
+            <div style="display:flex;gap:4px;margin-bottom:6px" id="stars-collective">
+              <span onclick="rateCafe('collective',1)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('collective',2)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('collective',3)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('collective',4)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('collective',5)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+            </div>
+            <textarea id="note-collective" placeholder="心得..." rows="2" style="width:100%;border:1px solid #e8e4de;border-radius:6px;padding:6px 8px;font-size:12px;resize:none;outline:none;font-family:inherit"></textarea>
+            <div style="display:flex;gap:6px;margin-top:6px;align-items:center">
+              <button onclick="saveCafe('collective','The Coffee Collective')" style="font-size:11px;padding:4px 12px;border-radius:20px;background:#0B6B4A;color:white;border:none;cursor:pointer">儲存</button>
+              <span id="saved-collective" style="font-size:11px;color:#0B6B4A;display:none">✅ 已儲存</span>
+            </div>
+            <div id="saved-note-collective" style="margin-top:6px;font-size:11px;color:#4a3728;display:none"></div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e8e4de;border-radius:10px;overflow:hidden" id="cafe-april">
+          <div style="padding:10px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+                <span style="font-size:13px;font-weight:500;color:#1a1814">April Coffee</span>
+                <span style="font-size:10px;background:#f0edf8;color:#5a3a8a;padding:1px 6px;border-radius:10px">像藝廊的咖啡館</span>
+              </div>
+              <div style="font-size:11px;color:#6b6560;line-height:1.6">得獎咖啡師 Patrik Rolf 創立，極簡空間像設計藝廊。有 Pour-over 品飲菜單，對咖啡有興趣可深入體驗。</div>
+              <div style="margin-top:5px;display:flex;gap:6px">
+                <a href="https://www.aprilcoffeeroasters.com/" target="_blank" style="font-size:10px;color:#1a4a7a;text-decoration:none;background:#E6F1FB;padding:2px 8px;border-radius:10px">官網 ↗</a>
+                <a href="https://maps.google.com/?q=April+Coffee+Copenhagen" target="_blank" style="font-size:10px;color:#6b6560;text-decoration:none;background:#f0ede8;padding:2px 8px;border-radius:10px">地圖 ↗</a>
+              </div>
+            </div>
+            <button onclick="toggleCafeReview('april')" style="font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;white-space:nowrap;color:#6b6560">✍️ 記錄心得</button>
+          </div>
+          <div id="review-april" style="display:none;padding:10px 12px;border-top:1px solid #f0ede8;background:#fafaf8">
+            <div style="display:flex;gap:4px;margin-bottom:6px" id="stars-april">
+              <span onclick="rateCafe('april',1)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('april',2)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('april',3)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('april',4)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('april',5)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+            </div>
+            <textarea id="note-april" placeholder="心得..." rows="2" style="width:100%;border:1px solid #e8e4de;border-radius:6px;padding:6px 8px;font-size:12px;resize:none;outline:none;font-family:inherit"></textarea>
+            <div style="display:flex;gap:6px;margin-top:6px;align-items:center">
+              <button onclick="saveCafe('april','April Coffee')" style="font-size:11px;padding:4px 12px;border-radius:20px;background:#1a2e1a;color:white;border:none;cursor:pointer">儲存</button>
+              <span id="saved-april" style="font-size:11px;color:#0B6B4A;display:none">✅ 已儲存</span>
+            </div>
+            <div id="saved-note-april" style="margin-top:6px;font-size:11px;color:#4a3728;display:none"></div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e8e4de;border-radius:10px;overflow:hidden" id="cafe-andersen">
+          <div style="padding:10px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+                <span style="font-size:13px;font-weight:500;color:#1a1814">Andersen & Maillard</span>
+                <span style="font-size:10px;background:#fef3e2;color:#9a5c00;padding:1px 6px;border-radius:10px">方塊可頌發源地</span>
+              </div>
+              <div style="font-size:11px;color:#6b6560;line-height:1.6">以招牌 Cube Croissant 方塊可頌聞名，自有烘豆室，咖啡加麵包是最北歐早餐。哥本哈根 3 間分店。</div>
+              <div style="margin-top:5px;display:flex;gap:6px">
+                <a href="https://www.andersenogmaillard.dk/" target="_blank" style="font-size:10px;color:#1a4a7a;text-decoration:none;background:#E6F1FB;padding:2px 8px;border-radius:10px">官網 ↗</a>
+                <a href="https://maps.google.com/?q=Andersen+Maillard+Copenhagen" target="_blank" style="font-size:10px;color:#6b6560;text-decoration:none;background:#f0ede8;padding:2px 8px;border-radius:10px">地圖 ↗</a>
+              </div>
+            </div>
+            <button onclick="toggleCafeReview('andersen')" style="font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;white-space:nowrap;color:#6b6560">✍️ 記錄心得</button>
+          </div>
+          <div id="review-andersen" style="display:none;padding:10px 12px;border-top:1px solid #f0ede8;background:#fafaf8">
+            <div style="display:flex;gap:4px;margin-bottom:6px" id="stars-andersen">
+              <span onclick="rateCafe('andersen',1)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('andersen',2)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('andersen',3)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('andersen',4)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+              <span onclick="rateCafe('andersen',5)" style="font-size:20px;cursor:pointer;color:#ddd">★</span>
+            </div>
+            <textarea id="note-andersen" placeholder="心得..." rows="2" style="width:100%;border:1px solid #e8e4de;border-radius:6px;padding:6px 8px;font-size:12px;resize:none;outline:none;font-family:inherit"></textarea>
+            <div style="display:flex;gap:6px;margin-top:6px;align-items:center">
+              <button onclick="saveCafe('andersen','Andersen & Maillard')" style="font-size:11px;padding:4px 12px;border-radius:20px;background:#1a2e1a;color:white;border:none;cursor:pointer">儲存</button>
+              <span id="saved-andersen" style="font-size:11px;color:#0B6B4A;display:none">✅ 已儲存</span>
+            </div>
+            <div id="saved-note-andersen" style="margin-top:6px;font-size:11px;color:#4a3728;display:none"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var cafeRatings = {};
+
+function toggleCafeReview(id) {
+  var el = document.getElementById('review-' + id);
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function rateCafe(id, val) {
+  cafeRatings[id] = val;
+  var stars = document.getElementById('stars-' + id).children;
+  for (var i = 0; i < 5; i++) {
+    stars[i].style.color = i < val ? '#c0784a' : '#ddd';
+  }
+}
+
+function saveCafe(id, name) {
+  var rating = cafeRatings[id] || 0;
+  var note = document.getElementById('note-' + id).value;
+  var data = { name: name, rating: rating, note: note, time: new Date().toLocaleString('zh-TW') };
+  try { localStorage.setItem('cafe-' + id, JSON.stringify(data)); } catch(e) {}
+  var msg = document.getElementById('saved-' + id);
+  msg.style.display = 'inline';
+  setTimeout(function(){ msg.style.display = 'none'; }, 2000);
+  showCafeSaved(id, data);
+}
+
+function showCafeSaved(id, data) {
+  var el = document.getElementById('saved-note-' + id);
+  if (!el) return;
+  var stars = data.rating ? '★'.repeat(data.rating) + '☆'.repeat(5 - data.rating) : '未評分';
+  el.innerHTML = '<span style="color:#c0784a">' + stars + '</span>' +
+    (data.note ? ' · ' + data.note : '') +
+    '<span style="color:#a09890;font-size:10px"> · ' + data.time + '</span>';
+  el.style.display = 'block';
+}
+
+// 頁面載入時讀取已儲存資料
+(function(){
+  var ids = ['drop','johan','fuglen','tim','stockfleths','collective','april','andersen'];
+  ids.forEach(function(id) {
+    try {
+      var saved = localStorage.getItem('cafe-' + id);
+      if (saved) {
+        var data = JSON.parse(saved);
+        cafeRatings[id] = data.rating;
+        if (data.rating) {
+          var stars = document.getElementById('stars-' + id);
+          if (stars) {
+            for (var i = 0; i < 5; i++) {
+              stars.children[i].style.color = i < data.rating ? '#c0784a' : '#ddd';
+            }
+          }
+        }
+        if (data.note) {
+          var noteEl = document.getElementById('note-' + id);
+          if (noteEl) noteEl.value = data.note;
+        }
+        showCafeSaved(id, data);
+      }
+    } catch(e) {}
+  });
+})();
+</script>
+
+
+<!-- Fuglen 咖啡評測區塊 -->
+<div style="max-width:800px;margin:1.5rem auto 0;padding:0 1rem">
+  <div style="background:#fff;border:1px solid #e2ddd6;border-radius:12px;overflow:hidden">
+
+    <div style="background:#2c1a0e;padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer"
+      onclick="var b=document.getElementById('cfb');var c=document.getElementById('cfc');if(b.style.display==='none'){b.style.display='block';c.style.transform='rotate(90deg)'}else{b.style.display='none';c.style.transform=''}">
+      <span style="font-size:18px">☕</span>
+      <div style="flex:1">
+        <div style="color:white;font-size:14px;font-weight:500">Fuglen Oslo 咖啡評測</div>
+        <div style="color:rgba(255,255,255,0.65);font-size:11px">Day 7（7/25）奧斯陸本店 · 回來後填寫，看紐約時報說得準不準！</div>
+      </div>
+      <span id="cfc" style="color:rgba(255,255,255,0.7);font-size:12px;transition:transform 0.25s">▶</span>
+    </div>
+
+    <div id="cfb" style="display:none;padding:16px">
+
+      <!-- 說明 -->
+      <div style="background:#fdf6ee;border-left:3px solid #c0784a;border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#4a3728;line-height:1.7">
+        紐約時報說 Fuglen 是「世界最棒的咖啡、值得搭機前往」。Day 7 在奧斯陸，去本店喝完後記得回來填寫心得！
+      </div>
+
+      <!-- 評分區 -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:14px">
+
+        <div style="border:1px solid #e8e4de;border-radius:8px;padding:10px 12px">
+          <div style="font-size:11px;color:#6b6560;margin-bottom:6px">☕ 咖啡口味</div>
+          <div style="display:flex;gap:6px" id="stars-taste">
+            <span onclick="rate('taste',1)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+            <span onclick="rate('taste',2)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+            <span onclick="rate('taste',3)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+            <span onclick="rate('taste',4)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+            <span onclick="rate('taste',5)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+          </div>
+          <div id="label-taste" style="font-size:11px;color:#a09890;margin-top:4px">尚未評分</div>
+        </div>
+
+        <div style="border:1px solid #e8e4de;border-radius:8px;padding:10px 12px">
+          <div style="font-size:11px;color:#6b6560;margin-bottom:6px">🏠 環境氛圍</div>
+          <div style="display:flex;gap:6px" id="stars-vibe">
+            <span onclick="rate('vibe',1)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+            <span onclick="rate('vibe',2)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+            <span onclick="rate('vibe',3)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+            <span onclick="rate('vibe',4)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+            <span onclick="rate('vibe',5)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+          </div>
+          <div id="label-vibe" style="font-size:11px;color:#a09890;margin-top:4px">尚未評分</div>
+        </div>
+
+        <div style="border:1px solid #e8e4de;border-radius:8px;padding:10px 12px">
+          <div style="font-size:11px;color:#6b6560;margin-bottom:6px">💰 CP值</div>
+          <div style="display:flex;gap:6px" id="stars-value">
+            <span onclick="rate('value',1)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+            <span onclick="rate('value',2)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+            <span onclick="rate('value',3)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+            <span onclick="rate('value',4)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+            <span onclick="rate('value',5)" style="font-size:22px;cursor:pointer;opacity:0.3">★</span>
+          </div>
+          <div id="label-value" style="font-size:11px;color:#a09890;margin-top:4px">尚未評分</div>
+        </div>
+
+        <div style="border:1px solid #e8e4de;border-radius:8px;padding:10px 12px">
+          <div style="font-size:11px;color:#6b6560;margin-bottom:6px">📰 紐約時報說得準嗎？</div>
+          <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap">
+            <button onclick="setNYT('完全同意！值得搭機')" id="nyt-yes"
+              style="font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;color:#6b6560">
+              ✅ 完全同意！值得搭機
+            </button>
+            <button onclick="setNYT('有點過譽了')" id="nyt-mid"
+              style="font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;color:#6b6560">
+              🤔 有點過譽了
+            </button>
+            <button onclick="setNYT('普通，被騙了')" id="nyt-no"
+              style="font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;color:#6b6560">
+              😅 普通，被騙了
+            </button>
+          </div>
+          <div id="label-nyt" style="font-size:11px;color:#a09890;margin-top:6px">尚未選擇</div>
+        </div>
+
+      </div>
+
+      <!-- 點了什麼 -->
+      <div style="margin-bottom:12px">
+        <div style="font-size:11px;color:#6b6560;margin-bottom:6px">點了什麼？</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap" id="order-tags">
+          <button onclick="toggleOrder(this)" style="font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;color:#6b6560">手沖咖啡</button>
+          <button onclick="toggleOrder(this)" style="font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;color:#6b6560">義式濃縮</button>
+          <button onclick="toggleOrder(this)" style="font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;color:#6b6560">拿鐵</button>
+          <button onclick="toggleOrder(this)" style="font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;color:#6b6560">調酒</button>
+          <button onclick="toggleOrder(this)" style="font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;color:#6b6560">鬆餅</button>
+          <button onclick="toggleOrder(this)" style="font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;color:#6b6560">可頌</button>
+          <button onclick="toggleOrder(this)" style="font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #e8e4de;background:#fff;cursor:pointer;color:#6b6560">咖啡豆（帶回家）</button>
+        </div>
+      </div>
+
+      <!-- 心得文字 -->
+      <div style="margin-bottom:12px">
+        <div style="font-size:11px;color:#6b6560;margin-bottom:6px">📝 旅途心得</div>
+        <textarea id="cf-note" placeholder="喝完之後的感想寫在這裡..." rows="3"
+          style="width:100%;border:1px solid #e8e4de;border-radius:8px;padding:8px 10px;font-size:12px;color:#1a1814;resize:vertical;outline:none;font-family:inherit;line-height:1.6"></textarea>
+      </div>
+
+      <!-- 存檔按鈕 -->
+      <div style="display:flex;align-items:center;gap:10px">
+        <button onclick="saveReview()"
+          style="background:#2c1a0e;color:white;border:none;border-radius:20px;padding:8px 20px;font-size:12px;cursor:pointer;font-weight:500">
+          💾 儲存評測
+        </button>
+        <button onclick="clearReview()"
+          style="background:none;color:#a09890;border:1px solid #e8e4de;border-radius:20px;padding:8px 16px;font-size:12px;cursor:pointer">
+          清除
+        </button>
+        <span id="save-msg" style="font-size:11px;color:#0B6B4A;display:none">✅ 已儲存！</span>
+      </div>
+
+      <!-- 已儲存的評測 -->
+      <div id="saved-review" style="display:none;margin-top:14px;padding:12px;background:#fdf6ee;border-radius:8px;border:1px solid #e8ddd0">
+        <div style="font-size:11px;font-weight:500;color:#4a3728;margin-bottom:8px">📋 你的評測紀錄</div>
+        <div id="saved-content" style="font-size:12px;color:#4a3728;line-height:1.8"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+var cfRatings = { taste: 0, vibe: 0, value: 0 };
+var cfNYT = '';
+
+var rateLabels = {
+  taste: ['','難以入口','普通','還不錯','很好喝！','世界級！紐約時報說得對'],
+  vibe:  ['','環境普通','還可以','氛圍不錯','很有北歐感','彷彿置身奧斯陸！'],
+  value: ['','超貴不值','勉強接受','尚可','划算','物超所值！'],
+};
+
+function rate(cat, val) {
+  cfRatings[cat] = val;
+  var stars = document.getElementById('stars-' + cat).children;
+  for (var i = 0; i < 5; i++) {
+    stars[i].style.opacity = i < val ? '1' : '0.2';
+    stars[i].style.color = i < val ? '#c0784a' : '';
+  }
+  document.getElementById('label-' + cat).textContent = rateLabels[cat][val];
+  document.getElementById('label-' + cat).style.color = '#c0784a';
+}
+
+function setNYT(val) {
+  cfNYT = val;
+  ['nyt-yes','nyt-mid','nyt-no'].forEach(function(id) {
+    var btn = document.getElementById(id);
+    btn.style.background = '#fff';
+    btn.style.borderColor = '#e8e4de';
+    btn.style.color = '#6b6560';
+    btn.style.fontWeight = 'normal';
+  });
+  var map = {'完全同意！值得搭機':'nyt-yes','有點過譽了':'nyt-mid','普通，被騙了':'nyt-no'};
+  var btn = document.getElementById(map[val]);
+  btn.style.background = '#2c1a0e';
+  btn.style.borderColor = '#2c1a0e';
+  btn.style.color = 'white';
+  btn.style.fontWeight = '500';
+  document.getElementById('label-nyt').textContent = '已選：' + val;
+  document.getElementById('label-nyt').style.color = '#c0784a';
+}
+
+function toggleOrder(btn) {
+  var on = btn.style.background === 'rgb(44, 26, 14)';
+  btn.style.background = on ? '#fff' : '#2c1a0e';
+  btn.style.color = on ? '#6b6560' : 'white';
+  btn.style.borderColor = on ? '#e8e4de' : '#2c1a0e';
+}
+
+function saveReview() {
+  var orders = [];
+  var btns = document.getElementById('order-tags').children;
+  for (var i = 0; i < btns.length; i++) {
+    if (btns[i].style.background === 'rgb(44, 26, 14)') orders.push(btns[i].textContent);
+  }
+  var note = document.getElementById('cf-note').value;
+  var data = {
+    taste: cfRatings.taste, vibe: cfRatings.vibe, value: cfRatings.value,
+    nyt: cfNYT, orders: orders, note: note,
+    time: new Date().toLocaleString('zh-TW')
+  };
+  localStorage.setItem('fuglen-review', JSON.stringify(data));
+  document.getElementById('save-msg').style.display = 'inline';
+  setTimeout(function(){ document.getElementById('save-msg').style.display = 'none'; }, 2000);
+  showSaved(data);
+}
+
+function showSaved(data) {
+  if (!data) return;
+  var html = '';
+  if (data.taste) html += '<div>咖啡口味：' + '★'.repeat(data.taste) + '☆'.repeat(5-data.taste) + ' ' + rateLabels.taste[data.taste] + '</div>';
+  if (data.vibe)  html += '<div>環境氛圍：' + '★'.repeat(data.vibe)  + '☆'.repeat(5-data.vibe)  + ' ' + rateLabels.vibe[data.vibe]   + '</div>';
+  if (data.value) html += '<div>CP 值：'   + '★'.repeat(data.value) + '☆'.repeat(5-data.value) + ' ' + rateLabels.value[data.value]  + '</div>';
+  if (data.nyt)    html += '<div>紐約時報說得準嗎：' + data.nyt + '</div>';
+  if (data.orders && data.orders.length) html += '<div>點了：' + data.orders.join('、') + '</div>';
+  if (data.note)   html += '<div style="margin-top:6px;padding-top:6px;border-top:1px solid #e8ddd0">心得：' + data.note + '</div>';
+  if (data.time)   html += '<div style="margin-top:4px;font-size:10px;color:#a09890">儲存時間：' + data.time + '</div>';
+  document.getElementById('saved-content').innerHTML = html;
+  document.getElementById('saved-review').style.display = 'block';
+}
+
+function clearReview() {
+  localStorage.removeItem('fuglen-review');
+  cfRatings = { taste:0, vibe:0, value:0 };
+  cfNYT = '';
+  ['taste','vibe','value'].forEach(function(cat){
+    var stars = document.getElementById('stars-'+cat).children;
+    for(var i=0;i<5;i++){stars[i].style.opacity='0.3';stars[i].style.color='';}
+    document.getElementById('label-'+cat).textContent='尚未評分';
+    document.getElementById('label-'+cat).style.color='#a09890';
+  });
+  ['nyt-yes','nyt-mid','nyt-no'].forEach(function(id){
+    var b=document.getElementById(id);
+    b.style.background='#fff';b.style.borderColor='#e8e4de';b.style.color='#6b6560';b.style.fontWeight='normal';
+  });
+  document.getElementById('label-nyt').textContent='尚未選擇';
+  document.getElementById('cf-note').value='';
+  document.getElementById('saved-review').style.display='none';
+  var btns=document.getElementById('order-tags').children;
+  for(var i=0;i<btns.length;i++){btns[i].style.background='#fff';btns[i].style.color='#6b6560';btns[i].style.borderColor='#e8e4de';}
+}
+
+// 頁面載入時讀取已儲存的評測
+(function(){
+  try {
+    var saved = localStorage.getItem('fuglen-review');
+    if (saved) showSaved(JSON.parse(saved));
+  } catch(e) {}
+})();
+</script>
+
 <footer>行程資料來源：行健旅遊 UNO TOUR・景點連結為各官方或觀光局網站</footer>
 
 <script>
