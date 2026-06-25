@@ -1762,6 +1762,25 @@ const shopping = {
   ]
 };
 
+// 預測氣溫：依各城市 7月下旬～8月初歷史氣候平均高低溫（°C），僅供行前參考，非即時預報
+const dayTempMap = {
+  1:  [{ city: "台北",     high: 34, low: 27 }, { city: "杜拜（轉機）", high: 41, low: 31 }],
+  2:  [{ city: "斯德哥爾摩", high: 22, low: 14 }],
+  3:  [{ city: "斯德哥爾摩", high: 22, low: 14 }, { city: "赫爾辛基",   high: 21, low: 14 }],
+  4:  [{ city: "赫爾辛基",   high: 21, low: 14 }, { city: "羅凡聶米",   high: 19, low: 11 }],
+  5:  [{ city: "羅凡聶米",   high: 19, low: 11 }, { city: "伊瓦洛",     high: 18, low: 9 }],
+  6:  [{ city: "伊瓦洛",     high: 18, low: 9 },  { city: "北角",       high: 10, low: 6 }],
+  7:  [{ city: "北角",       high: 10, low: 6 },  { city: "阿爾塔",     high: 14, low: 8 },  { city: "奧斯陸", high: 22, low: 13 }],
+  8:  [{ city: "奧斯陸",     high: 22, low: 13 }, { city: "里耳哈默",   high: 20, low: 11 }, { city: "蓋朗格峽灣", high: 17, low: 10 }],
+  9:  [{ city: "蓋朗格峽灣", high: 17, low: 10 }, { city: "索娜峽灣",   high: 17, low: 10 }],
+  10: [{ city: "索娜峽灣",   high: 17, low: 10 }, { city: "卑爾根",     high: 17, low: 12 }],
+  11: [{ city: "卑爾根",     high: 17, low: 12 }, { city: "希茨海爾斯", high: 19, low: 13 }],
+  12: [{ city: "希茨海爾斯", high: 19, low: 13 }, { city: "歐登西",     high: 21, low: 13 }],
+  13: [{ city: "歐登西",     high: 21, low: 13 }, { city: "哥本哈根",   high: 21, low: 14 }],
+  14: [{ city: "哥本哈根",   high: 21, low: 14 }, { city: "杜拜（轉機）", high: 41, low: 31 }],
+  15: [{ city: "杜拜（轉機）", high: 41, low: 31 }, { city: "台北", high: 34, low: 27 }],
+};
+
 const dayShoppingMap = {
   2: shopping.sweden,
   3: shopping.sweden,
@@ -1868,6 +1887,16 @@ function render() {
     const noteHTML = d.note
       ? `<div class="note">${d.note}</div>`
       : '';
+
+    // 預測氣溫
+    const tempItems = dayTempMap[d.n];
+    let tempHTML = '';
+    if (tempItems && tempItems.length) {
+      const items = tempItems.map(t =>
+        `<div class="meal-item"><span class="meal-label">${t.city}</span>${t.high}°C / ${t.low}°C</div>`
+      ).join('');
+      tempHTML = `<div class="section"><div class="section-label">預測氣溫（歷史平均高溫／低溫，僅供參考）</div><div class="meal-row">${items}</div></div>`;
+    }
 
     // 特產區塊
     const shopItems = dayShoppingMap[d.n];
@@ -2053,6 +2082,7 @@ function render() {
       </div>
       <div class="day-body" id="bd${i}">
         ${spotHTML}
+        ${tempHTML}
         ${flightHTML}
         <div class="section">
           <div class="section-label">餐食</div>
