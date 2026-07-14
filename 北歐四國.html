@@ -1763,21 +1763,21 @@ const shopping = {
 
 // 預測氣溫：依各城市 7月下旬～8月初歷史氣候平均高低溫（°C），僅供行前參考，非即時預報
 const dayTempMap = {
-  1:  [{ city: "台北",     high: 34, low: 27 }, { city: "杜拜（轉機）", high: 41, low: 31 }],
-  2:  [{ city: "斯德哥爾摩", high: 22, low: 14 }],
-  3:  [{ city: "斯德哥爾摩", high: 22, low: 14 }, { city: "赫爾辛基",   high: 21, low: 14 }],
-  4:  [{ city: "赫爾辛基",   high: 21, low: 14 }, { city: "羅凡聶米",   high: 19, low: 11 }],
-  5:  [{ city: "羅凡聶米",   high: 19, low: 11 }, { city: "伊瓦洛",     high: 18, low: 9 }],
-  6:  [{ city: "伊瓦洛",     high: 18, low: 9 },  { city: "北角",       high: 10, low: 6 }],
-  7:  [{ city: "北角",       high: 10, low: 6 },  { city: "阿爾塔",     high: 14, low: 8 },  { city: "奧斯陸", high: 22, low: 13 }],
-  8:  [{ city: "奧斯陸",     high: 22, low: 13 }, { city: "里耳哈默",   high: 20, low: 11 }, { city: "蓋朗格峽灣", high: 17, low: 10 }],
-  9:  [{ city: "蓋朗格峽灣", high: 17, low: 10 }, { city: "索娜峽灣",   high: 17, low: 10 }],
-  10: [{ city: "索娜峽灣",   high: 17, low: 10 }, { city: "卑爾根",     high: 17, low: 12 }],
-  11: [{ city: "卑爾根",     high: 17, low: 12 }, { city: "希茨海爾斯", high: 19, low: 13 }],
-  12: [{ city: "希茨海爾斯", high: 19, low: 13 }, { city: "歐登西",     high: 21, low: 13 }],
-  13: [{ city: "歐登西",     high: 21, low: 13 }, { city: "哥本哈根",   high: 21, low: 14 }],
-  14: [{ city: "哥本哈根",   high: 21, low: 14 }, { city: "杜拜（轉機）", high: 41, low: 31 }],
-  15: [{ city: "杜拜（轉機）", high: 41, low: 31 }, { city: "台北", high: 34, low: 27 }],
+  1:  [{ city: "台北",       high: 34, low: 27, lat: 25.05,  lon: 121.53 }, { city: "杜拜（轉機）", high: 41, low: 31, lat: 25.20, lon: 55.27 }],
+  2:  [{ city: "斯德哥爾摩", high: 22, low: 14, lat: 59.33,  lon: 18.07 }],
+  3:  [{ city: "斯德哥爾摩", high: 22, low: 14, lat: 59.33,  lon: 18.07 }, { city: "赫爾辛基",   high: 21, low: 14, lat: 60.17, lon: 24.93 }],
+  4:  [{ city: "赫爾辛基",   high: 21, low: 14, lat: 60.17,  lon: 24.93 }, { city: "羅凡聶米",   high: 19, low: 11, lat: 66.50, lon: 25.73 }],
+  5:  [{ city: "羅凡聶米",   high: 19, low: 11, lat: 66.50,  lon: 25.73 }, { city: "伊瓦洛",     high: 18, low: 9,  lat: 68.66, lon: 27.54 }],
+  6:  [{ city: "伊瓦洛",     high: 18, low: 9,  lat: 68.66,  lon: 27.54 }, { city: "北角",       high: 10, low: 6,  lat: 71.17, lon: 25.78 }],
+  7:  [{ city: "北角",       high: 10, low: 6,  lat: 71.17,  lon: 25.78 }, { city: "阿爾塔",     high: 14, low: 8,  lat: 69.97, lon: 23.27 }, { city: "奧斯陸", high: 22, low: 13, lat: 59.91, lon: 10.75 }],
+  8:  [{ city: "奧斯陸",     high: 22, low: 13, lat: 59.91,  lon: 10.75 }, { city: "里耳哈默",   high: 20, low: 11, lat: 61.12, lon: 10.47 }, { city: "蓋朗格峽灣", high: 17, low: 10, lat: 62.10, lon: 7.21 }],
+  9:  [{ city: "蓋朗格峽灣", high: 17, low: 10, lat: 62.10,  lon: 7.21  }, { city: "索娜峽灣",   high: 17, low: 10, lat: 61.10, lon: 7.47 }],
+  10: [{ city: "索娜峽灣",   high: 17, low: 10, lat: 61.10,  lon: 7.47  }, { city: "卑爾根",     high: 17, low: 12, lat: 60.39, lon: 5.32 }],
+  11: [{ city: "卑爾根",     high: 17, low: 12, lat: 60.39,  lon: 5.32  }, { city: "希茨海爾斯", high: 19, low: 13, lat: 57.59, lon: 9.96 }],
+  12: [{ city: "希茨海爾斯", high: 19, low: 13, lat: 57.59,  lon: 9.96  }, { city: "歐登西",     high: 21, low: 13, lat: 55.40, lon: 10.38 }],
+  13: [{ city: "歐登西",     high: 21, low: 13, lat: 55.40,  lon: 10.38 }, { city: "哥本哈根",   high: 21, low: 14, lat: 55.68, lon: 12.57 }],
+  14: [{ city: "哥本哈根",   high: 21, low: 14, lat: 55.68,  lon: 12.57 }, { city: "杜拜（轉機）", high: 41, low: 31, lat: 25.20, lon: 55.27 }],
+  15: [{ city: "杜拜（轉機）", high: 41, low: 31, lat: 25.20, lon: 55.27 }, { city: "台北", high: 34, low: 27, lat: 25.05, lon: 121.53 }],
 };
 
 const dayShoppingMap = {
@@ -1891,10 +1891,11 @@ function render() {
     const tempItems = dayTempMap[d.n];
     let tempHTML = '';
     if (tempItems && tempItems.length) {
-      const items = tempItems.map(t =>
-        `<div class="meal-item"><span class="meal-label">${t.city}</span>${t.high}°C / ${t.low}°C</div>`
-      ).join('');
-      tempHTML = `<div class="section"><div class="section-label">預測氣溫（歷史平均高溫／低溫，僅供參考）</div><div class="meal-row">${items}</div></div>`;
+      const items = tempItems.map(t => {
+        const windyUrl = `https://www.windy.com/zh-TW/?temp,${t.lat},${t.lon},9`;
+        return `<div class="meal-item"><span class="meal-label">${t.city}</span>${t.high}°C / ${t.low}°C <a href="${windyUrl}" target="_blank" style="margin-left:4px;font-size:11px;color:var(--blue);text-decoration:none;opacity:0.85">🌤 Windy ↗</a></div>`;
+      }).join('');
+      tempHTML = `<div class="section"><div class="section-label">預測氣溫（歷史平均高溫／低溫）・點 Windy 看即時預報</div><div class="meal-row">${items}</div></div>`;
     }
 
     // 特產區塊
