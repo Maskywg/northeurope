@@ -1718,7 +1718,7 @@ const shopping = {
     { tag: "food", name: "起司抹醬 Kavli", desc: "龍蝦、培根、海鮮等多種口味，抹麵包絕配，超市最便宜" },
     { tag: "food", name: "黑麥脆餅 Knäckebröd", desc: "瑞典日常主食，搭果醬或奶油，各大超市都有" },
     { tag: "food", name: "瑞典肉丸 Köttbullar", desc: "當地餐廳顆粒比 IKEA 大很多，建議當地吃一頓" },
-    { tag: "souvenir", name: "達拉木馬 Dalahäst", desc: "最經典瑞典傳統工藝品，紅色象徵幸運，老城區 Gamla Stan 可買" },
+    { tag: "souvenir", name: "達拉木馬 Dalahäst", desc: "最經典瑞典傳統工藝品，紅色象徵幸運，老城區 Gamla Stan 可買", links: [{ t: "品牌官網 Grannas", u: "https://www.grannas.com/en/", o: true }, { t: "維基百科介紹", u: "https://en.wikipedia.org/wiki/Dala_horse", o: false }, { t: "📍 Gamla Stan 購買地點", u: "https://maps.google.com/?q=Gamla+Stan,Stockholm+souvenir", o: false }] },
     { tag: "brand", name: "Fjällräven Kånken 背包", desc: "北歐國民書包，注意瑞典買不一定最便宜，可比價" },
     { tag: "brand", name: "Acne Studios 服飾", desc: "瑞典代表性時尚品牌，極簡設計，發源地款式最齊全" },
     { tag: "brand", name: "IKEA 限定款", desc: "瑞典本地 IKEA 有許多台灣買不到的限定商品" },
@@ -1908,6 +1908,7 @@ function render() {
             <span class="shopping-tag tag-${s.tag}">${tagLabels[s.tag]}</span>${s.name}
           </div>
           <div class="shopping-desc">${s.desc}</div>
+          ${s.links && s.links.length ? `<div class="link-row">${s.links.map(l => `<a class="link-btn${l.o ? ' official' : ''}" href="${l.u}" target="_blank">${l.t} ↗</a>`).join('')}</div>` : ''}
         </div>`).join('');
       shopHTML = `<div class="shopping-section">
         <div class="shopping-title">🛒 當地特產 &amp; 購物推薦</div>
