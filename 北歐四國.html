@@ -1582,6 +1582,7 @@ const days = [
     ],
     meals: { 早: "北歐自助式", 午: "異國風味自助餐", 晚: "自理" },
     hotel: "VR 夜臥北極特快車（雙人上層衛浴房）",
+    mapUrl: "https://www.google.com/maps/dir/Senate+Square,+Helsinki/Helsinki+Cathedral,+Helsinki/Uspenski+Cathedral,+Helsinki/Oodi+Library,+Helsinki/Sibelius+Monument,+Helsinki/Temppeliaukio+Church,+Helsinki/",
     note: "上午遊覽赫爾辛基市區，傍晚搭乘雙層夜臥火車北上羅凡聶米（車程約 11 小時 51 分）"
   },
   {
@@ -1881,7 +1882,10 @@ function render() {
           : '';
         return `<div class="spot-item"><span class="${cls}">${s.n}</span>${linksHTML}</div>`;
       }).join('');
-      spotHTML = `<div class="section"><div class="section-label">景點 &amp; 連結</div><div class="spots">${items}</div></div>`;
+      const mapBtn = d.mapUrl
+        ? `<a href="${d.mapUrl}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;margin-top:10px;padding:6px 12px;background:#1a73e8;color:#fff;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;letter-spacing:0.3px">🗺 Google Maps 景點路線總覽 ↗</a>`
+        : '';
+      spotHTML = `<div class="section"><div class="section-label">景點 &amp; 連結</div><div class="spots">${items}</div>${mapBtn}</div>`;
     }
 
     const noteHTML = d.note
