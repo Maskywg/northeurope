@@ -1822,9 +1822,15 @@ const shopping = {
     { tag: "food", name: "藍莓／野莓果醬 Bær Saft", desc: "挪威山林野果製成，各種漿果果醬或濃縮果汁，小農手工款最特別" },
     { tag: "brand", name: "Helly Hansen（HH）防水外套", desc: "挪威百年戶外品牌，防風防水，當地人人穿，滑雪、登山必備" },
     { tag: "brand", name: "Dale of Norway 羊毛外套", desc: "百年歷史，傳統北歐圖案，保暖時尚，台灣少見" },
+  ],
+  oslo: [
     { tag: "souvenir", name: "憤怒的小孩紀念品", desc: "維吉蘭公園最著名雕塑，奧斯陸紀念品店到處都有，表情超生動", links: [{ t: "雕塑介紹 Vigeland Museum", u: "https://vigeland.museum.no/en/vigelandpark/sinnataggen", o: true }, { t: "Wikipedia 介紹", u: "https://en.wikipedia.org/wiki/Sinnataggen", o: false }, { t: "📍 維吉蘭公園位置", u: "https://maps.google.com/?q=Vigeland+Sculpture+Park,+Oslo", o: false }] },
     { tag: "souvenir", name: "維京船模型", desc: "挪威歷史象徵，手工精美，各紀念品店都有", links: [{ t: "維京船博物館 官網", u: "https://www.khm.uio.no/english/visit-us/viking-ship-museum/", o: true }, { t: "Wikipedia 維京船", u: "https://en.wikipedia.org/wiki/Viking_ships", o: false }] },
+  ],
+  bergen: [
     { tag: "food", name: "卑爾根鱈魚子醬（Bergen 限定）", desc: "新鮮油煎鱈魚卵（Stekt Rogn）外酥內綿密、帶海味鮮甜，是卑爾根當地傳統早餐/家常菜，與超市軟管裝 Kaviar 不同吃法。魚市場（Fisketorget）旁超市熟食區找現做版本，比觀光區餐廳便宜很多", links: [{ t: "卑爾根鱈魚子醬完整介紹", u: "https://maskywg.github.io/bergen-kaviar/", o: true }] },
+    { tag: "brand", name: "Oleana 手工針織服飾", desc: "卑爾根近郊工廠生產，色彩鮮豔手工針織羊毛衫，挪威代表性精品品牌，布里根區有專賣店", links: [{ t: "品牌官網", u: "https://oleana.no/en/", o: true }] },
+    { tag: "souvenir", name: "Julehuset 布里根聖誕小屋", desc: "布里根區內全年無休的聖誕商店，挪威唯一，三層樓聖誕吊飾、精靈擺飾、耶誕燈飾等應有盡有", links: [{ t: "Visit Bergen 介紹", u: "https://en.visitbergen.com/things-to-do/shopping/all-year-christmas-shop-p824063", o: false }] },
   ],
   denmark: [
     { tag: "food", name: "丹麥奶油餅乾 🍪（鐵盒裝）", desc: "真正的發源地！超市、機場免稅店都有，比台灣便宜，鐵盒印有丹麥風景" },
@@ -1863,11 +1869,11 @@ const dayShoppingMap = {
   4: shopping.finland,
   5: shopping.lapland,
   6: shopping.lapland,
-  7: shopping.norway,
-  8: shopping.norway,
+  7: [...shopping.norway, ...shopping.oslo],
+  8: [...shopping.norway, ...shopping.oslo],
   9: shopping.norway,
-  10: shopping.norway,
-  11: shopping.norway.map(item => item.name.includes("卑爾根鱈魚子醬")
+  10: [...shopping.norway, ...shopping.bergen],
+  11: [...shopping.norway, ...shopping.bergen].map(item => item.name.includes("卑爾根鱈魚子醬")
     ? { ...item, links: [{ t: "Fisketorget 魚市場介紹", u: "https://en.visitbergen.com/things-to-do/fish-market-in-bergen-p822253", o: true }, ...item.links] }
     : item),
   12: shopping.denmark,
