@@ -1626,6 +1626,7 @@ const days = [
       { n: "★午夜日不落 Midnight Sun（5/14–7/31）", type: "star", links: [{ t: "Nord Norge", u: "https://nordnorge.com/en/destinasjon/nordkapp/", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/North_Cape_(Norway)", o: false }] },
     ],
     mapSpots: [
+      { name: "★馴鹿農場 Sápmi Park",          lat: 69.5058, lon: 25.4687 },
       { name: "★北角大廳 North Cape Hall",    lat: 71.1694, lon: 25.7843 },
       { name: "◎鏤空地球儀 Globe Monument",   lat: 71.1694, lon: 25.7843 },
       { name: "★午夜日不落觀景台",             lat: 71.1700, lon: 25.7850 },
@@ -2178,22 +2179,23 @@ function initDayMap(dayN) {
   if (!d || !d.mapSpots || _leafletMaps[dayN]) return;
   const el = document.getElementById('map-day' + dayN);
   if (!el) return;
-  const lats = d.mapSpots.map(s => s.lat);
-  const lons = d.mapSpots.map(s => s.lon);
-  const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2;
-  const centerLon = (Math.min(...lons) + Math.max(...lons)) / 2;
-  const map = L.map(el, { scrollWheelZoom: false }).setView([centerLat, centerLon], 13);
+  const map = L.map(el, { scrollWheelZoom: false });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map);
-  d.mapSpots.forEach((s, idx) => {
+  const markers = d.mapSpots.map((s, idx) => {
     const icon = L.divIcon({
       className: '',
       html: `<div style="background:#1a73e8;color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)">${idx + 1}</div>`,
       iconSize: [26, 26], iconAnchor: [13, 13]
     });
-    L.marker([s.lat, s.lon], { icon }).addTo(map).bindPopup(`<b>${s.name}</b>`);
+    return L.marker([s.lat, s.lon], { icon }).addTo(map).bindPopup(`<b>${s.name}</b>`);
   });
+  if (markers.length === 1) {
+    map.setView([d.mapSpots[0].lat, d.mapSpots[0].lon], 13);
+  } else {
+    map.fitBounds(L.featureGroup(markers).getBounds(), { padding: [24, 24] });
+  }
   _leafletMaps[dayN] = map;
 }
 
