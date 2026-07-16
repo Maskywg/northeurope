@@ -1613,6 +1613,10 @@ const days = [
       { n: "◎北極圈線 Arctic Circle 66°32'35\"", type: "dot", links: [{ t: "Visit Finland", u: "https://www.visitfinland.com/en/places-to-go/lapland/rovaniemi/", o: false }] },
       { n: "★跨越北極圈證書", type: "star", links: [] },
     ],
+    mapSpots: [
+      { name: "◎聖誕老人村 Santa Claus Village", lat: 66.5433, lon: 25.8474 },
+      { name: "◎北極圈線 Arctic Circle",         lat: 66.5433, lon: 25.8474 },
+    ],
     meals: { 早: "北歐自助式", 午: "中式七菜一湯", 晚: "旅館北歐自助式" },
     hotel: "HOTEL IVALO（已確定）",
     note: "驅車 287 公里前往伊瓦洛 Ivalo"
@@ -1639,6 +1643,9 @@ const days = [
     n: 7, zh: "北角 → 阿爾塔 → 奧斯陸", en: "Nordkapp → Alta → Oslo, Norway", country: "挪威", flag: "🇳🇴",
     spots: [
       { n: "★阿爾塔史前遺跡博物館 Alta Museum（7000–2000 年前岩石壁畫）🏛 UNESCO", type: "star", links: [{ t: "官網", u: "https://altamuseum.no/en/", o: true }, { t: "UNESCO", u: "https://whc.unesco.org/en/list/352/", o: false }] },
+    ],
+    mapSpots: [
+      { name: "★阿爾塔史前遺跡博物館 Alta Museum", lat: 69.9689, lon: 23.2716 },
     ],
     meals: { 早: "北歐自助式", 午: "北歐式風味餐", 晚: "發餐費 15 歐元" },
     hotel: "CLARION HOTEL & CONGRESS OSLO AIRPORT（已確定）",
@@ -1707,6 +1714,7 @@ const days = [
     mapSpots: [
       { name: "◎布里根區 Bryggen 🏛 UNESCO", lat: 60.3975, lon: 5.3241 },
       { name: "◎露天漁貨市場 Fish Market",   lat: 60.3945, lon: 5.3267 },
+      { name: "★峽灣號遊輪 Fjordline",       lat: 60.4001, lon: 5.3161 },
     ],
     meals: { 早: "北歐自助式", 午: "自理", 晚: "遊輪維京自助式" },
     hotel: "FJORDLINE 峽灣號遊輪（雙人面海客艙）",
@@ -1738,6 +1746,7 @@ const days = [
       { n: "◎小美人魚雕像 The Little Mermaid", type: "dot", links: [{ t: "Visit Copenhagen", u: "https://www.visitcopenhagen.com/copenhagen/the-little-mermaid-gdk410157", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/The_Little_Mermaid_(statue)", o: false }] },
     ],
     mapSpots: [
+      { name: "★大貝爾特跨海大橋 Great Belt Bridge", lat: 55.3395, lon: 11.0348 },
       { name: "★森林螺旋觀景塔 Camp Adventure", lat: 55.4989, lon: 11.7889 },
       { name: "◎克麗斯汀堡 Christiansborg",     lat: 55.6758, lon: 12.5804 },
       { name: "◎安瑪麗堡 Amalienborg",           lat: 55.6843, lon: 12.5939 },
@@ -1929,6 +1938,26 @@ function renderHotel(hotelStr) {
   }).join('<span style="color:var(--hint);margin:0 4px">／</span>');
 }
 
+function spotKeys(name) {
+  const engMatch = name.match(/[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*/);
+  const eng = engMatch ? engMatch[0].toLowerCase().replace(/\s+/g, '') : null;
+  const cn = name.replace(/^[★◎]/, '').split(/[（\s]/)[0].toLowerCase();
+  return { eng, cn };
+}
+function spotKeysMatch(a, b) {
+  if (a.eng && b.eng && (a.eng.includes(b.eng) || b.eng.includes(a.eng))) return true;
+  if (a.cn && b.cn && (a.cn.startsWith(b.cn) || b.cn.startsWith(a.cn))) return true;
+  return false;
+}
+function findSpotCoord(mapSpots, spotName) {
+  if (!mapSpots) return null;
+  const key = spotKeys(spotName);
+  for (const m of mapSpots) {
+    if (spotKeysMatch(key, spotKeys(m.name))) return m;
+  }
+  return null;
+}
+
 function render() {
   const app = document.getElementById('app');
   app.innerHTML = days.map((d, i) => {
@@ -1939,10 +1968,14 @@ function render() {
     if (d.spots && d.spots.length) {
       const items = d.spots.map(s => {
         const cls = `spot-tag ${s.type}`;
-        const linksHTML = s.links && s.links.length
-          ? `<div class="link-row">${s.links.map(l =>
+        const coord = findSpotCoord(d.mapSpots, s.n);
+        const windyHTML = coord
+          ? `<a href="https://www.windy.com/zh-TW/?temp,${coord.lat},${coord.lon},9" target="_blank" style="margin-left:4px;font-size:11px;color:var(--blue);text-decoration:none;opacity:0.85">🌤 Windy ↗</a>`
+          : '';
+        const linksHTML = (s.links && s.links.length) || windyHTML
+          ? `<div class="link-row">${(s.links || []).map(l =>
               `<a class="link-btn${l.o ? ' official' : ''}" href="${l.u}" target="_blank">${l.t} ↗</a>`
-            ).join('')}</div>`
+            ).join('')}${windyHTML}</div>`
           : '';
         return `<div class="spot-item"><span class="${cls}">${s.n}</span>${linksHTML}</div>`;
       }).join('');
