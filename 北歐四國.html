@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>全覽北歐四國・北角日不落 15 日</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="北歐四國">
+<meta name="theme-color" content="#1a1814">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
@@ -1562,7 +1568,6 @@ const days = [
       { name: "皇宮 Royal Palace",   lat: 59.3268, lon: 18.0713 },
       { name: "大教堂 Storkyrkan",   lat: 59.3255, lon: 18.0714 },
       { name: "老城區 Gamla Stan",   lat: 59.3229, lon: 18.0705 },
-      { name: "🏨 COMFORT HOTEL SOLNA", lat: 59.3600, lon: 18.0025 },
     ],
     meals: { 早: "機上", 午: "機上", 晚: "中式七菜一湯" },
     hotel: "COMFORT HOTEL SOLNA（已確定）",
@@ -1591,7 +1596,7 @@ const days = [
       { n: "◎赫爾辛基大教堂 Helsinki Cathedral", type: "dot", links: [{ t: "官網", u: "https://helsingintuomiokirkko.fi/en/", o: true }, { t: "Visit Helsinki", u: "https://www.myhelsinki.fi/en/see-and-do/sights/helsinki-cathedral", o: false }] },
       { n: "◎議會廣場 Senate Square", type: "dot", links: [{ t: "Visit Helsinki", u: "https://www.myhelsinki.fi/en/see-and-do/sights/senate-square", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Senate_Square,_Helsinki", o: false }, { t: "📍 Google Maps", u: "https://maps.google.com/?q=Senate+Square,+Helsinki", o: false }] },
       { n: "◎烏斯別斯基東正教大教堂 Uspenski Cathedral", type: "dot", links: [{ t: "Visit Helsinki", u: "https://www.myhelsinki.fi/en/see-and-do/sights/uspenski-cathedral", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Uspenski_Cathedral", o: false }] },
-      { n: "◎西貝流士紀念公園 Sibelius Monument", type: "dot", links: [{ t: "Visit Helsinki", u: "https://www.myhelsinki.fi/en/see-and-do/sights/sibelius-monument", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Sibelius_Monument", o: false }, { t: "▶ 西貝流士《芬蘭頌》", u: "https://youtu.be/F5zg_af9b8c", o: false }, { t: "▶ 西貝流士小提琴協奏曲", u: "https://youtu.be/3u-unvYedx8", o: false }] },
+      { n: "◎西貝流士紀念公園 Sibelius Monument", type: "dot", links: [{ t: "Visit Helsinki", u: "https://www.myhelsinki.fi/en/see-and-do/sights/sibelius-monument", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Sibelius_Monument", o: false }] },
       { n: "◎頌歌中央圖書館 Oodi Library", type: "dot", links: [{ t: "官網", u: "https://oodihelsinki.fi/en/", o: true }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Oodi_(library)", o: false }] },
       { n: "★磐石教堂 Temppeliaukio Church", type: "star", links: [{ t: "官網", u: "https://www.temppeliaukionkirkko.fi/en/", o: true }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Temppeliaukio_Church", o: false }] },
     ],
@@ -1614,10 +1619,6 @@ const days = [
       { n: "◎北極圈線 Arctic Circle 66°32'35\"", type: "dot", links: [{ t: "Visit Finland", u: "https://www.visitfinland.com/en/places-to-go/lapland/rovaniemi/", o: false }] },
       { n: "★跨越北極圈證書", type: "star", links: [] },
     ],
-    mapSpots: [
-      { name: "◎聖誕老人村 Santa Claus Village", lat: 66.5433, lon: 25.8474 },
-      { name: "◎北極圈線 Arctic Circle",         lat: 66.5433, lon: 25.8474 },
-    ],
     meals: { 早: "北歐自助式", 午: "中式七菜一湯", 晚: "旅館北歐自助式" },
     hotel: "HOTEL IVALO（已確定）",
     note: "驅車 287 公里前往伊瓦洛 Ivalo"
@@ -1625,13 +1626,12 @@ const days = [
   {
     n: 6, zh: "伊瓦洛 → 北角", en: "Ivalo → Nordkapp, Norway", country: "挪威", flag: "🇳🇴",
     spots: [
-      { n: "★馴鹿農場 Reindeer Farm（薩米族 Sami）", type: "star", links: [{ t: "Sápmi Park 馴鹿農場", u: "https://www.scandichotels.com/sv/reseguider/sapmi-park", o: true }, { t: "拉普蘭介紹", u: "https://www.visitfinland.com/en/places-to-go/lapland/", o: false }] },
+      { n: "★馴鹿農場 Reindeer Farm（薩米族 Sami）", type: "star", links: [{ t: "Visit Nordkapp", u: "https://www.nordkapp.no/", o: false }, { t: "拉普蘭介紹", u: "https://www.visitfinland.com/en/places-to-go/lapland/", o: false }] },
       { n: "◎鏤空地球儀 Globe Monument（北緯 71°10'21\"）", type: "dot", links: [{ t: "Visit Nordkapp", u: "https://www.nordkapp.no/", o: false }] },
       { n: "★北角大廳 North Cape Hall（125 度寬螢幕）", type: "star", links: [{ t: "官網", u: "https://www.visitnordkapp.net/en", o: true }, { t: "Visit Norway", u: "https://www.visitnorway.com/places-to-go/northern-norway/the-north-cape/", o: false }] },
       { n: "★午夜日不落 Midnight Sun（5/14–7/31）", type: "star", links: [{ t: "Nord Norge", u: "https://nordnorge.com/en/destinasjon/nordkapp/", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/North_Cape_(Norway)", o: false }] },
     ],
     mapSpots: [
-      { name: "★馴鹿農場 Sápmi Park",          lat: 69.5058, lon: 25.4687 },
       { name: "★北角大廳 North Cape Hall",    lat: 71.1694, lon: 25.7843 },
       { name: "◎鏤空地球儀 Globe Monument",   lat: 71.1694, lon: 25.7843 },
       { name: "★午夜日不落觀景台",             lat: 71.1700, lon: 25.7850 },
@@ -1645,30 +1645,26 @@ const days = [
     spots: [
       { n: "★阿爾塔史前遺跡博物館 Alta Museum（7000–2000 年前岩石壁畫）🏛 UNESCO", type: "star", links: [{ t: "官網", u: "https://altamuseum.no/en/", o: true }, { t: "UNESCO", u: "https://whc.unesco.org/en/list/352/", o: false }] },
     ],
-    mapSpots: [
-      { name: "★阿爾塔史前遺跡博物館 Alta Museum", lat: 69.9689, lon: 23.2716 },
-    ],
     meals: { 早: "北歐自助式", 午: "北歐式風味餐", 晚: "發餐費 15 歐元" },
     hotel: "CLARION HOTEL & CONGRESS OSLO AIRPORT（已確定）",
-    note: "北角→阿爾塔 Alta（約 236 公里），搭機飛奧斯陸 Oslo（約 2 小時）",
+    note: "北角→阿爾塔 Alta（321 公里），搭機飛奧斯陸 Oslo（約 2 小時）",
     flights: [
-      { label: '國內線', airline: 'SAS 北歐航空', no: 'SK4545', from: '阿爾塔 ALF', to: '奧斯陸 OSL', dep: '20:05', arr: '22:10', duration: '2h 05m' },
+      { label: '國內線', airline: '挪威國內航班', no: '—', from: '阿爾塔 ALF', to: '奧斯陸 OSL', dep: '—', arr: '—', duration: '約 2h 00m' },
     ]
   },
   {
     n: 8, zh: "奧斯陸 → 里耳哈默 → 蓋朗格峽灣", en: "Oslo → Lillehammer → Geirangerfjord", country: "挪威", flag: "🇳🇴",
     spots: [
       { n: "◎維吉蘭人生雕刻公園 Vigeland Sculpture Park", type: "dot", links: [{ t: "官方博物館", u: "https://vigeland.museum.no/en/vigelandpark", o: true }, { t: "Visit Oslo", u: "https://www.visitoslo.com/en/articles/vigeland-in-oslo/", o: false }] },
-      { n: "◎里耳哈默冬運滑雪台 Lysgårdsbakkene Ski Jump", type: "dot", links: [{ t: "Visit Lillehammer", u: "https://en.lillehammer.com/things-to-do/lysgardsbakkene-ski-jumping-arena-p631373", o: false }] },
-      { n: "★精靈之路 Trollstigen（11 個髮夾彎）", type: "star", links: [{ t: "Fjord Norway", u: "https://www.fjordnorway.com/en/attractions/trollstigen", o: false }, { t: "國家觀光路線", u: "https://www.nasjonaleturistveger.no/en/routes/geiranger--trollstigen/", o: true }] },
-      { n: "◎老鷹之路 Ørnevegen / Eagle Road", type: "dot", links: [{ t: "Visit Norway", u: "https://www.visitnorway.com/listings/ornevegen-the-eagle-road/239289/", o: true }, { t: "Fjords.com", u: "https://www.fjords.com/en/western-norwegian-fjords/fjord-guide/geirangerfjord/", o: false }] },
+      { n: "◎里耳哈默冬運滑雪台 Lysgårdsbakkene Ski Jump", type: "dot", links: [{ t: "Visit Norway", u: "https://www.visitnorway.com/places-to-go/eastern-norway/lillehammer/", o: false }, { t: "Visit Lillehammer", u: "https://en.visitlillehammer.com/", o: false }] },
+      { n: "★精靈之路 Trollstigen（11 個髮夾彎）", type: "star", links: [{ t: "Fjord Norway", u: "https://www.fjordnorway.com/en/attractions/trollstigen", o: false }, { t: "國家觀光路線", u: "https://www.nasjonaleturistveger.no/en/routes/geiranger-trollstigen/", o: true }] },
+      { n: "◎老鷹之路 Ørnevegen / Eagle Road", type: "dot", links: [{ t: "官方路線", u: "https://www.nasjonaleturistveger.no/en/routes/geiranger-trollstigen/ornevegen/", o: true }, { t: "Fjords.com", u: "https://www.fjords.com/en/western-norwegian-fjords/fjord-guide/geirangerfjord/", o: false }] },
     ],
     mapSpots: [
       { name: "◎維吉蘭人生雕刻公園 Vigeland Park", lat: 59.9264, lon: 10.6981 },
       { name: "◎里耳哈默冬運滑雪台 Ski Jump",      lat: 61.1186, lon: 10.4713 },
       { name: "★精靈之路 Trollstigen",              lat: 62.4561, lon:  7.6685 },
       { name: "◎老鷹之路 Ørnevegen",                lat: 62.1272, lon:  7.0860 },
-      { name: "🏨 HAVILA HOTEL GEIRANGER",          lat: 62.1006, lon:  7.2062 },
     ],
     meals: { 早: "北歐自助式", 午: "中式七菜一湯", 晚: "旅館主廚推薦料理" },
     hotel: "HAVILA HOTEL GEIRANGER（已確定）",
@@ -1677,15 +1673,14 @@ const days = [
   {
     n: 9, zh: "蓋朗格峽灣 → 布里斯達冰河 → 索娜峽灣", en: "Geirangerfjord → Briksdalsbreen → Sognefjord", country: "挪威", flag: "🇳🇴",
     spots: [
-      { n: "★蓋朗格峽灣觀光遊船 Geiranger Fjord Cruise（約 1 小時）🏛 UNESCO", type: "star", links: [{ t: "Visit Norway", u: "https://www.visitnorway.com/places-to-go/fjord-norway/the-geirangerfjord/", o: false }, { t: "Visit Geiranger", u: "https://www.geirangerfjord.no/english", o: true }, { t: "UNESCO", u: "https://whc.unesco.org/en/list/1195/", o: false }, { t: "Norway Fjord Tours 訂票", u: "https://geiranger.norway-fjord-tours.com/", o: false }] },
+      { n: "★蓋朗格峽灣觀光遊船 Geiranger Fjord Cruise（約 1 小時）🏛 UNESCO", type: "star", links: [{ t: "Visit Norway", u: "https://www.visitnorway.com/places-to-go/fjord-norway/the-geirangerfjord/", o: false }, { t: "Visit Geiranger", u: "https://www.geirangerfjord.no/english", o: true }, { t: "UNESCO", u: "https://whc.unesco.org/en/list/1195/", o: false }] },
       { n: "◎約斯達冰河國家公園 Jostedalsbreen N.P.", type: "dot", links: [{ t: "國家公園官網", u: "https://jostedalsbreen.no/en/", o: true }, { t: "遊客中心", u: "https://visitjostedalsbreen.no/en/", o: false }] },
-      { n: "◎布里斯達冰河 Briksdalsbreen + 精靈登山車", type: "dot", links: [{ t: "布里斯達官網", u: "https://www.briksdal.com/", o: true }, { t: "Fjord Norway", u: "https://www.fjordnorway.com/en/inspiration/jostedalsbreen-glacier-the-largest-glacier-in-mainland-europe", o: false }, { t: "Visit Norway 精靈登山車", u: "https://www.visitnorway.com/listings/troll-cars-to-briksdalsbre-glacier-oldedalen-skyss/229006/", o: false }] },
+      { n: "◎布里斯達冰河 Briksdalsbreen + 精靈登山車", type: "dot", links: [{ t: "布里斯達官網", u: "https://www.briksdal.com/", o: true }, { t: "Fjord Norway", u: "https://www.fjordnorway.com/en/inspiration/jostedalsbreen-glacier-the-largest-glacier-in-mainland-europe", o: false }] },
     ],
     mapSpots: [
       { name: "★蓋朗格峽灣 Geirangerfjord",          lat: 62.1011, lon: 7.2050 },
       { name: "◎約斯達冰河國家公園 Jostedalsbreen",   lat: 61.6717, lon: 7.0590 },
       { name: "◎布里斯達冰河 Briksdalsbreen",         lat: 61.6650, lon: 6.8736 },
-      { name: "🏨 LAERDAL HOTEL",                    lat: 61.1000, lon: 7.4833 },
     ],
     meals: { 早: "北歐自助式", 午: "北歐自助式", 晚: "旅館北歐自助式" },
     hotel: "LAERDAL HOTEL（已確定）",
@@ -1694,32 +1689,29 @@ const days = [
   {
     n: 10, zh: "索娜峽灣 → 弗斯 → 卑爾根", en: "Sognefjord → Voss → Bergen, Norway", country: "挪威", flag: "🇳🇴",
     spots: [
-      { n: "★索娜峽灣觀光遊船 Sognefjord Cruise（1.5–2 小時）🏛 UNESCO", type: "star", links: [{ t: "官網訂票", u: "https://en.sognefjord.no/activities/fjord-cruise/", o: true }] },
+      { n: "★索娜峽灣觀光遊船 Sognefjord Cruise（1.5–2 小時）🏛 UNESCO", type: "star", links: [{ t: "Fjord Norway", u: "https://www.fjordnorway.com/en/attractions/sognefjord", o: false }, { t: "Visit Norway", u: "https://www.visitnorway.com/places-to-go/fjord-norway/the-sognefjord-area/", o: false }] },
       { n: "★挪威縮影景觀火車 Flåm Railway（Flåm→Myrdal）", type: "star", links: [{ t: "官方訂票", u: "https://en.flamsbana.no/", o: true }, { t: "Fjord Tours", u: "https://www.fjordtours.com/en/norway/transportation/scenic-train-rides/the-flam-railway", o: false }, { t: "Visit Norway", u: "https://www.visitnorway.com/places-to-go/fjord-norway/the-sognefjord-area/flam/", o: false }] },
-      { n: "★高山火車 Bergen Railway（Myrdal→Voss，越過終年積雪山區）", type: "star", links: [{ t: "VY 官方", u: "https://www.vy.no/en/train/routes/the-bergen-line", o: true }, { t: "Visit Bergen", u: "https://en.visitbergen.com/things-to-do/norway-fjords/flam/flam-railway", o: false }] },
+      { n: "★高山火車 Bergen Railway（越過終年積雪山區）", type: "star", links: [{ t: "VY 官方", u: "https://www.vy.no/en/trains/bergen-line", o: true }, { t: "Visit Bergen", u: "https://en.visitbergen.com/things-to-do/norway-fjords/flam/flam-railway", o: false }] },
     ],
     mapSpots: [
       { name: "★索娜峽灣遊船 Sognefjord（Flåm 碼頭）", lat: 60.8630, lon: 7.1178 },
       { name: "★縮影火車 Flåm Railway（終點 Myrdal）",  lat: 60.7340, lon: 7.1380 },
-      { name: "弗斯 Voss",                             lat: 60.6294, lon: 6.4238 },
       { name: "★高山火車 Bergen Railway → 卑爾根",      lat: 60.3913, lon: 5.3221 },
-      { name: "🏨 SCANDIC FLESLAND AIRPORT",           lat: 60.2985, lon: 5.2181 },
     ],
     meals: { 早: "北歐自助式", 午: "北歐式風味餐", 晚: "旅館主廚推薦料理" },
     hotel: "SCANDIC FLESLAND AIRPORT（已確定）",
-    note: "三種交通縱橫峽灣之王！驅車 89 公里抵達碼頭→索娜峽灣觀光遊船→挪威縮影景觀火車（Flåm→Myrdal）→高山火車（Myrdal→Voss，約 1.5 小時）抵達渡假聖地弗斯 Voss→再驅車 106 公里前往卑爾根 Bergen"
+    note: "三種交通縱橫峽灣之王！遊船→縮影火車→高山火車→弗斯 Voss→卑爾根 Bergen（106 公里）"
   },
   {
     n: 11, zh: "卑爾根 → 希茨海爾斯", en: "Bergen → Hirtshals, Denmark", country: "丹麥", flag: "🇩🇰",
     spots: [
-      { n: "◎布里根區 Bryggen（1979 年世界文化遺產）🏛 UNESCO", type: "dot", links: [{ t: "Visit Bergen", u: "https://en.visitbergen.com/things-to-do/bryggen-in-bergen-p878553", o: false }, { t: "UNESCO", u: "https://whc.unesco.org/en/list/59/", o: false }, { t: "Visit Bergen 首頁", u: "https://en.visitbergen.com/", o: true }, { t: "▶ 漢薩同盟介紹影片", u: "https://youtu.be/hJqGlGDE7kg", o: false }] },
+      { n: "◎布里根區 Bryggen（1979 年世界文化遺產）🏛 UNESCO", type: "dot", links: [{ t: "Visit Bergen", u: "https://en.visitbergen.com/things-to-do/bryggen-in-bergen-p878553", o: false }, { t: "UNESCO", u: "https://whc.unesco.org/en/list/59/", o: false }, { t: "Visit Bergen 首頁", u: "https://en.visitbergen.com/", o: true }] },
       { n: "◎露天漁貨市場 Fish Market Bergen", type: "dot", links: [{ t: "Visit Bergen", u: "https://en.visitbergen.com/things-to-do/fish-market-p878543", o: false }] },
       { n: "★峽灣號遊輪夜航 Fjordline", type: "star", links: [{ t: "官方訂票", u: "https://www.fjordline.com/en", o: true }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Fjord_Line", o: false }] },
     ],
     mapSpots: [
       { name: "◎布里根區 Bryggen 🏛 UNESCO", lat: 60.3975, lon: 5.3241 },
       { name: "◎露天漁貨市場 Fish Market",   lat: 60.3945, lon: 5.3267 },
-      { name: "★峽灣號遊輪 Fjordline",       lat: 60.4001, lon: 5.3161 },
     ],
     meals: { 早: "北歐自助式", 午: "自理", 晚: "遊輪維京自助式" },
     hotel: "FJORDLINE 峽灣號遊輪（雙人面海客艙）",
@@ -1736,7 +1728,6 @@ const days = [
       { name: "◎安徒生故居 H.C. Andersen's House", lat: 55.3932, lon: 10.3876 },
       { name: "★安徒生博物館 H.C. Andersen Museum", lat: 55.3935, lon: 10.3880 },
       { name: "★伊埃斯科城堡 Egeskov Castle",       lat: 55.1883, lon: 10.4883 },
-      { name: "🏨 SCANDIC ODENSE",                  lat: 55.3650, lon: 10.3650 },
     ],
     meals: { 早: "北歐自助式", 午: "北歐自助式", 晚: "旅館主廚推薦料理" },
     hotel: "SCANDIC ODENSE（已確定）",
@@ -1745,19 +1736,17 @@ const days = [
   {
     n: 13, zh: "歐登西 → 螺旋觀景塔 → 哥本哈根", en: "Odense → Camp Adventure → Copenhagen", country: "丹麥", flag: "🇩🇰",
     spots: [
-      { n: "★大貝爾特跨海大橋 Great Belt Bridge", type: "star", links: [{ t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Great_Belt_Fixed_Link", o: false }, { t: "Visit Denmark", u: "https://www.visitdenmark.com/denmark/plan-your-trip/the-great-belt-bridge-gdk718689", o: false }] },
+      { n: "★大貝爾特跨海大橋 Great Belt Bridge", type: "star", links: [{ t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Great_Belt_Fixed_Link", o: false }, { t: "Visit Denmark", u: "https://www.visitdenmark.com/denmark/explore/great-belt-bridge", o: false }] },
       { n: "★森林螺旋觀景塔 Camp Adventure Tower（45 公尺）", type: "star", links: [{ t: "官網", u: "https://www.campadventure.dk/en", o: true }, { t: "Visit Denmark", u: "https://www.visitdenmark.com/denmark/explore/camp-adventure", o: false }] },
       { n: "◎克麗斯汀堡 Christiansborg Palace（國會）", type: "dot", links: [{ t: "官網", u: "https://www.christiansborg.dk/en", o: true }, { t: "Visit Copenhagen", u: "https://www.visitcopenhagen.com/copenhagen/christiansborg-palace-gdk410131", o: false }] },
       { n: "◎安瑪麗堡 Amalienborg（丹麥皇宮）", type: "dot", links: [{ t: "官網", u: "https://www.kongehuset.dk/en/royalpalaces/amalienborg", o: true }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Amalienborg", o: false }] },
       { n: "◎小美人魚雕像 The Little Mermaid", type: "dot", links: [{ t: "Visit Copenhagen", u: "https://www.visitcopenhagen.com/copenhagen/the-little-mermaid-gdk410157", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/The_Little_Mermaid_(statue)", o: false }] },
     ],
     mapSpots: [
-      { name: "★大貝爾特跨海大橋 Great Belt Bridge", lat: 55.3395, lon: 11.0348 },
       { name: "★森林螺旋觀景塔 Camp Adventure", lat: 55.4989, lon: 11.7889 },
       { name: "◎克麗斯汀堡 Christiansborg",     lat: 55.6758, lon: 12.5804 },
       { name: "◎安瑪麗堡 Amalienborg",           lat: 55.6843, lon: 12.5939 },
       { name: "◎小美人魚 The Little Mermaid",    lat: 55.6929, lon: 12.5994 },
-      { name: "🏨 SCANDIC SYDHAVNEN",            lat: 55.6558, lon: 12.5522 },
     ],
     meals: { 早: "北歐自助式", 午: "中式七菜一湯", 晚: "哥本哈根燒烤肋排風味餐" },
     hotel: "SCANDIC SYDHAVNEN（已確定）",
@@ -1766,7 +1755,7 @@ const days = [
   {
     n: 14, zh: "哥本哈根 → 轉機點杜拜", en: "Copenhagen → Dubai (Transit)", country: "丹麥→出發", flag: "✈️",
     spots: [
-      { n: "◎新港區 Nyhavn", type: "dot", links: [{ t: "Visit Copenhagen", u: "https://www.visitcopenhagen.com/copenhagen/planning/nyhavn-harbour-gdk426287", o: false }] },
+      { n: "◎新港區 Nyhavn", type: "dot", links: [{ t: "Visit Copenhagen", u: "https://www.visitcopenhagen.com/copenhagen/nyhavn-gdk410151", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Nyhavn", o: false }] },
       { n: "行人徒步購物區 Strøget（GEORG JENSEN 銀飾、ECCO、琥珀）", type: "dot", links: [{ t: "Visit Copenhagen", u: "https://www.visitcopenhagen.com/copenhagen/shopping/stroeget-gdk598068", o: false }] },
     ],
     mapSpots: [
@@ -1825,23 +1814,17 @@ const shopping = {
     { tag: "food", name: "藍莓／野莓果醬 Bær Saft", desc: "挪威山林野果製成，各種漿果果醬或濃縮果汁，小農手工款最特別" },
     { tag: "brand", name: "Helly Hansen（HH）防水外套", desc: "挪威百年戶外品牌，防風防水，當地人人穿，滑雪、登山必備" },
     { tag: "brand", name: "Dale of Norway 羊毛外套", desc: "百年歷史，傳統北歐圖案，保暖時尚，台灣少見" },
-  ],
-  oslo: [
     { tag: "souvenir", name: "憤怒的小孩紀念品", desc: "維吉蘭公園最著名雕塑，奧斯陸紀念品店到處都有，表情超生動", links: [{ t: "雕塑介紹 Vigeland Museum", u: "https://vigeland.museum.no/en/vigelandpark/sinnataggen", o: true }, { t: "Wikipedia 介紹", u: "https://en.wikipedia.org/wiki/Sinnataggen", o: false }, { t: "📍 維吉蘭公園位置", u: "https://maps.google.com/?q=Vigeland+Sculpture+Park,+Oslo", o: false }] },
     { tag: "souvenir", name: "維京船模型", desc: "挪威歷史象徵，手工精美，各紀念品店都有", links: [{ t: "維京船博物館 官網", u: "https://www.khm.uio.no/english/visit-us/viking-ship-museum/", o: true }, { t: "Wikipedia 維京船", u: "https://en.wikipedia.org/wiki/Viking_ships", o: false }] },
-  ],
-  bergen: [
-    { tag: "food", name: "卑爾根鱈魚子醬（Bergen 限定）", desc: "新鮮油煎鱈魚卵（Stekt Rogn）外酥內綿密、帶海味鮮甜，是卑爾根當地傳統早餐/家常菜，與超市軟管裝 Kaviar 不同吃法。魚市場（Fisketorget）旁超市熟食區找現做版本，比觀光區餐廳便宜很多", links: [{ t: "卑爾根鱈魚子醬完整介紹", u: "https://maskywg.github.io/bergen-kaviar/", o: true }] },
-    { tag: "brand", name: "Oleana 手工針織服飾", desc: "卑爾根近郊工廠生產，色彩鮮豔手工針織羊毛衫，挪威代表性精品品牌，布里根區有專賣店", links: [{ t: "品牌官網", u: "https://oleana.no/en/", o: true }] },
-    { tag: "souvenir", name: "Julehuset 布里根聖誕小屋", desc: "布里根區內全年無休的聖誕商店，挪威唯一，三層樓聖誕吊飾、精靈擺飾、耶誕燈飾等應有盡有", links: [{ t: "Visit Bergen 介紹", u: "https://en.visitbergen.com/things-to-do/shopping/all-year-christmas-shop-p824063", o: false }] },
+    { tag: "food", name: "卑爾根鱈魚子醬（Bergen 限定）", desc: "靠海卑爾根特產，漁市場旁超市買比觀光區便宜很多" },
   ],
   denmark: [
     { tag: "food", name: "丹麥奶油餅乾 🍪（鐵盒裝）", desc: "真正的發源地！超市、機場免稅店都有，比台灣便宜，鐵盒印有丹麥風景" },
-    { tag: "food", name: "甘草糖 Lakrids", desc: "八角口味北歐特色軟糖，評價兩極，帶回台灣讓朋友體驗", links: [{ t: "Lakrids by Bülow 官網", u: "https://lakridsbybulow.com/", o: true }, { t: "Wikipedia 甘草糖介紹", u: "https://en.wikipedia.org/wiki/Liquorice", o: false }] },
+    { tag: "food", name: "甘草糖 Lakrids", desc: "八角口味北歐特色軟糖，評價兩極，帶回台灣讓朋友體驗" },
     { tag: "brand", name: "Georg Jensen 銀飾", desc: "百年丹麥銀飾品牌，哥本哈根 Amagertorv 旗艦店，比台灣便宜且款式更齊" },
     { tag: "brand", name: "Royal Copenhagen 皇家瓷器", desc: "1775年創立的丹麥皇室御用瓷器，經典藍白花卉每件手繪，比台灣便宜三成" },
     { tag: "brand", name: "樂高 LEGO 🧱", desc: "丹麥發源地！哥本哈根有全球最大旗艦店之一，款式超齊全" },
-    { tag: "beauty", name: "Ecooking 保養品", desc: "丹麥平價高效國民護膚品牌，台灣買不到，Matas 藥妝店可找到", links: [{ t: "品牌介紹", u: "https://thefemin.com/2017/12/ecooking-danish-skincare/", o: false }] },
+    { tag: "beauty", name: "Ecooking 保養品", desc: "丹麥平價高效國民護膚品牌，台灣買不到，Matas 藥妝店可找到" },
     { tag: "souvenir", name: "小美人魚相關紀念品", desc: "丹麥地標，新港區旁紀念品店最齊，磁鐵、擺飾 75–120 DKK" },
     { tag: "souvenir", name: "安徒生相關紀念品", desc: "歐登西安徒生故鄉，博物館周邊最有質感，童話插圖商品超可愛" },
   ]
@@ -1872,13 +1855,11 @@ const dayShoppingMap = {
   4: shopping.finland,
   5: shopping.lapland,
   6: shopping.lapland,
-  7: [...shopping.norway, ...shopping.oslo],
-  8: [...shopping.norway, ...shopping.oslo],
+  7: shopping.norway,
+  8: shopping.norway,
   9: shopping.norway,
-  10: [...shopping.norway, ...shopping.bergen],
-  11: [...shopping.norway, ...shopping.bergen].map(item => item.name.includes("卑爾根鱈魚子醬")
-    ? { ...item, links: [{ t: "Fisketorget 魚市場介紹", u: "https://en.visitbergen.com/things-to-do/fish-market-in-bergen-p822253", o: true }, ...item.links] }
-    : item),
+  10: shopping.norway,
+  11: shopping.norway,
   12: shopping.denmark,
   13: shopping.denmark,
   14: shopping.denmark,
@@ -1913,16 +1894,16 @@ const hotelLinks = {
   'STALHEIM HOTEL': 'https://www.stalheim.com/en/',
   'QUALITY HOTEL EDVARD GRIEG': 'https://www.strawberryhotels.com/hotels/norway/bergen/quality-hotel-edvard-grieg/',
   'CLARION HOTEL BERGEN AIRPORT': 'https://www.strawberryhotels.com/hotels/norway/bergen/clarion-hotel-bergen-airport/',
-  'SCANDIC FLESLAND AIRPORT': 'https://www.online-reservations.com/?hotelid=2059802&format=simple',
+  'SCANDIC FLESLAND AIRPORT': 'https://www.scandichotels.com/hotels/norway/bergen/scandic-flesland-airport',
   'FJORDLINE': 'https://www.fjordline.com/en',
   'FJORD LINE': 'https://www.fjordline.com/en',
   'HOTEL ODENSE': 'https://www.hotel-odense.dk/en/',
   'FIRST HOTEL GRAND': 'https://www.firsthotels.com/hotels/denmark/odense/first-hotel-grand/',
   'COMWELL H. C. ANDERSEN ODENSE': 'https://comwell.com/en/hotels/comwell-hc-andersen-odense',
-  'SCANDIC ODENSE': 'https://www.scandichotels.com/da/hoteller/scandic-odense',
+  'SCANDIC ODENSE': 'https://www.scandichotels.com/hotels/denmark/odense/scandic-odense',
   'AC HOTEL BELLA SKY COPENHAGEN': 'https://www.marriott.com/en-us/hotels/cphab-ac-hotel-bella-sky-copenhagen/overview/',
   'SCANDIC SLUSEHOLMEN': 'https://www.scandichotels.com/hotels/denmark/copenhagen/scandic-sluseholmen',
-  'SCANDIC SYDHAVNEN': 'https://www.scandichotels.com/en/hotels/scandic-sydhavnen#overview',
+  'SCANDIC SYDHAVNEN': 'https://www.scandichotels.com/hotels/denmark/copenhagen/scandic-sydhavnen',
   'CLARION HOTEL COPENHAGEN AIRPORT': 'https://www.strawberryhotels.com/hotels/denmark/copenhagen/clarion-hotel-copenhagen-airport/',
   'COMWELL HOLTE': 'https://comwell.com/en/hotels/comwell-holte',
 };
@@ -1951,26 +1932,6 @@ function renderHotel(hotelStr) {
   }).join('<span style="color:var(--hint);margin:0 4px">／</span>');
 }
 
-function spotKeys(name) {
-  const engMatch = name.match(/[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*/);
-  const eng = engMatch ? engMatch[0].toLowerCase().replace(/\s+/g, '') : null;
-  const cn = name.replace(/^[★◎]/, '').split(/[（\s]/)[0].toLowerCase();
-  return { eng, cn };
-}
-function spotKeysMatch(a, b) {
-  if (a.eng && b.eng && (a.eng.includes(b.eng) || b.eng.includes(a.eng))) return true;
-  if (a.cn && b.cn && (a.cn.startsWith(b.cn) || b.cn.startsWith(a.cn))) return true;
-  return false;
-}
-function findSpotCoord(mapSpots, spotName) {
-  if (!mapSpots) return null;
-  const key = spotKeys(spotName);
-  for (const m of mapSpots) {
-    if (spotKeysMatch(key, spotKeys(m.name))) return m;
-  }
-  return null;
-}
-
 function render() {
   const app = document.getElementById('app');
   app.innerHTML = days.map((d, i) => {
@@ -1981,14 +1942,10 @@ function render() {
     if (d.spots && d.spots.length) {
       const items = d.spots.map(s => {
         const cls = `spot-tag ${s.type}`;
-        const coord = findSpotCoord(d.mapSpots, s.n);
-        const windyHTML = coord
-          ? `<a href="https://www.windy.com/zh-TW/?temp,${coord.lat},${coord.lon},9" target="_blank" style="margin-left:4px;font-size:11px;color:var(--blue);text-decoration:none;opacity:0.85">🌤 Windy ↗</a>`
-          : '';
-        const linksHTML = (s.links && s.links.length) || windyHTML
-          ? `<div class="link-row">${(s.links || []).map(l =>
+        const linksHTML = s.links && s.links.length
+          ? `<div class="link-row">${s.links.map(l =>
               `<a class="link-btn${l.o ? ' official' : ''}" href="${l.u}" target="_blank">${l.t} ↗</a>`
-            ).join('')}${windyHTML}</div>`
+            ).join('')}</div>`
           : '';
         return `<div class="spot-item"><span class="${cls}">${s.n}</span>${linksHTML}</div>`;
       }).join('');
@@ -2227,23 +2184,22 @@ function initDayMap(dayN) {
   if (!d || !d.mapSpots || _leafletMaps[dayN]) return;
   const el = document.getElementById('map-day' + dayN);
   if (!el) return;
-  const map = L.map(el, { scrollWheelZoom: false });
+  const lats = d.mapSpots.map(s => s.lat);
+  const lons = d.mapSpots.map(s => s.lon);
+  const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2;
+  const centerLon = (Math.min(...lons) + Math.max(...lons)) / 2;
+  const map = L.map(el, { scrollWheelZoom: false }).setView([centerLat, centerLon], 13);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map);
-  const markers = d.mapSpots.map((s, idx) => {
+  d.mapSpots.forEach((s, idx) => {
     const icon = L.divIcon({
       className: '',
       html: `<div style="background:#1a73e8;color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)">${idx + 1}</div>`,
       iconSize: [26, 26], iconAnchor: [13, 13]
     });
-    return L.marker([s.lat, s.lon], { icon }).addTo(map).bindPopup(`<b>${s.name}</b>`);
+    L.marker([s.lat, s.lon], { icon }).addTo(map).bindPopup(`<b>${s.name}</b>`);
   });
-  if (markers.length === 1) {
-    map.setView([d.mapSpots[0].lat, d.mapSpots[0].lon], 13);
-  } else {
-    map.fitBounds(L.featureGroup(markers).getBounds(), { padding: [24, 24] });
-  }
   _leafletMaps[dayN] = map;
 }
 
