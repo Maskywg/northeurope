@@ -1596,7 +1596,7 @@ const days = [
       { n: "◎赫爾辛基大教堂 Helsinki Cathedral", type: "dot", links: [{ t: "官網", u: "https://helsingintuomiokirkko.fi/en/", o: true }, { t: "Visit Helsinki", u: "https://www.myhelsinki.fi/en/see-and-do/sights/helsinki-cathedral", o: false }] },
       { n: "◎議會廣場 Senate Square", type: "dot", links: [{ t: "Visit Helsinki", u: "https://www.myhelsinki.fi/en/see-and-do/sights/senate-square", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Senate_Square,_Helsinki", o: false }, { t: "📍 Google Maps", u: "https://maps.google.com/?q=Senate+Square,+Helsinki", o: false }] },
       { n: "◎烏斯別斯基東正教大教堂 Uspenski Cathedral", type: "dot", links: [{ t: "Visit Helsinki", u: "https://www.myhelsinki.fi/en/see-and-do/sights/uspenski-cathedral", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Uspenski_Cathedral", o: false }] },
-      { n: "◎西貝流士紀念公園 Sibelius Monument", type: "dot", links: [{ t: "Visit Helsinki", u: "https://www.myhelsinki.fi/en/see-and-do/sights/sibelius-monument", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Sibelius_Monument", o: false }] },
+      { n: "◎西貝流士紀念公園 Sibelius Monument", type: "dot", links: [{ t: "Visit Helsinki", u: "https://www.myhelsinki.fi/en/see-and-do/sights/sibelius-monument", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Sibelius_Monument", o: false }, { t: "▶ 西貝流士《芬蘭頌》", u: "https://youtu.be/F5zg_af9b8c", o: false }, { t: "▶ 西貝流士小提琴協奏曲", u: "https://youtu.be/3u-unvYedx8", o: false }] },
       { n: "◎頌歌中央圖書館 Oodi Library", type: "dot", links: [{ t: "官網", u: "https://oodihelsinki.fi/en/", o: true }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Oodi_(library)", o: false }] },
       { n: "★磐石教堂 Temppeliaukio Church", type: "star", links: [{ t: "官網", u: "https://www.temppeliaukionkirkko.fi/en/", o: true }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/Temppeliaukio_Church", o: false }] },
     ],
@@ -1631,12 +1631,13 @@ const days = [
   {
     n: 6, zh: "伊瓦洛 → 北角", en: "Ivalo → Nordkapp, Norway", country: "挪威", flag: "🇳🇴",
     spots: [
-      { n: "★馴鹿農場 Reindeer Farm（薩米族 Sami）", type: "star", links: [{ t: "Visit Nordkapp", u: "https://www.nordkapp.no/", o: false }, { t: "拉普蘭介紹", u: "https://www.visitfinland.com/en/places-to-go/lapland/", o: false }] },
+      { n: "★馴鹿農場 Reindeer Farm（薩米族 Sami）", type: "star", links: [{ t: "Sápmi Park 馴鹿農場", u: "https://www.scandichotels.com/sv/reseguider/sapmi-park", o: true }, { t: "拉普蘭介紹", u: "https://www.visitfinland.com/en/places-to-go/lapland/", o: false }] },
       { n: "◎鏤空地球儀 Globe Monument（北緯 71°10'21\"）", type: "dot", links: [{ t: "Visit Nordkapp", u: "https://www.nordkapp.no/", o: false }] },
       { n: "★北角大廳 North Cape Hall（125 度寬螢幕）", type: "star", links: [{ t: "官網", u: "https://www.visitnordkapp.net/en", o: true }, { t: "Visit Norway", u: "https://www.visitnorway.com/places-to-go/northern-norway/the-north-cape/", o: false }] },
       { n: "★午夜日不落 Midnight Sun（5/14–7/31）", type: "star", links: [{ t: "Nord Norge", u: "https://nordnorge.com/en/destinasjon/nordkapp/", o: false }, { t: "Wikipedia", u: "https://en.wikipedia.org/wiki/North_Cape_(Norway)", o: false }] },
     ],
     mapSpots: [
+      { name: "★馴鹿農場 Sápmi Park",          lat: 69.5058, lon: 25.4687 },
       { name: "★北角大廳 North Cape Hall",    lat: 71.1694, lon: 25.7843 },
       { name: "◎鏤空地球儀 Globe Monument",   lat: 71.1694, lon: 25.7843 },
       { name: "★午夜日不落觀景台",             lat: 71.1700, lon: 25.7850 },
@@ -1650,26 +1651,30 @@ const days = [
     spots: [
       { n: "★阿爾塔史前遺跡博物館 Alta Museum（7000–2000 年前岩石壁畫）🏛 UNESCO", type: "star", links: [{ t: "官網", u: "https://altamuseum.no/en/", o: true }, { t: "UNESCO", u: "https://whc.unesco.org/en/list/352/", o: false }, { t: "岩石壁畫完整介紹", u: "https://maskywg.github.io/altaart/", o: true }] },
     ],
+    mapSpots: [
+      { name: "★阿爾塔史前遺跡博物館 Alta Museum", lat: 69.9689, lon: 23.2716 },
+    ],
     meals: { 早: "北歐自助式", 午: "北歐式風味餐", 晚: "發餐費 15 歐元" },
     hotel: "CLARION HOTEL & CONGRESS OSLO AIRPORT（已確定）",
-    note: "北角→阿爾塔 Alta（321 公里），搭機飛奧斯陸 Oslo（約 2 小時）",
+    note: "北角→阿爾塔 Alta（約 236 公里），搭機飛奧斯陸 Oslo（約 2 小時）",
     flights: [
-      { label: '國內線', airline: '挪威國內航班', no: '—', from: '阿爾塔 ALF', to: '奧斯陸 OSL', dep: '—', arr: '—', duration: '約 2h 00m' },
+      { label: '國內線', airline: 'SAS 北歐航空', no: 'SK4545', from: '阿爾塔 ALF', to: '奧斯陸 OSL', dep: '20:05', arr: '22:10', duration: '2h 05m' },
     ]
   },
   {
     n: 8, zh: "奧斯陸 → 里耳哈默 → 蓋朗格峽灣", en: "Oslo → Lillehammer → Geirangerfjord", country: "挪威", flag: "🇳🇴",
     spots: [
       { n: "◎維吉蘭人生雕刻公園 Vigeland Sculpture Park", type: "dot", links: [{ t: "官方博物館", u: "https://vigeland.museum.no/en/vigelandpark", o: true }, { t: "Visit Oslo", u: "https://www.visitoslo.com/en/articles/vigeland-in-oslo/", o: false }] },
-      { n: "◎里耳哈默冬運滑雪台 Lysgårdsbakkene Ski Jump", type: "dot", links: [{ t: "Visit Norway", u: "https://www.visitnorway.com/places-to-go/eastern-norway/lillehammer/", o: false }, { t: "Visit Lillehammer", u: "https://en.visitlillehammer.com/", o: false }] },
-      { n: "★精靈之路 Trollstigen（11 個髮夾彎）", type: "star", links: [{ t: "Fjord Norway", u: "https://www.fjordnorway.com/en/attractions/trollstigen", o: false }, { t: "國家觀光路線", u: "https://www.nasjonaleturistveger.no/en/routes/geiranger-trollstigen/", o: true }] },
-      { n: "◎老鷹之路 Ørnevegen / Eagle Road", type: "dot", links: [{ t: "官方路線", u: "https://www.nasjonaleturistveger.no/en/routes/geiranger-trollstigen/ornevegen/", o: true }, { t: "Fjords.com", u: "https://www.fjords.com/en/western-norwegian-fjords/fjord-guide/geirangerfjord/", o: false }] },
+      { n: "◎里耳哈默冬運滑雪台 Lysgårdsbakkene Ski Jump", type: "dot", links: [{ t: "Visit Lillehammer", u: "https://en.lillehammer.com/things-to-do/lysgardsbakkene-ski-jumping-arena-p631373", o: false }] },
+      { n: "★精靈之路 Trollstigen（11 個髮夾彎）", type: "star", links: [{ t: "Fjord Norway", u: "https://www.fjordnorway.com/en/attractions/trollstigen", o: false }, { t: "國家觀光路線", u: "https://www.nasjonaleturistveger.no/en/routes/geiranger--trollstigen/", o: true }] },
+      { n: "◎老鷹之路 Ørnevegen / Eagle Road", type: "dot", links: [{ t: "Visit Norway", u: "https://www.visitnorway.com/listings/ornevegen-the-eagle-road/239289/", o: true }, { t: "Fjords.com", u: "https://www.fjords.com/en/western-norwegian-fjords/fjord-guide/geirangerfjord/", o: false }] },
     ],
     mapSpots: [
       { name: "◎維吉蘭人生雕刻公園 Vigeland Park", lat: 59.9264, lon: 10.6981 },
       { name: "◎里耳哈默冬運滑雪台 Ski Jump",      lat: 61.1186, lon: 10.4713 },
       { name: "★精靈之路 Trollstigen",              lat: 62.4561, lon:  7.6685 },
       { name: "◎老鷹之路 Ørnevegen",                lat: 62.1272, lon:  7.0860 },
+      { name: "🏨 HAVILA HOTEL GEIRANGER",          lat: 62.1006, lon:  7.2062 },
     ],
     meals: { 早: "北歐自助式", 午: "中式七菜一湯", 晚: "旅館主廚推薦料理" },
     hotel: "HAVILA HOTEL GEIRANGER（已確定）",
