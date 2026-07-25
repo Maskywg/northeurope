@@ -1945,6 +1945,26 @@ function renderHotel(hotelStr) {
   }).join('<span style="color:var(--hint);margin:0 4px">／</span>');
 }
 
+function spotKeys(name) {
+  const engMatch = name.match(/[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*/);
+  const eng = engMatch ? engMatch[0].toLowerCase().replace(/\s+/g, '') : null;
+  const cn = name.replace(/^[★◎]/, '').split(/[（\s]/)[0].toLowerCase();
+  return { eng, cn };
+}
+function spotKeysMatch(a, b) {
+  if (a.eng && b.eng && (a.eng.includes(b.eng) || b.eng.includes(a.eng))) return true;
+  if (a.cn && b.cn && (a.cn.startsWith(b.cn) || b.cn.startsWith(a.cn))) return true;
+  return false;
+}
+function findSpotCoord(mapSpots, spotName) {
+  if (!mapSpots) return null;
+  const key = spotKeys(spotName);
+  for (const m of mapSpots) {
+    if (spotKeysMatch(key, spotKeys(m.name))) return m;
+  }
+  return null;
+}
+
 function render() {
   const app = document.getElementById('app');
   app.innerHTML = days.map((d, i) => {
@@ -1955,10 +1975,14 @@ function render() {
     if (d.spots && d.spots.length) {
       const items = d.spots.map(s => {
         const cls = `spot-tag ${s.type}`;
-        const linksHTML = s.links && s.links.length
-          ? `<div class="link-row">${s.links.map(l =>
+        const coord = findSpotCoord(d.mapSpots, s.n);
+        const windyHTML = coord
+          ? `<a href="https://www.windy.com/zh-TW/?temp,${coord.lat},${coord.lon},9" target="_blank" style="margin-left:4px;font-size:11px;color:var(--blue);text-decoration:none;opacity:0.85">🌤 Windy ↗</a>`
+          : '';
+        const linksHTML = (s.links && s.links.length) || windyHTML
+          ? `<div class="link-row">${(s.links || []).map(l =>
               `<a class="link-btn${l.o ? ' official' : ''}" href="${l.u}" target="_blank">${l.t} ↗</a>`
-            ).join('')}</div>`
+            ).join('')}${windyHTML}</div>`
           : '';
         return `<div class="spot-item"><span class="${cls}">${s.n}</span>${linksHTML}</div>`;
       }).join('');
@@ -2197,22 +2221,23 @@ function initDayMap(dayN) {
   if (!d || !d.mapSpots || _leafletMaps[dayN]) return;
   const el = document.getElementById('map-day' + dayN);
   if (!el) return;
-  const lats = d.mapSpots.map(s => s.lat);
-  const lons = d.mapSpots.map(s => s.lon);
-  const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2;
-  const centerLon = (Math.min(...lons) + Math.max(...lons)) / 2;
-  const map = L.map(el, { scrollWheelZoom: false }).setView([centerLat, centerLon], 13);
+  const map = L.map(el, { scrollWheelZoom: false });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map);
-  d.mapSpots.forEach((s, idx) => {
+  const markers = d.mapSpots.map((s, idx) => {
     const icon = L.divIcon({
       className: '',
       html: `<div style="background:#1a73e8;color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)">${idx + 1}</div>`,
       iconSize: [26, 26], iconAnchor: [13, 13]
     });
-    L.marker([s.lat, s.lon], { icon }).addTo(map).bindPopup(`<b>${s.name}</b>`);
+    return L.marker([s.lat, s.lon], { icon }).addTo(map).bindPopup(`<b>${s.name}</b>`);
   });
+  if (markers.length === 1) {
+    map.setView([d.mapSpots[0].lat, d.mapSpots[0].lon], 13);
+  } else {
+    map.fitBounds(L.featureGroup(markers).getBounds(), { padding: [24, 24] });
+  }
   _leafletMaps[dayN] = map;
 }
 
