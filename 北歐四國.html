@@ -12,6 +12,7 @@
 <meta name="theme-color" content="#1a1814">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.js"></script>
 <style>
   .day-map { height: 280px; border-radius: 8px; margin-top: 10px; border: 1px solid var(--border); }
 </style>
@@ -2137,6 +2138,22 @@ function initDayMap(dayN) {
     });
     return L.marker([s.lat, s.lon], { icon }).addTo(map).bindPopup(`<b>${s.name}</b>`);
   });
+
+  // 依造訪順序畫出移動路線與方向箭頭
+  if (d.mapSpots.length > 1) {
+    const routeLatLngs = d.mapSpots.map(s => [s.lat, s.lon]);
+    const routeLine = L.polyline(routeLatLngs, {
+      color: '#1a73e8', weight: 3, opacity: 0.6, dashArray: '1 8', lineCap: 'round'
+    }).addTo(map);
+    L.polylineDecorator(routeLine, {
+      patterns: [
+        { offset: '8%', repeat: '16%', symbol: L.Symbol.arrowHead({
+          pixelSize: 11, polygon: false,
+          pathOptions: { stroke: true, weight: 2.5, color: '#1a73e8', opacity: 0.85 }
+        }) }
+      ]
+    }).addTo(map);
+  }
 
   // 沿途野鳥／野生動物觀察標記（連結原始 Facebook 貼文）
   const spots = birdSpots[dayN] || [];
