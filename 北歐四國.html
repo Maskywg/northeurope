@@ -1313,7 +1313,20 @@ function showCafeSaved(id, data) {
   </a>
 </div>
 
-<footer>行程資料來源：行健旅遊 UNO TOUR・景點連結為各官方或觀光局網站・延伸閱讀：<a href="https://yggdrasil-last-night.maskywg.chatgpt.site/" target="_blank" style="color:inherit">北歐神話 Yggdrasil</a></footer>
+<!-- 沿途野生動物觀察誌延伸連結 -->
+<div style="max-width:800px;margin:0.8rem auto 0;padding:0 1rem">
+  <a href="https://maskywg.github.io/northeurope-birds/" target="_blank" style="text-decoration:none;display:block;background:#fff;border:1px solid #e2ddd6;border-radius:12px;overflow:hidden">
+    <div style="background:#2d6a4f;padding:12px 16px;display:flex;align-items:center;gap:10px">
+      <div style="flex:1">
+        <div style="color:white;font-size:14px;font-weight:500">🐦 沿途野鳥與野生動物觀察誌</div>
+        <div style="color:rgba(255,255,255,0.65);font-size:11px">依 Day 整理的野鳥／動物照片紀錄，地圖上的 🐦 標記也連到這裡 ↗</div>
+      </div>
+      <span style="color:rgba(255,255,255,0.7);font-size:12px">↗</span>
+    </div>
+  </a>
+</div>
+
+<footer>行程資料來源：行健旅遊 UNO TOUR・景點連結為各官方或觀光局網站・延伸閱讀：<a href="https://yggdrasil-last-night.maskywg.chatgpt.site/" target="_blank" style="color:inherit">北歐神話 Yggdrasil</a>・<a href="https://maskywg.github.io/northeurope-birds/" target="_blank" style="color:inherit">沿途野生動物觀察誌</a></footer>
 
 <script>
 const WD = ['日','一','二','三','四','五','六'];
@@ -1587,6 +1600,95 @@ const days = [
     ]
   }
 ];
+
+// 沿途野鳥／野生動物觀察紀錄（依 Day 對應地圖標記，連結原始 Facebook 貼文）
+// 完整觀察誌：https://maskywg.github.io/northeurope-birds/
+const birdSpots = {
+  2: [
+    { name: "Kornhamnstorg（近老城區）", lat: 59.3235, lon: 18.0722, items: [
+      { label: "紅嘴鷗（幼鳥）", u: "https://www.facebook.com/share/p/1DH7PpH1r6/" },
+      { label: "紅嘴鷗（繁殖羽）", u: "https://www.facebook.com/share/p/1DYu8eEAkr/" },
+    ]},
+    { name: "Hälsans stig, Lötsjön & Råstasjön", lat: 59.3697, lon: 17.9862, items: [
+      { label: "烏鶇（雄鳥）", u: "https://www.facebook.com/share/p/198BMbLhWn/" },
+      { label: "湖畔步道紀錄", u: "https://www.facebook.com/share/p/19JDr8tX2L/" },
+    ]},
+  ],
+  3: [
+    { name: "瓦薩號戰艦博物館 Vasa Museum", lat: 59.3280, lon: 18.0915, items: [
+      { label: "歐亞海鷗", u: "https://www.facebook.com/share/p/1J8ZU6tkRU/" },
+    ]},
+  ],
+  4: [
+    { name: "頌歌中央圖書館 Oodi", lat: 60.1737, lon: 24.9378, items: [
+      { label: "銀鷗", u: "https://www.facebook.com/share/p/1PyFoduArv/" },
+    ]},
+    { name: "西貝流士公園 Sibelius Park", lat: 60.1816, lon: 24.9220, items: [
+      { label: "白頰黑雁", u: "https://www.facebook.com/share/p/1HBfLDeUkQ/" },
+    ]},
+    { name: "舊市場大廳 Vanha kauppahalli", lat: 60.1663, lon: 24.9563, items: [
+      { label: "黑背鷗（幼鳥）", u: "https://www.facebook.com/share/p/1Bg1AzKpcd/" },
+    ]},
+  ],
+  5: [
+    { name: "Hotelli Ivalo", lat: 68.6570, lon: 27.5417, items: [
+      { label: "歐洲野兔", u: "https://www.facebook.com/share/p/187S4T6gY1/" },
+      { label: "歐洲野兔（2）", u: "https://www.facebook.com/share/p/185ifg4M6m/" },
+    ]},
+  ],
+  6: [
+    { name: "Sápmi Park, Karasjok（馴鹿農場）", lat: 69.5058, lon: 25.4687, items: [
+      { label: "馴鹿", u: "https://www.facebook.com/share/p/1F8TF74xFP/" },
+    ]},
+    { name: "Scandic Nordkapp", lat: 70.9821, lon: 25.9704, items: [
+      { label: "歐亞海鷗（亞成鳥）", u: "https://www.facebook.com/share/p/18z8QSga1P/" },
+      { label: "黃鶺鴒", u: "https://www.facebook.com/share/p/17WxekU7FL/" },
+    ]},
+  ],
+  7: [
+    { name: "阿爾塔 Alta", lat: 69.9689, lon: 23.2716, items: [
+      { label: "野放馴鹿", u: "https://www.facebook.com/share/p/1HTDsAcAUk/" },
+    ]},
+  ],
+  8: [
+    { name: "維吉蘭雕塑公園 Vigeland Park", lat: 59.9264, lon: 10.6981, items: [
+      { label: "挪威家麻雀", u: "https://www.facebook.com/share/p/1BjcdzyxJA/" },
+      { label: "綠頭鴨（雌）", u: "https://www.facebook.com/share/p/1LLnpsAiNi/" },
+    ]},
+    { name: "Fossevandring 步道", lat: 62.0996, lon: 7.2028, items: [
+      { label: "黃鵐", u: "https://www.facebook.com/share/p/1CH8C2aSz1/" },
+    ]},
+    { name: "Hotel Geiranger", lat: 62.1006, lon: 7.2062, items: [
+      { label: "歐亞海鷗", u: "https://www.facebook.com/share/p/1chLDT42PD/" },
+      { label: "寒鴉", u: "https://www.facebook.com/share/p/1FPkZejm9G/" },
+    ]},
+    { name: "Geiranger Kyrkje", lat: 62.1013, lon: 7.2074, items: [
+      { label: "黃鵐", u: "https://www.facebook.com/share/p/18iiBo5F85/" },
+      { label: "白鶺鴒", u: "https://www.facebook.com/share/p/1DLEXzmG3v/" },
+    ]},
+    { name: "Geiranger Camping", lat: 62.0985, lon: 7.1998, items: [
+      { label: "蠣鴴", u: "https://www.facebook.com/share/p/1BakuraFif/" },
+    ]},
+  ],
+  9: [
+    { name: "Lærdal Hotel", lat: 61.1000, lon: 7.4833, items: [
+      { label: "白鶺鴒", u: "https://www.facebook.com/share/p/1DYWwsaxUZ/" },
+    ]},
+  ],
+  12: [
+    { name: "Scandic Odense／歐登西市區", lat: 55.3932, lon: 10.3876, items: [
+      { label: "烏鶇（雌鳥）", u: "https://www.facebook.com/share/p/1Cgg5vt2RU/" },
+      { label: "烏鶇", u: "https://www.facebook.com/share/p/19AnvjuQ5Z/" },
+    ]},
+  ],
+  13: [
+    { name: "Sydhavnen, København", lat: 55.6558, lon: 12.5456, items: [
+      { label: "寒鴉", u: "https://www.facebook.com/share/p/18ktpfvQ8S/" },
+      { label: "喜鵲", u: "https://www.facebook.com/share/p/19CgSfd6dz/" },
+      { label: "烏鶇（雌鳥）", u: "https://www.facebook.com/share/p/1BiYWu44L2/" },
+    ]},
+  ],
+};
 
 // 各國特產資料（依 Day 套用）
 const shopping = {
@@ -2035,10 +2137,24 @@ function initDayMap(dayN) {
     });
     return L.marker([s.lat, s.lon], { icon }).addTo(map).bindPopup(`<b>${s.name}</b>`);
   });
-  if (markers.length === 1) {
-    map.setView([d.mapSpots[0].lat, d.mapSpots[0].lon], 13);
-  } else {
-    map.fitBounds(L.featureGroup(markers).getBounds(), { padding: [24, 24] });
+
+  // 沿途野鳥／野生動物觀察標記（連結原始 Facebook 貼文）
+  const spots = birdSpots[dayN] || [];
+  const birdMarkers = spots.map(s => {
+    const icon = L.divIcon({
+      className: '',
+      html: `<div style="background:#2d6a4f;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)">🐦</div>`,
+      iconSize: [24, 24], iconAnchor: [12, 12]
+    });
+    const list = s.items.map(it => `<a href="${it.u}" style="color:#2d6a4f;text-decoration:none;display:block;font-size:12px;margin-top:2px">${it.label} ↗</a>`).join('');
+    return L.marker([s.lat, s.lon], { icon }).addTo(map).bindPopup(`<b>🐦 ${s.name}</b>${list}`);
+  });
+
+  const allMarkers = markers.concat(birdMarkers);
+  if (allMarkers.length === 1) {
+    map.setView([allMarkers[0].getLatLng().lat, allMarkers[0].getLatLng().lng], 13);
+  } else if (allMarkers.length > 1) {
+    map.fitBounds(L.featureGroup(allMarkers).getBounds(), { padding: [24, 24] });
   }
   _leafletMaps[dayN] = map;
 }
