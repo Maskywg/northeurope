@@ -277,6 +277,22 @@
     line-height: 1.6;
   }
 
+  .day-photo {
+    margin: 0 0 8px;
+  }
+  .day-photo img {
+    width: 100%;
+    display: block;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+  .day-photo figcaption {
+    font-size: 11px;
+    color: var(--hint);
+    margin-top: 5px;
+    line-height: 1.5;
+  }
+
   footer {
     text-align: center;
     padding: 2rem;
@@ -1453,6 +1469,9 @@ const days = [
     ],
     meals: { 早: "北歐自助式", 午: "北歐式風味餐", 晚: "旅館主廚推薦料理" },
     hotel: "SCANDIC NORDKAPP（已確定）",
+    photos: [
+      { src: "images/nordkapp-certificate.jpg", caption: "北角證書・北緯 71°10'21\"N（NORDKAPP 郵戳 2026/7/24，姓名欄已隱去）" },
+    ],
     note: "驅車 420 公里北上。午夜前抵達北角 Nordkapp，見證日不落！（7/24 正值日不落期間 5/14–7/31）"
   },
   {
@@ -1918,6 +1937,16 @@ function render() {
       ? `<div class="note">${d.note}</div>`
       : '';
 
+    let photoHTML = '';
+    if (d.photos && d.photos.length) {
+      const items = d.photos.map(p => `
+        <figure class="day-photo">
+          <img src="${p.src}" alt="${p.caption}" loading="lazy">
+          <figcaption>${p.caption}</figcaption>
+        </figure>`).join('');
+      photoHTML = `<div class="section"><div class="section-label">現場照片</div>${items}</div>`;
+    }
+
     // 預測氣溫
     const tempItems = dayTempMap[d.n];
     let tempHTML = '';
@@ -2130,6 +2159,7 @@ function render() {
         </div>
         ${shopHTML}
         ${fjordMapHTML}
+        ${photoHTML}
         ${noteHTML}
       </div>
     </div>`;
